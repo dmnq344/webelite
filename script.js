@@ -1,43 +1,46 @@
 /* ==================================================================
-   Spapoursouliers — Logique du site
+   Spapoursouliers — Logique du site (édition « Atelier de luxe »)
    ------------------------------------------------------------------
-   Sommaire :
-     1. translations  — dictionnaire des textes (FR / EN / RO / IT)
-     2. priceData     — listes de prix longues (E.2 / E.3 / E.4)
-     3. applyLanguage — remplace les textes selon la langue choisie
-     4. renderPrices  — génère les lignes de prix
-     5. Interactions  — logo, menu mobile, défilement, révélations, bouton flottant
+     1. translations  — textes (FR / EN / RO / IT)
+     2. priceData     — listes de prix (E.2 / E.3 / E.4)
+     3. applyLanguage — remplace les textes selon la langue
+     4. renderPrices  — génère les lignes de prix (carte)
+     5. buildMarquee  — construit le fil défilant
+     6. Interactions  — logo, menu, défilement, révélations, compteurs, FAB
    ------------------------------------------------------------------
-   Pour MODIFIER un texte : trouvez sa clé ci-dessous et changez la
-   valeur dans les 4 langues. Pour modifier un PRIX : voir `priceData`.
+   Pour MODIFIER un texte : changez sa valeur dans les 4 langues.
+   Pour MODIFIER un prix : voir `priceData`.
    ================================================================== */
 
 /* =========================================================
-   1. DICTIONNAIRE DES TRADUCTIONS
+   1. TRADUCTIONS
    ========================================================= */
 const translations = {
 
-  /* -------------------- FRANÇAIS (défaut) ----------------- */
+  /* -------------------- FRANÇAIS -------------------------- */
   fr: {
-    "nav.home": "Accueil",
-    "nav.services": "Services",
-    "nav.pricing": "Prix",
-    "nav.about": "À propos",
-    "nav.corporate": "Corporate",
-    "nav.donations": "Dons",
+    "nav.home": "Accueil", "nav.services": "Services", "nav.pricing": "Prix",
+    "nav.about": "À propos", "nav.corporate": "Corporate", "nav.donations": "Dons",
     "nav.order": "Passer la commande",
 
-    "hero.eyebrow": "Le spa de vos chaussures",
-    "hero.title": "Vos chaussures méritent une seconde vie.",
-    "hero.subtitle": "Nous nettoyons, réparons et redonnons de l'éclat à toutes vos chaussures — ramassage et livraison inclus.",
-    "hero.accroche": "Nous faisons en sorte que vos chaussures brillent à nouveau, afin de parcourir ensemble une nouvelle étape de la vie.",
+    "hero.eyebrow": "La maison de soin des souliers",
+    "hero.title.1": "Vos chaussures méritent",
+    "hero.title.2": "une seconde vie.",
+    "hero.subtitle": "Nous nettoyons, réparons, teignons et redonnons de l'éclat à toutes vos chaussures — ramassage et livraison inclus.",
+    "hero.secondary": "Découvrir le rituel",
     "hero.langnote": "Nous parlons français, anglais, roumain et italien.",
-    "hero.secondary": "Comment ça marche",
-    "hero.quote": "Les chaussures transforment ton langage corporel et ton attitude. Elles te soulèvent physiquement et émotionnellement.",
     "hero.slogan": "Donnez une nouvelle vie à vos souliers",
+    "hero.badge.years": "40+",
+    "hero.badge.label": "ans de savoir-faire",
 
-    "how.eyebrow": "Simple et pratique",
-    "how.title": "Comment ça marche",
+    "stat.years": "ans d'expérience",
+    "stat.gen": "générations de cordonniers",
+    "stat.langs": "langues parlées",
+    "stat.online": "en ligne, sans déplacement",
+    "marquee.words": "Nettoyage · Cordonnerie · Teinture · Cuir · Suède · Réparations · Imperméabilisation · Ramassage & livraison",
+
+    "how.eyebrow": "Simple et raffiné",
+    "how.title": "Le rituel, en trois temps",
     "how.step1.title": "Vous commandez en ligne",
     "how.step1.text": "Choisissez vos services en quelques clics, depuis chez vous.",
     "how.step2.title": "Nous récupérons vos chaussures",
@@ -66,15 +69,15 @@ const translations = {
     "services.ortho.title": "Chaussures orthopédiques",
     "services.ortho.text": "Réparation et reconstruction de chaussures orthopédiques, réalisées avec un soin particulier. Chaque demande est évaluée et chiffrée au cas par cas.",
     "services.ortho.tag": "Sur devis",
+    "services.ortho.cta": "Demander un devis →",
     "services.support": "Nous réparons et nettoyons tous types de chaussures, sandales, bottes — pour enfants, femmes et hommes. Nous éliminons la saleté, les taches et les odeurs, tout en protégeant les matériaux et en préservant leur qualité. Nous prenons également soin de vos sacs en cuir.",
 
     "placeholder.beforeafter": "Avant / Après",
     "placeholder.craft": "Atelier",
 
     "pricing.eyebrow": "Transparent et juste",
-    "pricing.title": "Nos prix",
+    "pricing.title": "La carte des soins",
     "pricing.fromLabel": "prix à partir de",
-    "pricing.spa.title": "Forfaits Spa",
     "pricing.audience.kids": "Enfants",
     "pricing.audience.adult": "Baskets / souliers adulte",
     "pricing.audience.boots": "Bottes adulte",
@@ -103,6 +106,7 @@ const translations = {
 
     "about.eyebrow": "Notre histoire",
     "about.title": "Deux générations de cordonniers",
+    "about.lede": "« Le cuir, je l'ai dans les mains depuis l'enfance. »",
     "about.story": "Issu d'une famille de cordonniers, je représente la deuxième génération à exercer ce métier. Depuis mon plus jeune âge, j'ai grandi dans l'univers du cuir, entouré de chaussures, d'outils et d'un savoir-faire transmis de génération en génération. Cette passion m'a permis d'acquérir plus de 40 ans d'expérience dans la cordonnerie et l'entretien des chaussures. Animé par le désir de moderniser ce métier traditionnel, j'ai suivi une formation entrepreneuriale de neuf mois pour transformer mon expertise artisanale en un projet moderne et innovant.",
     "about.founder": "fondateur",
     "about.mission.title": "Notre mission",
@@ -121,7 +125,8 @@ const translations = {
     "donations.title": "Un geste simple peut changer une vie",
     "donations.body": "Vous avez des chaussures que vous ne portez plus ? Ne les jetez pas. Nous pouvons leur offrir une seconde vie et les remettre entre les mains de personnes qui en ont réellement besoin. Chez Spapoursouliers, nous croyons que chaque geste compte. À travers nos initiatives de récupération, de reconditionnement et de don de chaussures et d'articles en cuir, nous soutenons les personnes qui vivent dans la rue, dont le nombre ne cesse malheureusement d'augmenter. Notre démarche s'inscrit dans une vision durable : en donnant une seconde vie aux chaussures, nous réduisons le gaspillage et participons à la protection de l'environnement. Ensemble, nous pouvons bâtir une communauté plus solidaire et un avenir plus durable.",
 
-    "footer.tagline": "Le spa de vos chaussures, 100 % en ligne.",
+    "footer.cta.title": "Prêt à offrir un nouveau départ à vos souliers ?",
+    "footer.tagline": "La maison de soin des souliers, 100 % en ligne.",
     "footer.contact.title": "Nous joindre",
     "footer.phone": "Téléphone",
     "footer.email": "Courriel",
@@ -132,27 +137,30 @@ const translations = {
     "footer.copyright": "© 2026 Spapoursouliers. Tous droits réservés."
   },
 
-  /* -------------------- ANGLAIS --------------------------- */
+  /* -------------------- ANGLAIS -------------------------- */
   en: {
-    "nav.home": "Home",
-    "nav.services": "Services",
-    "nav.pricing": "Pricing",
-    "nav.about": "About",
-    "nav.corporate": "Corporate",
-    "nav.donations": "Donations",
+    "nav.home": "Home", "nav.services": "Services", "nav.pricing": "Pricing",
+    "nav.about": "About", "nav.corporate": "Corporate", "nav.donations": "Donations",
     "nav.order": "Place your order",
 
-    "hero.eyebrow": "The spa for your shoes",
-    "hero.title": "Your shoes deserve a second life.",
-    "hero.subtitle": "We clean, repair and restore the shine of all your shoes — pickup and delivery included.",
-    "hero.accroche": "We make your shoes shine again, so you can walk through a new chapter of life together.",
+    "hero.eyebrow": "The house of shoe care",
+    "hero.title.1": "Your shoes deserve",
+    "hero.title.2": "a second life.",
+    "hero.subtitle": "We clean, repair, dye and restore the shine of all your shoes — pickup and delivery included.",
+    "hero.secondary": "Discover the ritual",
     "hero.langnote": "We speak French, English, Romanian and Italian.",
-    "hero.secondary": "How it works",
-    "hero.quote": "Shoes transform your body language and attitude. They lift you physically and emotionally.",
     "hero.slogan": "Give your shoes a new life",
+    "hero.badge.years": "40+",
+    "hero.badge.label": "years of craftsmanship",
 
-    "how.eyebrow": "Simple and convenient",
-    "how.title": "How it works",
+    "stat.years": "years of experience",
+    "stat.gen": "generations of cobblers",
+    "stat.langs": "languages spoken",
+    "stat.online": "online, zero hassle",
+    "marquee.words": "Cleaning · Cobbling · Dyeing · Leather · Suede · Repairs · Waterproofing · Pickup & delivery",
+
+    "how.eyebrow": "Simple and refined",
+    "how.title": "The ritual, in three steps",
     "how.step1.title": "You order online",
     "how.step1.text": "Choose your services in just a few clicks, from the comfort of home.",
     "how.step2.title": "We pick up your shoes",
@@ -181,15 +189,15 @@ const translations = {
     "services.ortho.title": "Orthopaedic shoes",
     "services.ortho.text": "Repair and reconstruction of orthopaedic shoes, carried out with special care. Each request is assessed and quoted on a case-by-case basis.",
     "services.ortho.tag": "On quote",
+    "services.ortho.cta": "Request a quote →",
     "services.support": "We repair and clean all types of shoes, sandals and boots — for children, women and men. We remove dirt, stains and odours while protecting the materials and preserving their quality. We also take care of your leather bags.",
 
     "placeholder.beforeafter": "Before / After",
     "placeholder.craft": "Workshop",
 
     "pricing.eyebrow": "Transparent and fair",
-    "pricing.title": "Our pricing",
+    "pricing.title": "The care menu",
     "pricing.fromLabel": "starting from",
-    "pricing.spa.title": "Spa packages",
     "pricing.audience.kids": "Kids",
     "pricing.audience.adult": "Adult sneakers / shoes",
     "pricing.audience.boots": "Adult boots",
@@ -218,6 +226,7 @@ const translations = {
 
     "about.eyebrow": "Our story",
     "about.title": "Two generations of cobblers",
+    "about.lede": "“Leather has been in my hands since childhood.”",
     "about.story": "Coming from a family of cobblers, I am the second generation to practise this craft. From an early age I grew up surrounded by leather, shoes, tools and know-how passed down from generation to generation. This passion has given me more than 40 years of experience in cobbling and shoe care. Driven by the desire to modernize this traditional trade, I completed a nine-month entrepreneurial training program to turn my artisanal expertise into a modern, innovative project.",
     "about.founder": "founder",
     "about.mission.title": "Our mission",
@@ -236,7 +245,8 @@ const translations = {
     "donations.title": "A simple gesture can change a life",
     "donations.body": "Do you have shoes you no longer wear? Don't throw them away. We can give them a second life and put them into the hands of people who truly need them. At Spapoursouliers, we believe every gesture matters. Through our collection, reconditioning and donation initiatives for shoes and leather goods, we support people living on the street, whose numbers sadly keep growing. Our approach is part of a sustainable vision: by giving shoes a second life, we reduce waste and help protect the environment. Together, we can build a more caring community and a more sustainable future.",
 
-    "footer.tagline": "The spa for your shoes, 100% online.",
+    "footer.cta.title": "Ready to give your shoes a fresh start?",
+    "footer.tagline": "The house of shoe care, 100% online.",
     "footer.contact.title": "Get in touch",
     "footer.phone": "Phone",
     "footer.email": "Email",
@@ -247,27 +257,30 @@ const translations = {
     "footer.copyright": "© 2026 Spapoursouliers. All rights reserved."
   },
 
-  /* -------------------- ROUMAIN --------------------------- */
+  /* -------------------- ROUMAIN -------------------------- */
   ro: {
-    "nav.home": "Acasă",
-    "nav.services": "Servicii",
-    "nav.pricing": "Prețuri",
-    "nav.about": "Despre noi",
-    "nav.corporate": "Corporate",
-    "nav.donations": "Donații",
+    "nav.home": "Acasă", "nav.services": "Servicii", "nav.pricing": "Prețuri",
+    "nav.about": "Despre noi", "nav.corporate": "Corporate", "nav.donations": "Donații",
     "nav.order": "Plasează comanda",
 
-    "hero.eyebrow": "Spa-ul pantofilor tăi",
-    "hero.title": "Pantofii tăi merită o a doua viață.",
-    "hero.subtitle": "Curățăm, reparăm și redăm strălucirea tuturor pantofilor tăi — ridicare și livrare incluse.",
-    "hero.accroche": "Facem ca pantofii tăi să strălucească din nou, ca să pășești împreună cu ei spre o nouă etapă a vieții.",
+    "hero.eyebrow": "Casa de îngrijire a pantofilor",
+    "hero.title.1": "Pantofii tăi merită",
+    "hero.title.2": "o a doua viață.",
+    "hero.subtitle": "Curățăm, reparăm, vopsim și redăm strălucirea tuturor pantofilor tăi — ridicare și livrare incluse.",
+    "hero.secondary": "Descoperă ritualul",
     "hero.langnote": "Vorbim franceză, engleză, română și italiană.",
-    "hero.secondary": "Cum funcționează",
-    "hero.quote": "Pantofii îți transformă limbajul corpului și atitudinea. Te ridică fizic și emoțional.",
     "hero.slogan": "Oferă o nouă viață pantofilor tăi",
+    "hero.badge.years": "40+",
+    "hero.badge.label": "ani de măiestrie",
 
-    "how.eyebrow": "Simplu și practic",
-    "how.title": "Cum funcționează",
+    "stat.years": "ani de experiență",
+    "stat.gen": "generații de cizmari",
+    "stat.langs": "limbi vorbite",
+    "stat.online": "online, fără deplasare",
+    "marquee.words": "Curățare · Cizmărie · Vopsire · Piele · Piele întoarsă · Reparații · Impermeabilizare · Ridicare & livrare",
+
+    "how.eyebrow": "Simplu și rafinat",
+    "how.title": "Ritualul, în trei pași",
     "how.step1.title": "Comanzi online",
     "how.step1.text": "Alegi serviciile dorite în câteva clicuri, de acasă.",
     "how.step2.title": "Ridicăm pantofii tăi",
@@ -296,15 +309,15 @@ const translations = {
     "services.ortho.title": "Pantofi ortopedici",
     "services.ortho.text": "Repararea și reconstrucția pantofilor ortopedici, realizate cu o grijă deosebită. Fiecare solicitare este evaluată și estimată de la caz la caz.",
     "services.ortho.tag": "La cerere",
+    "services.ortho.cta": "Cere o ofertă →",
     "services.support": "Reparăm și curățăm toate tipurile de pantofi, sandale și cizme — pentru copii, femei și bărbați. Îndepărtăm murdăria, petele și mirosurile, protejând în același timp materialele și păstrându-le calitatea. Avem grijă și de gențile tale din piele.",
 
     "placeholder.beforeafter": "Înainte / După",
     "placeholder.craft": "Atelier",
 
     "pricing.eyebrow": "Transparent și corect",
-    "pricing.title": "Prețurile noastre",
+    "pricing.title": "Meniul îngrijirilor",
     "pricing.fromLabel": "prețuri începând de la",
-    "pricing.spa.title": "Pachete Spa",
     "pricing.audience.kids": "Copii",
     "pricing.audience.adult": "Adidași / pantofi adulți",
     "pricing.audience.boots": "Cizme adulți",
@@ -333,6 +346,7 @@ const translations = {
 
     "about.eyebrow": "Povestea noastră",
     "about.title": "Două generații de cizmari",
+    "about.lede": "„Pielea o am în mâini încă din copilărie.”",
     "about.story": "Provenind dintr-o familie de cizmari, sunt a doua generație care practică această meserie. De mic am crescut în universul pielii, înconjurat de pantofi, unelte și un meșteșug transmis din generație în generație. Această pasiune mi-a adus peste 40 de ani de experiență în cizmărie și îngrijirea pantofilor. Animat de dorința de a moderniza această meserie tradițională, am urmat o formare antreprenorială de nouă luni pentru a-mi transforma expertiza artizanală într-un proiect modern și inovator.",
     "about.founder": "fondator",
     "about.mission.title": "Misiunea noastră",
@@ -351,7 +365,8 @@ const translations = {
     "donations.title": "Un gest simplu poate schimba o viață",
     "donations.body": "Ai pantofi pe care nu îi mai porți? Nu îi arunca. Le putem oferi o a doua viață și îi putem pune în mâinile celor care au cu adevărat nevoie de ei. La Spapoursouliers, credem că fiecare gest contează. Prin inițiativele noastre de colectare, recondiționare și donare de pantofi și articole din piele, sprijinim persoanele care trăiesc pe stradă, al căror număr, din păcate, este în continuă creștere. Demersul nostru face parte dintr-o viziune durabilă: oferind pantofilor o a doua viață, reducem risipa și contribuim la protejarea mediului. Împreună putem construi o comunitate mai solidară și un viitor mai durabil.",
 
-    "footer.tagline": "Spa-ul pantofilor tăi, 100% online.",
+    "footer.cta.title": "Gata să oferi pantofilor tăi un nou început?",
+    "footer.tagline": "Casa de îngrijire a pantofilor, 100% online.",
     "footer.contact.title": "Contact",
     "footer.phone": "Telefon",
     "footer.email": "E-mail",
@@ -362,27 +377,30 @@ const translations = {
     "footer.copyright": "© 2026 Spapoursouliers. Toate drepturile rezervate."
   },
 
-  /* -------------------- ITALIEN --------------------------- */
+  /* -------------------- ITALIEN -------------------------- */
   it: {
-    "nav.home": "Home",
-    "nav.services": "Servizi",
-    "nav.pricing": "Prezzi",
-    "nav.about": "Chi siamo",
-    "nav.corporate": "Corporate",
-    "nav.donations": "Donazioni",
+    "nav.home": "Home", "nav.services": "Servizi", "nav.pricing": "Prezzi",
+    "nav.about": "Chi siamo", "nav.corporate": "Corporate", "nav.donations": "Donazioni",
     "nav.order": "Effettua l'ordine",
 
-    "hero.eyebrow": "La spa delle tue scarpe",
-    "hero.title": "Le tue scarpe meritano una seconda vita.",
-    "hero.subtitle": "Puliamo, ripariamo e ridoniamo splendore a tutte le tue scarpe — ritiro e consegna inclusi.",
-    "hero.accroche": "Facciamo brillare di nuovo le tue scarpe, per percorrere insieme una nuova tappa della vita.",
+    "hero.eyebrow": "La casa della cura delle scarpe",
+    "hero.title.1": "Le tue scarpe meritano",
+    "hero.title.2": "una seconda vita.",
+    "hero.subtitle": "Puliamo, ripariamo, tingiamo e ridoniamo splendore a tutte le tue scarpe — ritiro e consegna inclusi.",
+    "hero.secondary": "Scopri il rituale",
     "hero.langnote": "Parliamo francese, inglese, rumeno e italiano.",
-    "hero.secondary": "Come funziona",
-    "hero.quote": "Le scarpe trasformano il tuo linguaggio del corpo e il tuo atteggiamento. Ti sollevano fisicamente ed emotivamente.",
     "hero.slogan": "Dai una nuova vita alle tue scarpe",
+    "hero.badge.years": "40+",
+    "hero.badge.label": "anni di maestria",
 
-    "how.eyebrow": "Semplice e pratico",
-    "how.title": "Come funziona",
+    "stat.years": "anni di esperienza",
+    "stat.gen": "generazioni di calzolai",
+    "stat.langs": "lingue parlate",
+    "stat.online": "online, senza spostamenti",
+    "marquee.words": "Pulizia · Calzoleria · Tintura · Pelle · Camoscio · Riparazioni · Impermeabilizzazione · Ritiro & consegna",
+
+    "how.eyebrow": "Semplice e raffinato",
+    "how.title": "Il rituale, in tre tempi",
     "how.step1.title": "Ordini online",
     "how.step1.text": "Scegli i tuoi servizi in pochi clic, comodamente da casa.",
     "how.step2.title": "Ritiriamo le tue scarpe",
@@ -411,15 +429,15 @@ const translations = {
     "services.ortho.title": "Scarpe ortopediche",
     "services.ortho.text": "Riparazione e ricostruzione di scarpe ortopediche, eseguite con cura particolare. Ogni richiesta è valutata e preventivata caso per caso.",
     "services.ortho.tag": "Su preventivo",
+    "services.ortho.cta": "Richiedi un preventivo →",
     "services.support": "Ripariamo e puliamo ogni tipo di scarpa, sandalo e stivale — per bambini, donne e uomini. Eliminiamo sporco, macchie e odori, proteggendo i materiali e preservandone la qualità. Ci prendiamo cura anche delle tue borse in pelle.",
 
     "placeholder.beforeafter": "Prima / Dopo",
     "placeholder.craft": "Laboratorio",
 
     "pricing.eyebrow": "Trasparente e onesto",
-    "pricing.title": "I nostri prezzi",
+    "pricing.title": "Il menù dei trattamenti",
     "pricing.fromLabel": "prezzi a partire da",
-    "pricing.spa.title": "Pacchetti Spa",
     "pricing.audience.kids": "Bambini",
     "pricing.audience.adult": "Sneaker / scarpe adulto",
     "pricing.audience.boots": "Stivali adulto",
@@ -448,6 +466,7 @@ const translations = {
 
     "about.eyebrow": "La nostra storia",
     "about.title": "Due generazioni di calzolai",
+    "about.lede": "«La pelle ce l'ho nelle mani fin da bambino.»",
     "about.story": "Proveniente da una famiglia di calzolai, rappresento la seconda generazione a esercitare questo mestiere. Fin da piccolo sono cresciuto nell'universo della pelle, circondato da scarpe, strumenti e un saper fare tramandato di generazione in generazione. Questa passione mi ha permesso di maturare oltre 40 anni di esperienza nella calzoleria e nella cura delle scarpe. Spinto dal desiderio di modernizzare questo mestiere tradizionale, ho seguito una formazione imprenditoriale di nove mesi per trasformare la mia competenza artigianale in un progetto moderno e innovativo.",
     "about.founder": "fondatore",
     "about.mission.title": "La nostra missione",
@@ -466,7 +485,8 @@ const translations = {
     "donations.title": "Un gesto semplice può cambiare una vita",
     "donations.body": "Hai scarpe che non indossi più? Non gettarle. Possiamo offrire loro una seconda vita e metterle nelle mani di persone che ne hanno davvero bisogno. Da Spapoursouliers crediamo che ogni gesto conti. Attraverso le nostre iniziative di raccolta, ricondizionamento e donazione di scarpe e articoli in pelle, sosteniamo le persone che vivono in strada, il cui numero purtroppo continua a crescere. Il nostro approccio fa parte di una visione sostenibile: dando alle scarpe una seconda vita, riduciamo gli sprechi e contribuiamo alla protezione dell'ambiente. Insieme possiamo costruire una comunità più solidale e un futuro più sostenibile.",
 
-    "footer.tagline": "La spa delle tue scarpe, 100% online.",
+    "footer.cta.title": "Pronto a dare alle tue scarpe un nuovo inizio?",
+    "footer.tagline": "La casa della cura delle scarpe, 100% online.",
     "footer.contact.title": "Contatti",
     "footer.phone": "Telefono",
     "footer.email": "E-mail",
@@ -483,13 +503,9 @@ const translations = {
    2. LISTES DE PRIX (E.2 / E.3 / E.4)
    ---------------------------------------------------------
    Chaque ligne = { fr, en, ro, it, price }.
-   - `price` peut être une chaîne unique (identique partout)
-     ou un objet { fr, en, ro, it } quand l'unité doit être traduite.
-   Pour modifier un prix : changez la valeur `price` ci-dessous.
+   `price` : chaîne (identique partout) ou objet { fr, en, ro, it }.
    ========================================================= */
 const priceData = {
-
-  /* --- E.2 — Dames --- */
   women: [
     { fr: "Talons classiques", en: "Classic heels", ro: "Tocuri clasice", it: "Tacchi classici", price: "30 $" },
     { fr: "Rehausse de talons aiguilles", en: "Stiletto heel raise", ro: "Înălțare tocuri cui", it: "Rialzo tacchi a spillo", price: "19,95 $" },
@@ -505,8 +521,6 @@ const priceData = {
     { fr: "Demi-semelles Vibram", en: "Vibram half soles", ro: "Jumătăți de talpă Vibram", it: "Mezze suole Vibram", price: "80 $" },
     { fr: "Recouvrir les talons", en: "Recover heels", ro: "Reacoperirea tocurilor", it: "Rivestire i tacchi", price: "75 $" }
   ],
-
-  /* --- E.3 — Hommes --- */
   men: [
     { fr: "Talons ordinaires", en: "Ordinary heels", ro: "Tocuri obișnuite", it: "Tacchi normali", price: "50 $" },
     { fr: "Talons cowboy", en: "Cowboy heels", ro: "Tocuri cowboy", it: "Tacchi cowboy", price: "60 $" },
@@ -524,8 +538,6 @@ const priceData = {
     { fr: "Semelles complètes en cuir", en: "Full leather soles", ro: "Tălpi complete din piele", it: "Suole complete in pelle", price: "100 $" },
     { fr: "Demi-semelles en cuir", en: "Leather half soles", ro: "Jumătăți de talpă din piele", it: "Mezze suole in pelle", price: "95 $" }
   ],
-
-  /* --- E.4 — Couture et nettoyage --- */
   sewing: [
     { fr: "Lustrage de chaussures", en: "Shoe shine", ro: "Lustruirea pantofilor", it: "Lucidatura scarpe", price: "20 $" },
     { fr: "Shampoing pour chaussures", en: "Shoe shampoo", ro: "Șampon pentru pantofi", it: "Shampoo per scarpe",
@@ -573,29 +585,24 @@ function applyLanguage(lang) {
   if (!translations[lang]) return;
   currentLang = lang;
 
-  // a) Remplace tous les textes marqués data-i18n
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.textContent = translate(el.getAttribute("data-i18n"), lang);
   });
 
-  // b) Met à jour l'attribut lang de la page (SEO / accessibilité)
   document.documentElement.setAttribute("lang", lang);
-
-  // c) Regénère les listes de prix dans la bonne langue
   renderPrices(lang);
+  buildMarquee(lang);
 
-  // d) Met à jour l'état actif des sélecteurs de langue (en-tête + pied de page)
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.classList.toggle("is-active", btn.getAttribute("data-lang") === lang);
   });
 
-  // e) Mémorise le choix pour la prochaine visite
-  try { localStorage.setItem("sps-lang", lang); } catch (e) { /* stockage indisponible */ }
+  try { localStorage.setItem("sps-lang", lang); } catch (e) { /* ignore */ }
 }
 
 
 /* =========================================================
-   4. GÉNÉRATION DES LIGNES DE PRIX
+   4. LIGNES DE PRIX (avec points de conduite)
    ========================================================= */
 function priceFor(item, lang) {
   return typeof item.price === "string" ? item.price : (item.price[lang] || item.price.fr);
@@ -607,6 +614,7 @@ function renderPriceList(targetId, items, lang) {
   ul.innerHTML = items.map((item) => `
     <li>
       <span class="price-name">${item[lang] || item.fr}</span>
+      <span class="price-leader" aria-hidden="true"></span>
       <span class="price-value">${priceFor(item, lang)}</span>
     </li>`).join("");
 }
@@ -619,45 +627,49 @@ function renderPrices(lang) {
 
 
 /* =========================================================
-   5. INTERACTIONS
+   5. FIL DÉFILANT (marquee)
+   ========================================================= */
+function buildMarquee(lang) {
+  const track = document.getElementById("marquee-track");
+  if (!track) return;
+  const words = translate("marquee.words", lang);
+  const item = `<span class="marquee-item">${words}</span>`;
+  const group = `<div class="marquee-group">${item.repeat(4)}</div>`;
+  track.innerHTML = group + group; // deux groupes identiques = boucle continue
+}
+
+
+/* =========================================================
+   6. INTERACTIONS
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ---- 5.0 Logo : on clone l'emblème SVG dans chaque [data-logo] ---- */
+  /* ---- Logo : clone l'emblème dans chaque [data-logo] ---- */
   const logoTpl = document.getElementById("logo-emblem-tpl");
   if (logoTpl) {
     document.querySelectorAll("[data-logo]").forEach((el) => {
-      const svg = logoTpl.content.firstElementChild.cloneNode(true);
-      el.insertBefore(svg, el.firstChild);
+      el.insertBefore(logoTpl.content.firstElementChild.cloneNode(true), el.firstChild);
     });
   }
 
-  /* ---- 5.1 Langue initiale (mémorisée ou navigateur) ---- */
+  /* ---- Langue initiale ---- */
   let initial = "fr";
   try {
     const saved = localStorage.getItem("sps-lang");
-    if (saved && translations[saved]) {
-      initial = saved;
-    } else {
-      const nav = (navigator.language || "fr").slice(0, 2).toLowerCase();
-      if (translations[nav]) initial = nav;
-    }
+    if (saved && translations[saved]) initial = saved;
+    else { const nav = (navigator.language || "fr").slice(0, 2).toLowerCase(); if (translations[nav]) initial = nav; }
   } catch (e) { /* ignore */ }
   applyLanguage(initial);
 
-  /* ---- 5.2 Sélecteurs de langue (en-tête + pied de page) ---- */
+  /* ---- Sélecteurs de langue ---- */
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang")));
   });
 
-  /* ---- 5.3 Menu mobile ---- */
+  /* ---- Menu mobile ---- */
   const navToggle = document.getElementById("nav-toggle");
   const mainNav = document.getElementById("main-nav");
-
-  function closeMenu() {
-    mainNav.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
-  }
+  function closeMenu() { mainNav.classList.remove("is-open"); navToggle.setAttribute("aria-expanded", "false"); }
   if (navToggle && mainNav) {
     navToggle.addEventListener("click", () => {
       const open = mainNav.classList.toggle("is-open");
@@ -666,28 +678,31 @@ document.addEventListener("DOMContentLoaded", () => {
     mainNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
   }
 
-  /* ---- 5.4 En-tête : ombre au défilement ---- */
+  /* ---- En-tête : ombre + barre de progression au défilement ---- */
   const header = document.querySelector(".site-header");
-  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+  const progress = document.getElementById("scroll-progress");
+  function onScroll() {
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+    if (progress) {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+    }
+  }
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  /* ---- 5.5 Décalage progressif (stagger) des grilles ---- */
+  /* ---- Stagger des grilles ---- */
   document.querySelectorAll("[data-stagger]").forEach((group) => {
-    group.querySelectorAll(":scope > .reveal").forEach((child, i) => {
-      child.style.setProperty("--i", i);
-    });
+    group.querySelectorAll(":scope > .reveal").forEach((child, i) => child.style.setProperty("--i", i));
   });
 
-  /* ---- 5.6 Révélations au défilement (IntersectionObserver) ---- */
+  /* ---- Révélations au défilement ---- */
   const revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries, obs) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add("is-visible"); obs.unobserve(entry.target); }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     revealEls.forEach((el) => io.observe(el));
@@ -695,12 +710,32 @@ document.addEventListener("DOMContentLoaded", () => {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
-  /* ---- 5.7 Navigation active selon la section visible ---- */
-  const navLinks = Array.from(document.querySelectorAll('.main-nav a[href^="#"]'));
-  const sections = navLinks
-    .map((a) => document.querySelector(a.getAttribute("href")))
-    .filter(Boolean);
+  /* ---- Compteurs animés (bande de statistiques) ---- */
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const nums = document.querySelectorAll(".stat-num[data-count]");
+  function countUp(el) {
+    const target = parseInt(el.getAttribute("data-count"), 10) || 0;
+    const suffix = el.getAttribute("data-suffix") || "";
+    if (reduceMotion) { el.textContent = target + suffix; return; }
+    const dur = 1100; const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubique
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if ("IntersectionObserver" in window && nums.length) {
+    const io2 = new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => { if (e.isIntersecting) { countUp(e.target); obs.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    nums.forEach((n) => io2.observe(n));
+  }
 
+  /* ---- Navigation active selon la section ---- */
+  const navLinks = Array.from(document.querySelectorAll('.main-nav a[href^="#"]'));
+  const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
   if ("IntersectionObserver" in window && sections.length) {
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -713,39 +748,25 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach((sec) => spy.observe(sec));
   }
 
-  /* ---- 5.8 Bouton flottant de contact (déploiement) ---- */
+  /* ---- Bouton flottant de contact ---- */
   const fab = document.getElementById("contact-fab");
   const fabToggle = document.getElementById("fab-toggle");
-
   function openFab(open) {
     fab.classList.toggle("is-open", open);
     fabToggle.setAttribute("aria-expanded", String(open));
-    fabToggle.setAttribute(
-      "aria-label",
-      open ? "Fermer les options de contact" : "Ouvrir les options de contact"
-    );
+    fabToggle.setAttribute("aria-label", open ? "Fermer les options de contact" : "Ouvrir les options de contact");
   }
   if (fab && fabToggle) {
-    fabToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openFab(!fab.classList.contains("is-open"));
-    });
-    document.addEventListener("click", (e) => {
-      if (fab.classList.contains("is-open") && !fab.contains(e.target)) openFab(false);
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && fab.classList.contains("is-open")) openFab(false);
-    });
+    fabToggle.addEventListener("click", (e) => { e.stopPropagation(); openFab(!fab.classList.contains("is-open")); });
+    document.addEventListener("click", (e) => { if (fab.classList.contains("is-open") && !fab.contains(e.target)) openFab(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && fab.classList.contains("is-open")) openFab(false); });
   }
 
-  /* ---- 5.9 Boutons « contact » qui ouvrent le bouton flottant ---- */
+  /* ---- Liens « contact » qui ouvrent le bouton flottant ---- */
   document.querySelectorAll('a[href="#contact-fab"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       e.preventDefault();
-      if (fab && fabToggle) {
-        openFab(true);
-        fabToggle.focus({ preventScroll: true });
-      }
+      if (fab && fabToggle) { openFab(true); fabToggle.focus({ preventScroll: true }); }
     });
   });
 });
