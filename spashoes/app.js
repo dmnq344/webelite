@@ -644,11 +644,17 @@ const EXTRA = {
 };
 
 /* ---------- Configuration (réutilise le contenu réel) ---------- */
+const SICONS = {
+  sparkle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>',
+  brush:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 4l6 6-7 7-4 1 1-4z"/><path d="M5 21c1.6-3.2 3.6-4 5-4"/></svg>',
+  hammer:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 6l4 4-2 2-4-4z"/><path d="M12 8L4 16l2 2 8-8"/><path d="M14 4l6 6"/></svg>',
+  needle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21L21 3"/><circle cx="6" cy="18" r="2"/><path d="M14 6l4 4"/></svg>'
+};
 const SERVICES = [
-  { key:'cleaning', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
-  { key:'dye',      img:'service-peinture.jpg',    tag:'placeholder.beforeafter', items:['services.dye.1'] },
-  { key:'repairs',  img:'service-reparation.jpg',  tag:'placeholder.beforeafter', items:['services.repairs.1','services.repairs.2'] },
-  { key:'cobbler',  img:'service-cordonnerie.jpg', tag:'placeholder.craft',       items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
+  { key:'cleaning', ico:'sparkle', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
+  { key:'dye',      ico:'brush', img:'service-peinture.jpg',    tag:'placeholder.beforeafter', items:['services.dye.1'] },
+  { key:'repairs',  ico:'hammer', img:'service-reparation.jpg',  tag:'placeholder.beforeafter', items:['services.repairs.1','services.repairs.2'] },
+  { key:'cobbler',  ico:'needle', img:'service-cordonnerie.jpg', tag:'placeholder.craft',       items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
 ];
 const SPA = [
   { title:'pricing.spa.inout.title', feats:['pricing.spa.inout.f1','pricing.spa.inout.f2','pricing.spa.inout.f3','pricing.spa.inout.f4','pricing.spa.inout.f5','pricing.spa.inout.f6','pricing.spa.inout.f7'], prices:[['pricing.audience.kids','30 $'],['pricing.audience.adult','40 $'],['pricing.audience.boots','50 $']], featured:false },
@@ -671,8 +677,17 @@ function renderServices(lang){
   const el = document.getElementById('service-grid'); if(!el) return;
   el.innerHTML = SERVICES.map((s,i)=>`
     <article class="service-card reveal-card">
-      <div class="service-media"><img src="assets/img/${s.img}" alt="" loading="lazy"><span class="media-tag">${t(s.tag,lang)}</span><span class="service-num">0${i+1}</span></div>
-      <div class="service-body"><h3>${t('services.'+s.key+'.title',lang)}</h3><ul>${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul></div>
+      <div class="service-media">
+        <img src="assets/img/${s.img}" alt="" loading="lazy">
+        <span class="service-scrim"></span>
+        <span class="service-ico">${SICONS[s.ico]||''}</span>
+        <span class="media-tag">${t(s.tag,lang)}</span>
+        <span class="service-num">0${i+1}</span>
+      </div>
+      <div class="service-body">
+        <h3>${t('services.'+s.key+'.title',lang)}</h3>
+        <ul>${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
+      </div>
     </article>`).join('');
 }
 function renderSpa(lang){

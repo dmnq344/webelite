@@ -432,3 +432,34 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .stage-ring, .orb, .shine, .btn-cta::before, .social-toggle::before { animation: none !important; }
 }
+
+/* ==================================================================
+   SERVICES — interface premium + RÉALISATION nette
+   ================================================================== */
+.services { position: relative; }
+.services::before { content: ""; position: absolute; left: 50%; top: 5%; width: 78%; height: 55%; transform: translateX(-50%); background: radial-gradient(circle, rgba(236,209,153,.12), transparent 70%); pointer-events: none; z-index: 0; }
+.services .container { position: relative; z-index: 1; }
+
+.service-card { isolation: isolate; }
+/* bordure dégradée révélée au survol */
+.service-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 4; pointer-events: none;
+  background: var(--grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+  opacity: 0; transition: opacity .4s ease;
+}
+.service-card:hover::before { opacity: .95; }
+.service-card:hover { box-shadow: 0 26px 60px rgba(8,28,46,.5), 0 0 42px rgba(143,200,234,.14); }
+.service-media .media-tag { left: auto; right: 13px; }
+.service-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 36%, rgba(8,22,38,.58)); pointer-events: none; z-index: 1; }
+.service-ico { position: absolute; top: 13px; left: 13px; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; color: var(--gold); background: rgba(8,22,38,.5); border: 1px solid var(--line-2); backdrop-filter: blur(6px); z-index: 2; transition: transform .4s var(--ease); }
+.service-ico svg { width: 22px; height: 22px; }
+.service-card:hover .service-ico { transform: translateY(-3px) scale(1.06); }
+.service-num { color: var(--gold-br); z-index: 2; }
+.service-body h3 { transition: color .3s ease; }
+.service-card:hover .service-body h3 { color: var(--gold-br); }
+
+/* Comparateur avant/après — photo nette */
+.ba { aspect-ratio: 3 / 2; }
+.ba-img { background-position: center 46%; }
