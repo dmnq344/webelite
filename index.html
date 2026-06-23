@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu - Déplacement du bonhomme</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #1e1e2e;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 16px;
+    }
+    h1 { font-size: 1.4rem; font-weight: 600; }
+    p { color: #a0a0b0; font-size: 0.9rem; }
+    canvas {
+      background: #2a2a3e;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .controls { display: flex; gap: 12px; }
+    button {
+      font-size: 1.5rem;
+      width: 64px;
+      height: 64px;
+      border: none;
+      border-radius: 12px;
+      background: #4a4a6a;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: #5a5a7a; }
+    button:active { background: #6a6a8a; }
+  </style>
+</head>
+<body>
+  <h1>🕹️ Déplace le bonhomme</h1>
+  <p>Utilise les flèches ◀ ▶ du clavier (ou les boutons ci-dessous)</p>
+  <canvas id="game" width="600" height="300"></canvas>
+  <div class="controls">
+    <button id="left">◀</button>
+    <button id="right">▶</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+
+    const player = {
+      x: canvas.width / 2,
+      y: canvas.height - 80,
+      width: 30,
+      height: 60,
+      speed: 5
+    };
+
+    const keys = { left: false, right: false };
+
+    // Clavier
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') keys.left = true;
+      if (e.key === 'ArrowRight') keys.right = true;
+    });
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft') keys.left = false;
+      if (e.key === 'ArrowRight') keys.right = false;
+    });
+
+    // Boutons tactiles
+    const bindButton = (id, key) => {
+      const btn = document.getElementById(id);
+      const down = () => keys[key] = true;
+      const up = () => keys[key] = false;
+      btn.addEventListener('mousedown', down);
+      btn.addEventListener('mouseup', up);
+      btn.addEventListener('mouseleave', up);
+      btn.addEventListener('touchstart', (e) => { e.preventDefault(); down(); });
+      btn.addEventListener('touchend', (e) => { e.preventDefault(); up(); });
+    };
+    bindButton('left', 'left');
+    bindButton('right', 'right');
+
+    function drawPlayer() {
+      const { x, y, width, height } = player;
+      // Tête
+      ctx.fillStyle = '#ffd166';
+      ctx.beginPath();
+      ctx.arc(x, y - height / 2 - 12, 12, 0, Math.PI * 2);
+      ctx.fill();
+      // Corps
+      ctx.fillStyle = '#06d6a0';
+      ctx.fillRect(x - width / 2, y - height / 2, width, height);
+      // Jambes
+      ctx.strokeStyle = '#118ab2';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(x - width / 4, y + height / 2);
+      ctx.lineTo(x - width / 4, y + height / 2 + 18);
+      ctx.moveTo(x + width / 4, y + height / 2);
+      ctx.lineTo(x + width / 4, y + height / 2 + 18);
+      ctx.stroke();
+    }
+
+    function update() {
+      if (keys.left) player.x -= player.speed;
+      if (keys.right) player.x += player.speed;
+
+      // Limites du terrain
+      const half = player.width / 2;
+      if (player.x < half) player.x = half;
+      if (player.x > canvas.width - half) player.x = canvas.width - half;
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Sol
+      ctx.fillStyle = '#3a3a52';
+      ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
+      update();
+      drawPlayer();
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
+</body>
+</html>
