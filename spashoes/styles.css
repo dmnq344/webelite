@@ -351,3 +351,84 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; }
   .marquee-track, .aurora-blob, .scroll-cue span { animation: none !important; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .16s !important; }
 }
+
+/* ==================================================================
+   ACCUEIL — emblème cordonnier, hero cinématographique, CTA, social
+   ================================================================== */
+
+/* ---- Emblème cordonnier (logo B) ---- */
+.brand-mark { width: 40px; height: 40px; background: none; border: 0; padding: 0; }
+.brand-mark--lg { width: 46px; height: 46px; }
+.logo-emblem { width: 100%; height: 100%; display: block; }
+.lg-badge { fill: #14304b; }
+.lg-ring  { fill: none; stroke: var(--gold); stroke-width: 0.9; opacity: 0.95; }
+.lg-shoe  { fill: var(--text); }
+.lg-spark { fill: var(--gold-br); }
+.footer-brand { display: flex; flex-direction: column; }
+.footer-brand .brand-mark { margin-bottom: 10px; }
+
+/* ---- CTA principal (scintillant, flèche) ---- */
+.btn-cta { position: relative; padding-right: 48px; overflow: hidden; box-shadow: 0 14px 36px rgba(236,209,153,.24); }
+.btn-cta::after { content: "→"; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); transition: transform .25s var(--ease); font-weight: 600; }
+.btn-cta:hover::after { transform: translateY(-50%) translateX(4px); }
+.btn-cta::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 32%, rgba(255,255,255,.5) 46%, transparent 60%); transform: translateX(-130%); pointer-events: none; animation: ctashine 4.8s ease-in-out infinite; }
+@keyframes ctashine { 0%, 62% { transform: translateX(-130%); } 80% { transform: translateX(130%); } 100% { transform: translateX(130%); } }
+
+/* ---- Lien discret du hero ---- */
+.hero-link { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; color: var(--muted-2); letter-spacing: .02em; transition: color .2s ease, gap .25s var(--ease); }
+.hero-link::after { content: "→"; transition: transform .25s var(--ease); }
+.hero-link:hover { color: var(--text); }
+.hero-link:hover::after { transform: translateX(4px); }
+.hero-cta { align-items: center; }
+
+/* ---- Hero cinématographique : scène ---- */
+.stage { position: relative; display: grid; place-items: center; }
+.stage-halo { position: absolute; left: 50%; top: 46%; width: 122%; aspect-ratio: 1; transform: translate(-50%,-50%); z-index: 0; pointer-events: none;
+  background: radial-gradient(circle, rgba(236,209,153,.34) 0%, rgba(143,200,234,.14) 42%, transparent 68%); filter: blur(18px); }
+.stage-ring { position: absolute; left: 50%; top: 46%; width: 112%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; z-index: 0; pointer-events: none; opacity: .55;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(236,209,153,.7) 12%, transparent 30%, transparent 58%, rgba(143,200,234,.6) 72%, transparent 92%);
+  -webkit-mask: radial-gradient(circle, transparent 61%, #000 62%, #000 64%, transparent 65%);
+          mask: radial-gradient(circle, transparent 61%, #000 62%, #000 64%, transparent 65%);
+  animation: spin 22s linear infinite; }
+@keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+.orb { position: absolute; border-radius: 50%; z-index: 3; pointer-events: none; background: var(--grad-soft); border: 1px solid var(--line-2); backdrop-filter: blur(7px); box-shadow: var(--sh-sm); }
+.orb-1 { width: 66px; height: 66px; top: -10px; right: 18px; animation: float 6s var(--ease) infinite; }
+.orb-2 { width: 44px; height: 44px; bottom: 30px; left: -16px; animation: float 7.5s var(--ease) infinite reverse; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.hero-visual .tilt { position: relative; z-index: 2; }
+.hero-card-glow { mix-blend-mode: screen; }
+/* Balayage de brillance (élément signature) */
+.shine { position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.32) 45%, rgba(191,226,245,.22) 50%, transparent 62%);
+  transform: translateX(-120%); animation: shine 5.5s var(--ease) infinite; }
+@keyframes shine { 0%, 68% { transform: translateX(-120%); } 86% { transform: translateX(120%); } 100% { transform: translateX(120%); } }
+
+/* ---- Bouton social flottant ---- */
+.social-fab { position: fixed; right: 22px; bottom: 22px; z-index: 95; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.social-actions { display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
+.social-actions li { opacity: 0; transform: translateY(12px) scale(.85); transition: transform .3s var(--ease), opacity .22s ease; }
+.social-fab.is-open .social-actions { pointer-events: auto; }
+.social-fab.is-open .social-actions li { opacity: 1; transform: none; }
+.social-fab.is-open .social-actions li:nth-child(3) { transition-delay: 0ms; }
+.social-fab.is-open .social-actions li:nth-child(2) { transition-delay: 55ms; }
+.social-fab.is-open .social-actions li:nth-child(1) { transition-delay: 110ms; }
+.social-action { position: relative; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: rgba(244,249,252,.12); border: 1px solid var(--line-2); color: var(--text); backdrop-filter: blur(8px); box-shadow: var(--sh-md); transition: transform .18s var(--ease), background .2s ease, color .2s ease; }
+.social-action svg { width: 23px; height: 23px; }
+.social-action:hover { transform: scale(1.07); }
+.sa-wa:hover { background: #25d366; color: #06231a; }
+.sa-ig:hover { background: linear-gradient(45deg,#f09433,#dc2743,#bc1888); color: #fff; }
+.sa-fb:hover { background: #1877f2; color: #fff; }
+.social-action::after { content: attr(data-tip); position: absolute; right: calc(100% + 12px); top: 50%; transform: translateY(-50%) translateX(6px); background: var(--bg-2); color: var(--text); font-size: .78rem; white-space: nowrap; padding: 6px 11px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s var(--ease); border: 1px solid var(--line); }
+.social-action:hover::after { opacity: 1; transform: translateY(-50%); }
+.social-toggle { position: relative; width: 60px; height: 60px; border: 0; border-radius: 50%; background: var(--grad); color: #11314c; cursor: pointer; box-shadow: 0 16px 40px rgba(143,200,234,.32); transition: transform .22s var(--ease); }
+.social-toggle:active { transform: scale(.94); }
+.social-toggle::before { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 0 rgba(143,200,234,.5); animation: pulse 2.8s ease-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(143,200,234,.45); } 70% { box-shadow: 0 0 0 16px rgba(143,200,234,0); } 100% { box-shadow: 0 0 0 0 rgba(143,200,234,0); } }
+.si-open, .si-close { position: absolute; inset: 0; margin: auto; width: 26px; height: 26px; transition: transform .26s var(--ease), opacity .2s ease; }
+.si-close { opacity: 0; transform: rotate(-90deg) scale(.6); }
+.social-fab.is-open .si-open { opacity: 0; transform: rotate(90deg) scale(.6); }
+.social-fab.is-open .si-close { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-ring, .orb, .shine, .btn-cta::before, .social-toggle::before { animation: none !important; }
+}

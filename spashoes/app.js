@@ -727,6 +727,19 @@ document.addEventListener('DOMContentLoaded', () => {
   try{ const s=localStorage.getItem('sps2-lang'); if(s&&translations[s])initial=s; else{const n=(navigator.language||'fr').slice(0,2).toLowerCase(); if(translations[n])initial=n;} }catch(e){}
   applyLanguage(initial);
 
+  /* logo : clone l'emblème cordonnier dans chaque [data-logo] */
+  const ltpl=document.getElementById('logo-tpl');
+  if(ltpl) document.querySelectorAll('[data-logo]').forEach(el=>{ if(!el.querySelector('svg')) el.appendChild(ltpl.content.firstElementChild.cloneNode(true)); });
+
+  /* bouton social flottant */
+  const sf=document.getElementById('social-fab'), st=document.getElementById('social-toggle');
+  if(sf&&st){
+    const setOpen=o=>{ sf.classList.toggle('is-open',o); st.setAttribute('aria-expanded',String(o)); };
+    st.addEventListener('click',e=>{ e.stopPropagation(); setOpen(!sf.classList.contains('is-open')); });
+    document.addEventListener('click',e=>{ if(sf.classList.contains('is-open')&&!sf.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&sf.classList.contains('is-open')) setOpen(false); });
+  }
+
   document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.lang)));
 
   /* menu mobile */
