@@ -128,6 +128,7 @@ const translations = {
     "footer.areas.title": "Zones desservies",
     "footer.areas.text": "Grand Montréal et environs. Contactez-nous pour vérifier la couverture.",
     "footer.lang.title": "Langue",
+    "a11y.skip": "Aller au contenu",
     "footer.copyright": "© 2026 Spapoursouliers. Tous droits réservés."
   },
 
@@ -242,6 +243,7 @@ const translations = {
     "footer.areas.title": "Service areas",
     "footer.areas.text": "Greater Montreal and surroundings. Contact us to check coverage.",
     "footer.lang.title": "Language",
+    "a11y.skip": "Skip to content",
     "footer.copyright": "© 2026 Spapoursouliers. All rights reserved."
   },
 
@@ -356,6 +358,7 @@ const translations = {
     "footer.areas.title": "Zone deservite",
     "footer.areas.text": "Marele Montreal și împrejurimile. Contactează-ne pentru a verifica acoperirea.",
     "footer.lang.title": "Limbă",
+    "a11y.skip": "Sari la conținut",
     "footer.copyright": "© 2026 Spapoursouliers. Toate drepturile rezervate."
   },
 
@@ -470,6 +473,7 @@ const translations = {
     "footer.areas.title": "Zone servite",
     "footer.areas.text": "Grande Montreal e dintorni. Contattaci per verificare la copertura.",
     "footer.lang.title": "Lingua",
+    "a11y.skip": "Vai al contenuto",
     "footer.copyright": "© 2026 Spapoursouliers. Tutti i diritti riservati."
   }
 };

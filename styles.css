@@ -19,9 +19,10 @@
   --leather:      #2a1d12;   /* brun cuir profond (accent foncé) */
   --leather-soft: #4a3526;   /* brun cuir secondaire */
   --ink:          #1c140d;   /* texte principal */
-  --muted:        #7a6c5d;   /* texte secondaire */
-  --gold:         #b08d57;   /* doré discret */
-  --gold-soft:    #c9aa78;
+  --muted:        #6e6253;   /* texte secondaire (contraste AA sur crème) */
+  --gold:         #b08d57;   /* doré décoratif (filets, semelle, éclats) */
+  --gold-soft:    #c9aa78;   /* doré clair (sur fond sombre) */
+  --gold-ink:     #806339;   /* doré « texte » : contraste AA sur tous les fonds clairs */
   --white:        #ffffff;
 
   /* Typographie */
@@ -103,7 +104,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 14px;
 }
 
@@ -266,7 +267,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--muted);
-  padding: 6px 8px;
+  padding: 8px 10px;
+  min-height: 40px;            /* cible tactile confortable */
   border-radius: 8px;
   cursor: pointer;
   transition: color 180ms ease, background-color 180ms ease, transform 160ms var(--ease-out);
@@ -641,7 +643,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 /* E.1 — Forfaits spa */
@@ -729,8 +731,10 @@ section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   font-family: var(--font-serif);
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
+/* Sur la carte sombre, le doré clair reste lisible */
+.spa-card--featured .spa-prices strong { color: var(--gold-soft); }
 
 /* E.2 / E.3 / E.4 — listes de prix */
 .price-lists {
@@ -801,7 +805,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold) !important;
+  color: var(--gold-ink) !important;
   margin-bottom: 14px !important;
 }
 .heritage-grid {
@@ -1074,15 +1078,46 @@ section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 /* État initial : invisible et légèrement décalé vers le bas */
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  transform: translateY(20px);
+  transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out);
   will-change: opacity, transform;
 }
 .reveal.is-visible { opacity: 1; transform: none; }
 
 /* Stagger : décalage progressif des enfants d'un conteneur [data-stagger].
    L'index --i est défini en JS (script.js). */
-[data-stagger] > .reveal { transition-delay: calc(var(--i, 0) * 80ms); }
+[data-stagger] > .reveal { transition-delay: calc(var(--i, 0) * 60ms); }
+
+
+/* ---------- Accessibilité : focus clavier & lien d'évitement --- */
+/* Anneau de focus visible uniquement au clavier (pas au clic souris) */
+:focus-visible {
+  outline: 2px solid var(--gold-ink);
+  outline-offset: 3px;
+}
+:focus:not(:focus-visible) { outline: none; }
+/* Sur fonds sombres, anneau plus clair pour rester visible */
+.site-footer :focus-visible,
+.corporate :focus-visible,
+.fab-toggle:focus-visible,
+.contact-action:focus-visible,
+.spa-card--featured :focus-visible { outline-color: var(--gold-soft); }
+
+/* Lien « aller au contenu » : caché jusqu'au focus clavier */
+.skip-link {
+  position: fixed;
+  left: 14px; top: -64px;
+  z-index: 200;
+  background: var(--leather);
+  color: var(--cream);
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  transition: top 220ms var(--ease-out);
+}
+.skip-link:focus { top: 14px; }
 
 
 /* ---------- 17. Responsive (tablette / bureau) ----------------- */

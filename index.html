@@ -28,6 +28,9 @@
 
 <body>
 
+  <!-- Lien d'évitement clavier (accessibilité) -->
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Aller au contenu</a>
+
   <!-- ============================================================
        LOGO (emblème SVG réutilisable) — défini une fois, cloné en JS
        Un cordonnier « spa » : chaussure + éclat de propreté + anneau doré.
@@ -200,7 +203,7 @@
   </header>
 
 
-  <main>
+  <main id="main">
 
     <!-- ============================================================
          SECTION B — ACCROCHE (HERO)
@@ -237,6 +240,7 @@
         <!-- Visuel hero : photo premium -->
         <figure class="hero-visual reveal">
           <img src="assets/img/hero-shoes.jpg" width="1200" height="1200"
+               fetchpriority="high" decoding="async"
                alt="Souliers en cuir disposés en cercle, fraîchement entretenus" />
           <figcaption data-i18n="hero.slogan">Donnez une nouvelle vie à vos souliers</figcaption>
         </figure>
