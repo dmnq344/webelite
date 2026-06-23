@@ -1,47 +1,39 @@
 <!DOCTYPE html>
 <!--
-  SPA SHOES — maquette premium (single-page)
+  SPAPOURSOULIERS — site premium (spashoes) · single-page, multilingue FR/EN/RO/IT
   ------------------------------------------------------------------
-  ⚠️ CONTENU PROVISOIRE (roumain) : services, prix, avant/après et photos
-     sont des PLACEHOLDERS, à remplacer par les vraies données du propriétaire.
-  - Design : HTML + CSS + JS pur, animations GSAP (CDN) avec dégradation propre.
-  - Pour remplacer une PHOTO : voir les éléments [data-img] (background-image).
-  - Pour les PRIX : objet `PRICING` dans app.js.
+  - Textes traduisibles : attribut data-i18n="cle" (dictionnaire dans app.js)
+  - Grilles dynamiques (services, forfaits, prix, galerie) générées par app.js
+  - Photos : dossier assets/img/  ·  Animations GSAP (CDN) + dégradation propre
   ------------------------------------------------------------------
 -->
-<html lang="ro">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spa Shoes — Spa-ul de lux pentru pantofii tăi</title>
-  <meta name="description" content="Spa Shoes — curățare premium, restaurare, vopsire și reparații pentru pantofi. Ridicare și livrare incluse." />
-  <meta name="theme-color" content="#0c0e0d" />
-
+  <title>Spapoursouliers — Le spa de vos chaussures</title>
+  <meta name="description" content="Spapoursouliers — nettoyage, restauration, teinture et cordonnerie de chaussures. Ramassage et livraison inclus." />
+  <meta name="theme-color" content="#163f63" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="styles.css" />
-  <!-- Marque JS actif : les animations ne masquent le contenu que si JS tourne (sinon tout reste visible) -->
   <script>document.documentElement.classList.add('js');</script>
 </head>
-
 <body>
-  <!-- Barre de progression -->
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-  <a class="skip-link" href="#main">Sari la conținut</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Aller au contenu</a>
 
-  <!-- Aurora / lueurs d'arrière-plan -->
+  <!-- Décor : aurora + motif de vagues -->
   <div class="aurora" aria-hidden="true">
-    <span class="aurora-blob a1"></span>
-    <span class="aurora-blob a2"></span>
-    <span class="aurora-blob a3"></span>
+    <span class="aurora-blob a1"></span><span class="aurora-blob a2"></span><span class="aurora-blob a3"></span>
   </div>
+  <div class="waves" aria-hidden="true"></div>
 
-  <!-- ============================ EN-TÊTE ============================ -->
+  <!-- ===================== EN-TÊTE ===================== -->
   <header class="site-header" id="top">
     <div class="container header-inner">
-      <a href="#top" class="brand" aria-label="Spa Shoes — acasă">
+      <a href="#top" class="brand" aria-label="Spapoursouliers">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 40 40" fill="none">
             <path class="bm-shoe" d="M7 25.5c0-2 1.2-3 3.3-3 1.6 0 3-.5 5.4-1 3.4-.6 5.9.2 10.2 1.4 2.8.8 5.2 1.1 7.6 1.7 1.3.3 1.9.8 1.9 1.6 0 .9-.7 1.3-2.1 1.3H9.1C7.7 27.5 7 27 7 25.5Z"/>
@@ -49,223 +41,219 @@
             <path class="bm-spark" d="M30 9l1 2.6 2.6 1-2.6 1L30 16.2 29 13.6l-2.6-1 2.6-1z"/>
           </svg>
         </span>
-        <span class="brand-text">Spa<span class="brand-accent">Shoes</span></span>
+        <span class="brand-text">Spa<span class="brand-accent">poursouliers</span></span>
       </a>
 
-      <nav class="main-nav" id="main-nav" aria-label="Navigare principală">
-        <a href="#services">Servicii</a>
-        <a href="#works">Realizări</a>
-        <a href="#pricing">Prețuri</a>
-        <a href="#about">Despre</a>
-        <a href="#contact">Contact</a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigation">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#works" data-i18n="nav.works">Réalisations</a>
+        <a href="#pricing" data-i18n="nav.pricing">Prix</a>
+        <a href="#about" data-i18n="nav.about">À propos</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <a href="#contact" class="btn btn-primary btn-sm">Comandă acum</a>
-        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="main-nav">
-          <span></span><span></span><span></span>
-        </button>
+        <div class="lang-switch" role="group" aria-label="Langue">
+          <button type="button" class="lang-btn is-active" data-lang="fr">FR</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ro">RO</button>
+          <button type="button" class="lang-btn" data-lang="it">IT</button>
+        </div>
+        <a href="#contact" class="btn btn-primary btn-sm" data-i18n="nav.order">Passer la commande</a>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- ============================ HERO ============================ -->
+    <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <p class="kicker" data-anim="hero"><span class="kicker-dot"></span> Atelier de lux · 100% online</p>
+          <p class="kicker" data-anim="hero"><span class="kicker-dot"></span><span data-i18n="hero.eyebrow">Le spa de vos chaussures</span></p>
           <h1 class="hero-title">
-            <span class="line" data-anim="hero">Pantofii tăi merită</span>
-            <span class="line" data-anim="hero">un <em>spa</em> adevărat.</span>
+            <span class="line" data-anim="hero" data-i18n="hero.title.1">Vos chaussures méritent</span>
+            <em class="line" data-anim="hero" data-i18n="hero.title.2">une seconde vie.</em>
           </h1>
-          <p class="hero-sub" data-anim="hero">
-            Curățare premium, restaurare, vopsire și reparații executate manual, cu produse de top.
-            Ridicăm, îngrijim și livrăm — fără să te miști de acasă.
-          </p>
+          <p class="hero-sub" data-anim="hero" data-i18n="hero.subtitle">Nous nettoyons, réparons, teignons et redonnons de l'éclat à toutes vos chaussures — ramassage et livraison inclus.</p>
           <div class="hero-cta" data-anim="hero">
-            <a href="#contact" class="btn btn-primary">Comandă acum</a>
-            <a href="#works" class="btn btn-ghost">Vezi transformările</a>
+            <a href="#contact" class="btn btn-primary" data-i18n="nav.order">Passer la commande</a>
+            <a href="#works" class="btn btn-ghost" data-i18n="hero.secondary">Comment ça marche</a>
           </div>
           <ul class="hero-stats" data-anim="hero">
-            <li><strong data-count="12000" data-suffix="+">12000+</strong><span>perechi îngrijite</span></li>
-            <li><strong data-count="15" data-suffix="+">15+</strong><span>ani de experiență</span></li>
-            <li><strong data-count="48" data-suffix="h">48h</strong><span>timp mediu de livrare</span></li>
+            <li><strong data-count="40" data-suffix="+">40+</strong><span data-i18n="stat.years">ans d'expérience</span></li>
+            <li><strong data-count="12000" data-suffix="+">12000+</strong><span data-i18n="stat.pairs">paires soignées</span></li>
+            <li><strong data-count="48" data-suffix="h">48h</strong><span data-i18n="stat.delivery">délai moyen</span></li>
           </ul>
         </div>
 
-        <!-- Visuel hero : carte 3D + comparaison avant/après miniature -->
         <div class="hero-visual" data-anim="hero-visual">
           <div class="tilt" id="hero-tilt">
             <div class="hero-card">
               <div class="hero-card-glow"></div>
-              <div class="hero-shoe" data-img>
-                <span class="hero-shoe-label">Înainte → După</span>
-              </div>
-              <div class="hero-card-badge">
-                <strong>4.9</strong>
-                <span>★★★★★<br>peste 800 recenzii</span>
-              </div>
+              <img class="hero-photo" src="assets/img/hero-shoes.jpg" alt="Souliers en cuir fraîchement entretenus" fetchpriority="high" />
+              <div class="hero-card-badge"><strong>4.9</strong><span>★★★★★<br>800+ avis</span></div>
             </div>
           </div>
         </div>
       </div>
-
       <a href="#services" class="scroll-cue" aria-hidden="true"><span></span></a>
     </section>
 
-    <!-- Marquee -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track" id="marquee-track"></div>
-    </div>
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
 
-    <!-- ============================ SERVICII ============================ -->
+    <!-- ===================== SERVICES ===================== -->
     <section class="section services" id="services">
       <div class="container">
-        <header class="section-head">
-          <p class="eyebrow" data-anim>Ce facem</p>
-          <h2 class="section-title" data-anim>Servicii de îngrijire premium</h2>
-          <p class="section-intro" data-anim>O gamă completă de tratamente pentru orice tip de încălțăminte — de la sneakers la piele fină și cizme.</p>
+        <header class="section-head section-head--center">
+          <p class="eyebrow" data-anim data-i18n="services.eyebrow">Savoir-faire artisanal</p>
+          <h2 class="section-title" data-anim data-i18n="services.title">Nos services</h2>
+          <p class="section-intro" data-anim data-i18n="services.intro">Une gamme complète de services premium pour vos chaussures.</p>
         </header>
-
-        <div class="service-grid" id="service-grid"><!-- généré par app.js --></div>
+        <div class="service-grid" id="service-grid"><!-- généré --></div>
       </div>
     </section>
 
-    <!-- ============================ REALIZĂRI / AVANT-APRÈS ============================ -->
+    <!-- ===================== RÉALISATIONS ===================== -->
     <section class="section works section--alt" id="works">
       <div class="container">
         <header class="section-head section-head--center">
-          <p class="eyebrow" data-anim>Realizări</p>
-          <h2 class="section-title" data-anim>Transformări reale, înainte și după</h2>
-          <p class="section-intro" data-anim>Trage de cursor pentru a vedea diferența. (Imagini demonstrative — vor fi înlocuite cu lucrările reale.)</p>
+          <p class="eyebrow" data-anim data-i18n="works.eyebrow">Réalisations</p>
+          <h2 class="section-title" data-anim data-i18n="works.title">Transformations avant / après</h2>
+          <p class="section-intro" data-anim data-i18n="works.intro">Faites glisser le curseur pour voir la différence.</p>
         </header>
 
-        <!-- Comparateur interactif -->
         <div class="ba" id="ba" data-anim>
-          <div class="ba-img ba-after" data-img-after><span class="ba-tag ba-tag--after">După</span></div>
-          <div class="ba-img ba-before" id="ba-before" data-img-before><span class="ba-tag ba-tag--before">Înainte</span></div>
-          <div class="ba-handle" id="ba-handle" role="slider" aria-label="Comparator înainte / după" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+          <div class="ba-img ba-after" style="background-image:url(assets/img/ba-after.jpg)"><span class="ba-tag ba-tag--after" data-i18n="works.after">Après</span></div>
+          <div class="ba-img ba-before" id="ba-before" style="background-image:url(assets/img/ba-before.jpg)"><span class="ba-tag ba-tag--before" data-i18n="works.before">Avant</span></div>
+          <div class="ba-handle" id="ba-handle" role="slider" aria-label="Avant / Après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
             <span class="ba-line"></span><span class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
           </div>
         </div>
 
-        <!-- Galerie -->
-        <div class="works-grid" id="works-grid"><!-- généré par app.js --></div>
+        <p class="works-cap" data-anim data-i18n="works.gallery">Quelques-unes de nos réalisations</p>
+        <div class="works-grid" id="works-grid"><!-- généré --></div>
       </div>
     </section>
 
-    <!-- ============================ PROCES ============================ -->
+    <!-- ===================== PROCESS ===================== -->
     <section class="section process" id="process">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow" data-anim>Cum funcționează</p>
-          <h2 class="section-title" data-anim>Trei pași, zero efort</h2>
+          <p class="eyebrow" data-anim data-i18n="how.eyebrow">Simple et pratique</p>
+          <h2 class="section-title" data-anim data-i18n="how.title">Comment ça marche</h2>
         </header>
-        <ol class="steps" id="steps"><!-- généré par app.js --></ol>
+        <ol class="steps">
+          <li class="step" data-anim><span class="step-n">01</span><h3 data-i18n="how.step1.title">Vous commandez en ligne</h3><p data-i18n="how.step1.text">Choisissez vos services en quelques clics.</p></li>
+          <li class="step" data-anim><span class="step-n">02</span><h3 data-i18n="how.step2.title">Nous récupérons vos chaussures</h3><p data-i18n="how.step2.text">Un ramassage à l'adresse de votre choix.</p></li>
+          <li class="step" data-anim><span class="step-n">03</span><h3 data-i18n="how.step3.title">Nous livrons vos chaussures propres</h3><p data-i18n="how.step3.text">Livrées directement chez vous.</p></li>
+        </ol>
       </div>
     </section>
 
-    <!-- ============================ PREȚURI ============================ -->
+    <!-- ===================== PRIX ===================== -->
     <section class="section pricing section--alt" id="pricing">
       <div class="container">
         <header class="section-head section-head--center">
-          <p class="eyebrow" data-anim>Prețuri</p>
-          <h2 class="section-title" data-anim>Tarife clare, fără surprize</h2>
-          <p class="section-intro" data-anim>Alege o categorie. Prețurile sunt orientative și pot varia în funcție de stare și materiale.</p>
+          <p class="eyebrow" data-anim data-i18n="pricing.eyebrow">Transparent et juste</p>
+          <h2 class="section-title" data-anim data-i18n="pricing.title">La carte des soins</h2>
         </header>
 
-        <!-- Onglets de catégories pour ne pas surcharger -->
-        <div class="price-tabs" id="price-tabs" role="tablist" aria-label="Categorii de prețuri"></div>
-        <div class="price-panel" id="price-panel"><!-- généré par app.js --></div>
+        <h3 class="block-title" data-anim data-i18n="pricing.spa.title">Forfaits Spa</h3>
+        <div class="spa-grid" id="spa-grid"><!-- généré --></div>
 
-        <p class="price-note" data-anim>* Prețurile finale se confirmă după evaluarea perechii. Serviciu ortopedic și lucrări speciale: la cerere.</p>
+        <div class="price-tabs" id="price-tabs" role="tablist" aria-label="Catégories"></div>
+        <div class="price-panel" id="price-panel"><!-- généré --></div>
+
+        <p class="price-note" data-anim data-i18n="pricing.note">Les prix varient selon l'emplacement et les offres du mois.</p>
+        <div class="center" data-anim><a href="#contact" class="btn btn-primary" data-i18n="nav.order">Passer la commande</a></div>
       </div>
     </section>
 
-    <!-- ============================ DESPRE ============================ -->
+    <!-- ===================== À PROPOS ===================== -->
     <section class="section about" id="about">
       <div class="container about-inner">
-        <div class="about-media" data-anim="left" data-img></div>
+        <figure class="about-media" data-anim="left"><img src="assets/img/about-craft.jpg" alt="Travail du cuir au marteau" loading="lazy" /></figure>
         <div class="about-copy">
-          <p class="eyebrow" data-anim>Despre noi</p>
-          <h2 class="section-title" data-anim>Pasiune pentru piele, din tată în fiu</h2>
-          <p data-anim>Spa Shoes îmbină meșteșugul tradițional al cizmăriei cu tehnici moderne de curățare și restaurare. Fiecare pereche este tratată individual, cu produse premium și multă atenție la detalii.</p>
-          <p data-anim>Misiunea noastră este simplă: să dăm o a doua viață pantofilor tăi preferați și să îți economisim timp printr-un serviciu complet online — ridicare, îngrijire și livrare la ușă.</p>
-          <div class="about-points" data-anim>
-            <div><strong>Produse premium</strong><span>fără compromisuri de calitate</span></div>
-            <div><strong>Lucrat manual</strong><span>de meșteri cu experiență</span></div>
-            <div><strong>Garanție</strong><span>ești mulțumit sau refacem</span></div>
+          <p class="eyebrow" data-anim data-i18n="about.eyebrow">Notre histoire</p>
+          <h2 class="section-title" data-anim data-i18n="about.title">Deux générations de cordonniers</h2>
+          <p class="about-lede" data-anim data-i18n="about.lede">« Le cuir, je l'ai dans les mains depuis l'enfance. »</p>
+          <p data-anim data-i18n="about.story">Issu d'une famille de cordonniers, je représente la deuxième génération à exercer ce métier...</p>
+          <p class="about-sign" data-anim>— Cristian Rotaru, <span data-i18n="about.founder">fondateur</span></p>
+          <div class="about-mission" data-anim>
+            <h3 data-i18n="about.mission.title">Notre mission</h3>
+            <p data-i18n="about.mission.text">Redonner une seconde vie à tous les types de chaussures...</p>
+          </div>
+          <p class="about-heritage-title" data-anim data-i18n="about.heritage.title">Un héritage et un savoir-faire reconnus</p>
+          <div class="heritage" data-anim>
+            <figure><img src="assets/img/heritage-presse.jpg" alt="Article de presse" loading="lazy" /><figcaption data-i18n="about.heritage.presse">Cristian Rotaru, une vie au service des chaussures</figcaption></figure>
+            <figure><img src="assets/img/heritage-attestation.jpg" alt="Attestation Québec 2025" loading="lazy" /><figcaption data-i18n="about.heritage.attestation">Attestation professionnelle — Québec, 2025</figcaption></figure>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================ CONTACT / CTA ============================ -->
+    <!-- ===================== CONTACT ===================== -->
     <section class="section contact section--alt" id="contact">
       <div class="container contact-inner">
         <div class="contact-copy">
-          <p class="eyebrow" data-anim>Hai să începem</p>
-          <h2 class="section-title" data-anim>Programează o ridicare</h2>
-          <p data-anim>Completează formularul sau scrie-ne direct. Revenim în cel mult o oră în programul de lucru.</p>
+          <p class="eyebrow" data-anim data-i18n="contact.eyebrow">Commençons</p>
+          <h2 class="section-title" data-anim data-i18n="contact.title">Planifiez un ramassage</h2>
+          <p data-anim data-i18n="contact.text">Remplissez le formulaire ou écrivez-nous directement.</p>
           <ul class="contact-list" data-anim>
-            <li><span>Telefon</span><a href="tel:+40700000000">+40 700 000 000</a></li>
-            <li><span>Email</span><a href="mailto:contact@spashoes.ro">contact@spashoes.ro</a></li>
-            <li><span>Zonă</span><a>București și împrejurimi</a></li>
+            <li><span data-i18n="footer.phone">Téléphone</span><a href="tel:+14384499422">438 449 9422</a></li>
+            <li><span data-i18n="footer.email">Courriel</span><a href="mailto:spapoursouliers@hotmail.com">spapoursouliers@hotmail.com</a></li>
+            <li><span data-i18n="contact.area">Zone desservie</span><a data-i18n="contact.areaVal">Grand Montréal et environs</a></li>
           </ul>
         </div>
-
         <form class="contact-form" data-anim="right" onsubmit="return false">
-          <div class="field"><label for="cf-name">Nume</label><input id="cf-name" type="text" placeholder="Numele tău" autocomplete="name" /></div>
-          <div class="field"><label for="cf-phone">Telefon</label><input id="cf-phone" type="tel" placeholder="07xx xxx xxx" autocomplete="tel" /></div>
-          <div class="field"><label for="cf-service">Serviciu dorit</label>
-            <select id="cf-service"><option>Curățare premium</option><option>Restaurare & vopsire</option><option>Reparații & cizmărie</option><option>Impermeabilizare</option><option>Altul</option></select>
-          </div>
-          <div class="field"><label for="cf-msg">Detalii</label><textarea id="cf-msg" rows="3" placeholder="Spune-ne despre perechea ta"></textarea></div>
-          <button type="submit" class="btn btn-primary btn-block">Trimite cererea</button>
-          <p class="form-hint">Formular demonstrativ — se va conecta la sistemul real de comenzi.</p>
+          <div class="field"><label for="cf-name" data-i18n="form.name">Nom</label><input id="cf-name" type="text" autocomplete="name" /></div>
+          <div class="field"><label for="cf-phone" data-i18n="form.phone">Téléphone</label><input id="cf-phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="cf-service" data-i18n="form.service">Service souhaité</label><select id="cf-service"><option>Spa</option><option>Nettoyage</option><option>Réparations</option><option>Cordonnerie</option></select></div>
+          <div class="field"><label for="cf-msg" data-i18n="form.details">Détails</label><textarea id="cf-msg" rows="3"></textarea></div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="form.submit">Envoyer la demande</button>
+          <p class="form-hint" data-i18n="form.hint">Formulaire de démonstration.</p>
         </form>
       </div>
     </section>
   </main>
 
-  <!-- ============================ PIED DE PAGE ============================ -->
+  <!-- ===================== PIED DE PAGE ===================== -->
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <span class="brand-text">Spa<span class="brand-accent">Shoes</span></span>
-        <p>Spa-ul de lux pentru pantofii tăi. Ridicare și livrare incluse.</p>
+        <span class="brand-text">Spa<span class="brand-accent">poursouliers</span></span>
+        <p data-i18n="footer.tagline">Le spa de vos chaussures, 100 % en ligne.</p>
       </div>
       <div class="footer-col">
-        <h4>Servicii</h4>
-        <a href="#services">Curățare premium</a>
-        <a href="#services">Restaurare & vopsire</a>
-        <a href="#services">Reparații & cizmărie</a>
-        <a href="#pricing">Prețuri</a>
-      </div>
-      <div class="footer-col">
-        <h4>Companie</h4>
-        <a href="#about">Despre noi</a>
-        <a href="#works">Realizări</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Urmărește-ne</h4>
+        <h4 data-i18n="footer.contact.title">Nous joindre</h4>
+        <a href="tel:+14384499422">438 449 9422</a>
+        <a href="mailto:spapoursouliers@hotmail.com">spapoursouliers@hotmail.com</a>
         <div class="footer-social">
-          <a href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-          <a href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1Z"/></svg></a>
-          <a href="https://wa.me/40700000000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 0 1 12 3.8Z"/></svg></a>
+          <a href="https://wa.me/14384499422" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 5-1.3A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 0 1 12 3.8Z"/></svg></a>
+          <a href="https://instagram.com/spapoursouliers1" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1Z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.areas.title">Zones desservies</h4>
+        <p data-i18n="footer.areas.text">Grand Montréal et environs.</p>
+        <h4 class="mt" data-i18n="footer.lang.title">Langue</h4>
+        <div class="lang-switch lang-switch--footer" role="group" aria-label="Langue">
+          <button type="button" class="lang-btn is-active" data-lang="fr">FR</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ro">RO</button>
+          <button type="button" class="lang-btn" data-lang="it">IT</button>
         </div>
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>© 2026 Spa Shoes. Toate drepturile rezervate.</p>
-      <p class="footer-mock">Machetă de prezentare — conținut provizoriu.</p>
+      <p data-i18n="footer.copyright">© 2026 Spapoursouliers.</p>
     </div>
   </footer>
 
-  <!-- GSAP (CDN) — animations enrichies, avec dégradation propre si indisponible -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="app.js"></script>
