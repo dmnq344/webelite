@@ -1,0 +1,8 @@
+# Artefacts Python (générés par l'exécution des scripts de skills)
+__pycache__/
+*.pyc
+.coverage
+
+# Fichiers système
+.DS_Store
+Thumbs.db
