@@ -1,0 +1,966 @@
+/* ==================================================================
+   Spapoursouliers — Feuille de style
+   ------------------------------------------------------------------
+   Direction artistique : « spa de luxe » appliqué aux chaussures.
+   - Beaucoup d'espace blanc, titres serif (Cormorant Garamond),
+     texte sans-serif (Inter).
+   - Palette crème / beige / cuir, accent brun profond, doré discret.
+   - Animations subtiles (courbes d'easing fortes, jamais clinquantes).
+   Mobile-first : les styles de base ciblent le mobile, les media
+   queries enrichissent tablette et bureau.
+   ================================================================== */
+
+/* ---------- 1. Variables de design (jetons) ---------------------- */
+:root {
+  /* Couleurs */
+  --cream:        #faf6f0;   /* fond principal */
+  --cream-deep:   #f2ead9;   /* fond alterné, beige clair */
+  --beige:        #e7dcc8;   /* bordures / surfaces */
+  --leather:      #2a1d12;   /* brun cuir profond (accent foncé) */
+  --leather-soft: #4a3526;   /* brun cuir secondaire */
+  --ink:          #1c140d;   /* texte principal */
+  --muted:        #7a6c5d;   /* texte secondaire */
+  --gold:         #b08d57;   /* doré discret */
+  --gold-soft:    #c9aa78;
+  --white:        #ffffff;
+
+  /* Typographie */
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Rythme / espacement */
+  --container: 1180px;
+  --radius:    14px;
+  --radius-lg: 22px;
+  --header-h:  68px;
+
+  /* Courbes d'easing fortes (cf. skill emil-design-eng) */
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Ombres douces (ombres colorées plutôt que noires pures) */
+  --shadow-sm: 0 1px 2px rgba(42, 29, 18, .06), 0 4px 12px rgba(42, 29, 18, .05);
+  --shadow-md: 0 8px 30px rgba(42, 29, 18, .10);
+  --shadow-lg: 0 20px 60px rgba(42, 29, 18, .16);
+}
+
+/* ---------- 2. Réinitialisation légère ------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  scroll-behavior: smooth;           /* défilement fluide vers les ancres */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.65;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+ul, ol { list-style: none; padding: 0; }
+
+/* Cible des ancres : compense l'en-tête fixe */
+section[id], header[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+
+
+/* ---------- 3. Utilitaires de structure ------------------------ */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 22px;
+}
+
+.section { padding: 84px 0; }
+
+/* Titres */
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.eyebrow {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.section-head { max-width: 720px; margin-bottom: 52px; }
+.section-intro {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+
+/* ---------- 4. Boutons ----------------------------------------- */
+.btn {
+  --btn-bg: var(--leather);
+  --btn-fg: var(--cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  /* On ne transitionne que transform/couleurs (perf : GPU) */
+  transition: transform 160ms var(--ease-out),
+              background-color 200ms ease,
+              box-shadow 200ms ease,
+              color 200ms ease;
+  will-change: transform;
+}
+
+.btn-primary { box-shadow: var(--shadow-sm); }
+.btn-primary:hover { box-shadow: var(--shadow-md); }
+
+.btn-ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  border-color: var(--beige);
+}
+.btn-ghost:hover { border-color: var(--leather); }
+
+/* Effet de pression : feedback instantané (cf. skill) */
+.btn:active { transform: scale(0.97); }
+
+/* Survol uniquement sur dispositifs à pointeur fin (évite le faux survol tactile) */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { background: var(--leather-soft); }
+}
+
+
+/* ---------- 5. En-tête / Navigation ---------------------------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-h);
+  z-index: 100;
+  background: rgba(250, 246, 240, 0.78);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+}
+/* Ombre subtile une fois la page défilée (classe ajoutée en JS) */
+.site-header.is-scrolled {
+  border-bottom-color: var(--beige);
+  box-shadow: 0 6px 24px rgba(42, 29, 18, .06);
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* Logo */
+.logo { display: inline-flex; align-items: center; gap: 10px; }
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--leather);
+  color: var(--cream);
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  flex: none;
+}
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.logo--light .logo-text { color: var(--cream); }
+.logo--light .logo-mark { background: var(--gold); color: var(--leather); }
+
+/* Navigation principale */
+.main-nav { display: none; gap: 28px; }
+.main-nav a {
+  position: relative;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 6px 0;
+  transition: color 200ms ease;
+}
+/* Soulignement animé au survol / lien actif */
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1.5px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .main-nav a:hover { color: var(--gold); }
+  .main-nav a:hover::after { transform: scaleX(1); }
+}
+.main-nav a.is-active { color: var(--gold); }
+.main-nav a.is-active::after { transform: scaleX(1); }
+
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* Sélecteur de langue */
+.lang-switch { display: inline-flex; gap: 2px; }
+.lang-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, transform 160ms var(--ease-out);
+}
+.lang-btn:active { transform: scale(0.94); }
+.lang-btn.is-active { color: var(--leather); background: var(--beige); }
+@media (hover: hover) and (pointer: fine) {
+  .lang-btn:hover { color: var(--leather); }
+}
+
+/* Bouton commande : caché sur très petit écran (présent dans le menu déroulant) */
+.btn-order { display: none; padding: 10px 18px; }
+
+/* Bouton hamburger (mobile) */
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px; height: 42px;
+  padding: 0 9px;
+  border: 1px solid var(--beige);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 1.6px;
+  width: 100%;
+  background: var(--ink);
+  transition: transform 240ms var(--ease-out), opacity 200ms ease;
+}
+/* Animation hamburger -> croix */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
+
+
+/* ---------- 6. Menu mobile déroulant --------------------------- */
+@media (max-width: 899px) {
+  .main-nav {
+    position: fixed;
+    top: var(--header-h);
+    left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--beige);
+    padding: 8px 22px 18px;
+    /* Caché par défaut, révélé via clip-path + opacité (transition douce) */
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    pointer-events: none;
+    transition: clip-path 320ms var(--ease-drawer), opacity 220ms ease;
+    box-shadow: var(--shadow-md);
+  }
+  .main-nav.is-open {
+    display: flex;
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .main-nav a {
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--beige);
+    font-size: 1rem;
+  }
+  .main-nav a::after { display: none; }
+  /* Le bouton commande apparaît dans le menu mobile */
+  .main-nav .btn-order-mobile {
+    display: inline-flex;
+    margin-top: 16px;
+    align-self: flex-start;
+  }
+}
+
+
+/* ---------- 7. Hero -------------------------------------------- */
+.hero {
+  position: relative;
+  padding: calc(var(--header-h) + 70px) 0 90px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 50% 0%, var(--cream) 0%, var(--cream-deep) 100%);
+}
+.hero-inner { max-width: 880px; margin-inline: auto; position: relative; z-index: 1; }
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 8vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin-bottom: 22px;
+}
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2.6vw, 1.28rem);
+  color: var(--leather-soft);
+  max-width: 620px;
+  margin: 0 auto 16px;
+}
+.hero-langnote {
+  font-size: 0.86rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 34px;
+}
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 54px;
+}
+
+/* Citation : élément secondaire discret */
+.hero-quote {
+  max-width: 540px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--beige);
+}
+.hero-quote blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  color: var(--leather-soft);
+}
+.hero-quote figcaption {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Lueur dorée décorative en arrière-plan */
+.hero-glow {
+  position: absolute;
+  top: -20%; left: 50%;
+  width: 760px; height: 760px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(176, 141, 87, 0.16) 0%, rgba(176, 141, 87, 0) 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+/* ---------- 8. Comment ça marche ------------------------------- */
+.how { background: var(--cream); }
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+.step-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius-lg);
+  padding: 34px 30px 30px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .step-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+}
+.step-icon {
+  width: 56px; height: 56px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.step-icon svg { width: 100%; height: 100%; }
+.step-num {
+  position: absolute;
+  top: 28px; right: 30px;
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  color: var(--beige);
+  line-height: 1;
+}
+.step-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.step-card p { color: var(--muted); font-size: 0.98rem; }
+
+
+/* ---------- 9. Services ---------------------------------------- */
+.services { background: var(--cream-deep); }
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+}
+.service-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  /* Placeholder stylisé : dégradé subtil + texture */
+  background:
+    linear-gradient(135deg, #efe4d2 0%, #e2d2ba 100%);
+}
+.service-card-body { padding: 24px 26px 28px; }
+.service-card-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.service-card-body ul { display: flex; flex-direction: column; gap: 9px; }
+.service-card-body li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--leather-soft);
+  font-size: 0.97rem;
+}
+.service-card-body li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.62em;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.services-support {
+  margin-top: 36px;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Placeholders d'images stylisés (réutilisables) */
+[data-placeholder] {
+  position: relative;
+  background:
+    repeating-linear-gradient(135deg, rgba(176,141,87,.05) 0 14px, rgba(176,141,87,0) 14px 28px),
+    linear-gradient(135deg, #efe4d2 0%, #e2d2ba 100%);
+  display: grid;
+  place-items: center;
+}
+.placeholder-tag {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leather-soft);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 5px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.placeholder-tag--after { left: auto; right: 14px; top: auto; bottom: 14px; }
+
+
+/* ---------- 10. Prix ------------------------------------------- */
+.pricing { background: var(--cream); }
+.pricing-group-title {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pricing-group-title small {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* E.1 — Forfaits spa */
+.spa-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.spa-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius-lg);
+  padding: 34px 30px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms ease;
+}
+.spa-card--featured {
+  background: var(--leather);
+  border-color: var(--leather);
+  color: var(--cream);
+}
+.spa-card--featured h4 { color: var(--cream); }
+@media (hover: hover) and (pointer: fine) {
+  .spa-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+}
+.spa-badge {
+  position: absolute;
+  top: 22px; right: 26px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--leather);
+  background: var(--gold-soft);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.spa-card-head h4 {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.spa-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.spa-features li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 0.95rem;
+  color: var(--leather-soft);
+}
+.spa-card--featured .spa-features li { color: rgba(250, 246, 240, 0.82); }
+/* Coche dorée */
+.spa-features li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.18em;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  /* petite coche dessinée en CSS */
+  background-image:
+    linear-gradient(45deg, transparent 44%, var(--white) 45%, var(--white) 52%, transparent 53%),
+    linear-gradient(-45deg, transparent 56%, var(--white) 57%, var(--white) 64%, transparent 65%);
+  background-size: 100% 100%;
+}
+.spa-prices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(176, 141, 87, 0.3);
+}
+.spa-card--featured .spa-prices { border-top-color: rgba(201, 170, 120, 0.35); }
+.spa-prices div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 0.95rem;
+}
+.spa-prices span { color: inherit; opacity: 0.85; }
+.spa-prices strong {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* E.2 / E.3 / E.4 — listes de prix */
+.price-lists {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  margin-top: 46px;
+}
+.price-list {
+  background: var(--white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius-lg);
+  padding: 30px 28px;
+  box-shadow: var(--shadow-sm);
+}
+.price-list .pricing-group-title { font-size: 1.4rem; margin-bottom: 18px; }
+.price-rows { display: flex; flex-direction: column; }
+.price-rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px dashed var(--beige);
+  font-size: 0.94rem;
+}
+.price-rows li:last-child { border-bottom: 0; }
+.price-rows .price-name { color: var(--leather-soft); }
+.price-rows .price-value {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.pricing-disclaimer {
+  margin-top: 26px;
+  font-size: 0.86rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.pricing-cta { margin-top: 36px; }
+
+
+/* ---------- 11. À propos --------------------------------------- */
+.about { background: var(--cream-deep); }
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.about-media {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--beige);
+  box-shadow: var(--shadow-md);
+}
+.about-content p { color: var(--leather-soft); margin-bottom: 18px; }
+.about-signature {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--ink) !important;
+}
+.about-mission {
+  margin-top: 30px;
+  padding: 26px 28px;
+  background: var(--white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius);
+}
+.about-mission h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.about-mission p { margin-bottom: 0; color: var(--muted); font-size: 0.97rem; }
+
+
+/* ---------- 12. Corporate -------------------------------------- */
+.corporate {
+  background:
+    radial-gradient(120% 120% at 80% 0%, var(--leather-soft) 0%, var(--leather) 60%);
+  color: var(--cream);
+}
+.corporate-inner { max-width: 780px; }
+.corporate .section-title { color: var(--cream); }
+.corporate .eyebrow { color: var(--gold-soft); }
+.corporate p {
+  color: rgba(250, 246, 240, 0.84);
+  font-size: 1.06rem;
+  margin: 18px 0 30px;
+}
+.corporate .btn-primary {
+  --btn-bg: var(--gold);
+  --btn-fg: var(--leather);
+}
+@media (hover: hover) and (pointer: fine) {
+  .corporate .btn-primary:hover { background: var(--gold-soft); }
+}
+
+
+/* ---------- 13. Dons ------------------------------------------- */
+.donations { background: var(--cream); text-align: center; }
+.donations-inner { max-width: 760px; margin-inline: auto; }
+.donations p { color: var(--leather-soft); font-size: 1.06rem; margin-top: 18px; }
+
+
+/* ---------- 14. Pied de page ----------------------------------- */
+.site-footer {
+  background: var(--leather);
+  color: rgba(250, 246, 240, 0.8);
+  padding-top: 64px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 38px;
+  padding-bottom: 44px;
+}
+.footer-brand p { margin-top: 14px; font-size: 0.95rem; max-width: 320px; }
+.footer-col h4 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+.footer-contact { display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; }
+.footer-contact a { color: var(--gold-soft); transition: color 180ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .footer-contact a:hover { color: var(--cream); }
+}
+.footer-social { display: flex; gap: 12px; margin-top: 18px; }
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 246, 240, 0.2);
+  color: var(--cream);
+  transition: transform 200ms var(--ease-out), background-color 200ms ease, border-color 200ms ease;
+}
+.footer-social svg { width: 20px; height: 20px; }
+.footer-social a:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) {
+  .footer-social a:hover { background: var(--gold); border-color: var(--gold); color: var(--leather); }
+}
+.footer-lang-title { margin-top: 26px; }
+.lang-switch--footer .lang-btn { color: rgba(250,246,240,.7); }
+.lang-switch--footer .lang-btn.is-active { color: var(--leather); background: var(--gold-soft); }
+@media (hover: hover) and (pointer: fine) {
+  .lang-switch--footer .lang-btn:hover { color: var(--cream); }
+}
+.footer-bottom {
+  padding: 22px;
+  border-top: 1px solid rgba(250, 246, 240, 0.12);
+  text-align: center;
+  font-size: 0.84rem;
+  color: rgba(250, 246, 240, 0.6);
+}
+
+
+/* ---------- 15. Bouton flottant de contact --------------------- */
+.contact-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Liste des actions (cachée tant que le bouton n'est pas ouvert) */
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* État fermé */
+  pointer-events: none;
+}
+.contact-actions li {
+  opacity: 0;
+  transform: translateY(12px) scale(0.85);
+  transition: transform 300ms var(--ease-out), opacity 220ms ease;
+}
+/* État ouvert : on révèle avec un léger décalage (stagger) du bas vers le haut */
+.contact-fab.is-open .contact-actions { pointer-events: auto; }
+.contact-fab.is-open .contact-actions li {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+/* Stagger : le plus proche du bouton apparaît en premier */
+.contact-fab.is-open .contact-actions li:nth-child(5) { transition-delay: 0ms; }
+.contact-fab.is-open .contact-actions li:nth-child(4) { transition-delay: 45ms; }
+.contact-fab.is-open .contact-actions li:nth-child(3) { transition-delay: 90ms; }
+.contact-fab.is-open .contact-actions li:nth-child(2) { transition-delay: 135ms; }
+.contact-fab.is-open .contact-actions li:nth-child(1) { transition-delay: 180ms; }
+
+.contact-action {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--leather);
+  box-shadow: var(--shadow-md);
+  transition: transform 180ms var(--ease-out), background-color 200ms ease, color 200ms ease;
+}
+.contact-action svg { width: 23px; height: 23px; }
+.contact-action:active { transform: scale(0.92); }
+.contact-action--whatsapp:hover  { background: #25d366; color: #fff; }
+.contact-action--instagram:hover { background: #d6249f; color: #fff; }
+.contact-action--facebook:hover  { background: #1877f2; color: #fff; }
+@media (hover: hover) and (pointer: fine) {
+  .contact-action:hover { transform: scale(1.06); }
+}
+/* Infobulle au survol (libellé visible) */
+.contact-action::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: var(--leather);
+  color: var(--cream);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  padding: 6px 11px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .contact-action:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+/* Bouton rond principal */
+.fab-toggle {
+  position: relative;
+  width: 60px; height: 60px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--leather);
+  color: var(--cream);
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: transform 220ms var(--ease-out), background-color 220ms ease;
+}
+.fab-toggle:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) {
+  .fab-toggle:hover { background: var(--leather-soft); }
+}
+.fab-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px; height: 26px;
+  transition: transform 260ms var(--ease-out), opacity 200ms ease;
+}
+/* Croisement des deux icônes (rotation douce) */
+.fab-icon--close { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+.contact-fab.is-open .fab-icon--open  { opacity: 0; transform: rotate(90deg) scale(0.6); }
+.contact-fab.is-open .fab-icon--close { opacity: 1; transform: rotate(0) scale(1); }
+
+
+/* ---------- 16. Animations d'apparition au défilement ---------- */
+/* État initial : invisible et légèrement décalé vers le bas */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Stagger : décalage progressif des enfants d'un conteneur [data-stagger].
+   L'index --i est défini en JS (script.js). */
+[data-stagger] > .reveal { transition-delay: calc(var(--i, 0) * 80ms); }
+
+
+/* ---------- 17. Responsive (tablette / bureau) ----------------- */
+
+/* Tablette */
+@media (min-width: 640px) {
+  .btn-order { display: inline-flex; }
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .service-grid { grid-template-columns: repeat(2, 1fr); }
+  .spa-grid { grid-template-columns: repeat(2, 1fr); }
+  .price-lists { grid-template-columns: repeat(2, 1fr); }
+  .price-list--wide { grid-column: 1 / -1; }
+  .price-rows--two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 38px;
+  }
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+
+/* Bureau */
+@media (min-width: 900px) {
+  .section { padding: 104px 0; }
+  .main-nav { display: flex; }
+  .nav-toggle { display: none; }
+  .about-inner { grid-template-columns: 0.85fr 1.15fr; gap: 56px; }
+  .hero { padding-top: calc(var(--header-h) + 96px); }
+}
+
+/* Grand écran */
+@media (min-width: 1100px) {
+  .service-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+
+/* ---------- 18. Accessibilité : mouvement réduit --------------- */
+/* On garde les fondus (compréhension) mais on retire les déplacements. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transform: none; transition: opacity 400ms ease; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.15s !important;
+  }
+  .reveal { transition-delay: 0ms !important; }
+}
