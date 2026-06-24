@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=6" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=7" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -829,27 +829,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
 
-      /* Hero (interim, gratuit) : « voyage + léger dézoom » piloté au défilement.
-         La caméra part rapprochée des souliers, recule en glissant (pan) et
-         dézoome jusqu'au moment où les Services apparaissent. Plus de course
-         de défilement pour laisser la cinématique respirer.
-         (Sera remplacé par la vraie vidéo orbit Higgsfield dès reconnexion.) */
+      /* Hero « Univers marin vivant » : la mer reste le grand décor pendant que
+         les souliers dézooment, pivotent en arc 3D (on voit les côtés) et se
+         séparent en deux ; la fumée marine s'élève, puis la scène cède la place
+         aux Services — dans le même décor de mer persistant. */
       try {
         const _hero=document.querySelector('.hero');
         const _ov=document.querySelector('.hero-overlay');
         const _bg=document.getElementById('hero-bg');
+        const _shoes=document.getElementById('hero-shoes');
+        const _mist=document.getElementById('hero-mist');
+        const _sl=document.querySelector('.shoe-l');
+        const _sr=document.querySelector('.shoe-r');
+        const _refl=document.querySelector('.hero-shoes-refl');
         if(_hero && _bg){
           if(window.matchMedia('(min-width:900px)').matches){
-            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=115%', pin:true, scrub:0.6, anticipatePin:1,
+            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=160%', pin:true, scrub:0.8, anticipatePin:1,
               onUpdate:self=>{ const p=self.progress;
-                /* voyage autour des souliers : dézoom + pan + léger arc de caméra 3D */
-                gsap.set(_bg, { transformPerspective:1500, transformOrigin:'60% 46%', scale:1.2-0.2*p, xPercent:-6*p, yPercent:3*p, rotationY:(6-12*p), rotationX:(1.5-3*p) });
-                if(_ov) gsap.set(_ov, { yPercent:-13*p, opacity:(1-Math.max(0,(p-0.55)/0.45)).toFixed(3) });
+                const sep=Math.pow(p,1.12);        /* écartement progressif, doux au départ */
+                const dz =1.16-0.32*p;             /* dézoom des souliers */
+                /* la mer demeure le décor dominant : très léger dézoom + dérive */
+                gsap.set(_bg, { transformPerspective:1600, transformOrigin:'50% 42%', scale:1.12-0.07*p, yPercent:-4*p, rotationX:(1-2*p).toFixed(2) });
+                /* souliers : arc de caméra 3D + dézoom + écartement (révèle les côtés) */
+                if(_sl) gsap.set(_sl, { xPercent:-24*sep, yPercent:-7*sep, rotationY:(15*sep).toFixed(2), z:40*sep, scale:dz, transformOrigin:'72% 60%' });
+                if(_sr) gsap.set(_sr, { xPercent: 24*sep, yPercent:-7*sep, rotationY:(-15*sep).toFixed(2), z:40*sep, scale:dz, transformOrigin:'28% 60%' });
+                if(_refl) gsap.set(_refl, { opacity:(0.2*(1-Math.min(1,p*1.4))).toFixed(3) });
+                /* fumée marine qui s'élève et s'intensifie ; texte qui monte et s'estompe */
+                if(_mist) gsap.set(_mist, { yPercent:-20*p, scale:1+0.12*p, opacity:(0.7+0.3*p).toFixed(2) });
+                if(_ov)   gsap.set(_ov,   { yPercent:-16*p, opacity:(1-Math.max(0,(p-0.5)/0.5)).toFixed(3) });
+                if(_shoes) _shoes.classList.toggle('is-parting', sep>0.1);
               }});
           } else {
             const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
-            gsap.fromTo(_bg, { scale:1.16 }, { scale:1.0, yPercent:8, ease:'none', scrollTrigger:stOpt });
-            if(_ov) gsap.to(_ov, { yPercent:-12, opacity:.3, ease:'none', scrollTrigger:stOpt });
+            gsap.fromTo(_bg, { scale:1.12 }, { scale:1.0, yPercent:7, ease:'none', scrollTrigger:stOpt });
+            gsap.to('.hero-shoes-bob', { yPercent:-8, ease:'none', scrollTrigger:stOpt });
+            if(_ov) gsap.to(_ov, { yPercent:-10, opacity:.3, ease:'none', scrollTrigger:stOpt });
           }
           ScrollTrigger.refresh();
         }
