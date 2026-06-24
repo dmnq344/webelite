@@ -80,6 +80,16 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .aurora .a1 { width: 560px; height: 560px; top: -160px; left: -120px; background: radial-gradient(circle, rgba(236,209,153,.40), transparent 65%); }
 .aurora .a2 { width: 640px; height: 640px; top: 32%; right: -200px; background: radial-gradient(circle, rgba(143,200,234,.34), transparent 65%); }
 .aurora .a3 { width: 520px; height: 520px; bottom: -180px; left: 24%; background: radial-gradient(circle, rgba(236,209,153,.20), transparent 65%); }
+/* Profondeur « NexusCore » : grille technique fine + halo, fixe, secondaire au contenu */
+.depth { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .55;
+  background-image:
+    radial-gradient(80% 55% at 50% 0%, rgba(143,200,234,.10), transparent 60%),
+    linear-gradient(rgba(191,226,245,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(191,226,245,.045) 1px, transparent 1px);
+  background-size: auto, 56px 56px, 56px 56px;
+  -webkit-mask-image: radial-gradient(115% 85% at 50% -5%, #000 8%, transparent 66%);
+          mask-image: radial-gradient(115% 85% at 50% -5%, #000 8%, transparent 66%); }
+
 /* Motif de vagues fluides (esprit spa / eau) — dérive lente continue */
 .waves {
   position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .06;
