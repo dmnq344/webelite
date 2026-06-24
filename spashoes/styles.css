@@ -155,6 +155,10 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* décor plein écran */
 .hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* séquence vidéo pilotée au scroll (canvas) — masque les couches statiques quand active */
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; z-index: 1; }
+.hero.seq-on .hero-canvas { display: block; }
+.hero.seq-on .hero-bg, .hero.seq-on .hero-caustics, .hero.seq-on .hero-foam, .hero.seq-on .hero-shoes { display: none; }
 .hero-bg { position: absolute; left: -6%; top: -9%; width: 112%; height: 122%; will-change: transform;
   background: url("assets/img/hero-sea.jpg") center 42% / cover no-repeat; }
 .hero-caustics { position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; pointer-events: none;

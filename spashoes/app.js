@@ -820,20 +820,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
 
-      /* Hero cinématique : la mer et les chaussures « jouent » au défilement
-         (parallaxe inversée — le fond descend, les chaussures montent et zooment) */
+      /* Hero : « vidéo » pilotée au défilement (séquence d'images sur canvas, épinglée)
+         — bureau uniquement ; sinon parallaxe douce sur les couches statiques */
       try {
         const _hero=document.querySelector('.hero');
-        const _bg=document.getElementById('hero-bg');
-        const _shoes=document.getElementById('hero-shoes');
         const _ov=document.querySelector('.hero-overlay');
-        if(_hero && (_bg||_shoes)){
+        const canSeq = _hero && document.getElementById('hero-canvas') &&
+                       window.matchMedia('(min-width:900px)').matches &&
+                       !!document.createElement('canvas').getContext;
+        if(canSeq){
+          initHeroSeq(_hero, _ov);
+        } else if(_hero){
+          const _bg=document.getElementById('hero-bg'), _shoes=document.getElementById('hero-shoes');
           const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
           if(_bg)    gsap.to(_bg,    { yPercent:16, scale:1.12, ease:'none', scrollTrigger:stOpt });
-          if(_shoes){
-            gsap.set(_shoes,{ xPercent:-50, yPercent:-50 }); /* reprend le centrage CSS, sans saut */
-            gsap.to(_shoes, { y:-150, scale:1.14, ease:'none', scrollTrigger:stOpt }); /* dérive en px, garde le centrage */
-          }
+          if(_shoes){ gsap.set(_shoes,{ xPercent:-50, yPercent:-50 });
+            gsap.to(_shoes, { y:-150, scale:1.14, ease:'none', scrollTrigger:stOpt }); }
           if(_ov)    gsap.to(_ov,    { yPercent:-10, opacity:.25, ease:'none', scrollTrigger:stOpt });
           ScrollTrigger.refresh();
         }
@@ -865,6 +867,39 @@ function initBA(){
   window.addEventListener('pointermove',e=>{if(drag)fromE(e);},{passive:true});
   window.addEventListener('pointerup',()=>drag=false);
   handle.addEventListener('keydown',e=>{const c=parseFloat(handle.getAttribute('aria-valuenow'))||50; if(e.key==='ArrowLeft'){set(c-4);e.preventDefault();} if(e.key==='ArrowRight'){set(c+4);e.preventDefault();}});
+}
+/* Séquence cinématique « vidéo » pilotée au défilement (canvas image-sequence scrub) */
+function initHeroSeq(hero, ov){
+  const cv=document.getElementById('hero-canvas'); if(!cv||!hero) return;
+  const N=24, frames=[]; let loaded=0, started=false, cur=0;
+  const ctx=cv.getContext('2d'); const dpr=Math.min(window.devicePixelRatio||1, 1.5);
+  for(let i=0;i<N;i++){
+    const im=new Image(); im.decoding='async';
+    im.src='assets/img/seq/f'+String(i).padStart(2,'0')+'.jpg';
+    im.onload=()=>{ loaded++; if(!started && loaded>=Math.min(5,N)) start(); };
+    im.onerror=()=>{ loaded++; };
+    frames.push(im);
+  }
+  function nearest(idx){ for(let d=0;d<N;d++){ const a=idx-d,b=idx+d;
+    if(a>=0&&frames[a].complete&&frames[a].naturalWidth) return frames[a];
+    if(b<N&&frames[b].complete&&frames[b].naturalWidth) return frames[b]; } return null; }
+  function draw(idx){ idx=Math.max(0,Math.min(N-1, idx|0)); cur=idx; const img=nearest(idx); if(!img) return;
+    const cw=cv.width, ch=cv.height, iw=img.naturalWidth, ih=img.naturalHeight;
+    const s=Math.max(cw/iw, ch/ih), w=iw*s, h=ih*s, x=(cw-w)/2, y=(ch-h)/2;
+    ctx.clearRect(0,0,cw,ch); ctx.drawImage(img,x,y,w,h); }
+  function size(){ const r=hero.getBoundingClientRect();
+    cv.width=Math.max(1,Math.round(r.width*dpr)); cv.height=Math.max(1,Math.round(r.height*dpr)); draw(cur); }
+  function start(){
+    started=true; hero.classList.add('seq-on'); size();
+    window.addEventListener('resize', size, {passive:true});
+    ScrollTrigger.create({ trigger:hero, start:'top top', end:'+=185%', pin:true, scrub:0.5, anticipatePin:1,
+      invalidateOnRefresh:true,
+      onRefresh:size,
+      onUpdate:self=>{ const p=self.progress; draw(Math.round(p*(N-1)));
+        if(ov){ ov.style.transform='translateY('+(-12*p).toFixed(2)+'%)'; ov.style.opacity=(1-Math.max(0,(p-0.6)/0.4)).toFixed(3); }
+      }});
+    ScrollTrigger.refresh();
+  }
 }
 function initTilt(){
   const tl=document.getElementById('hero-tilt'); if(!tl) return;
