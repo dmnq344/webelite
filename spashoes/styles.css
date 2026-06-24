@@ -239,6 +239,17 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   animation: seaShimmer 7.5s ease-in-out infinite alternate; }
 @keyframes seaShimmer { 0% { opacity: .45; transform: translateX(-2%) scale(1); } 100% { opacity: .82; transform: translateX(2%) scale(1.05); } }
 
+/* ---- Rayons de lumière volumétriques (god rays) depuis l'horizon ---- */
+.hero-rays { position: absolute; left: 0; right: 0; top: 0; height: 80%; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: .5;
+  background: repeating-linear-gradient(99deg, rgba(245,227,182,0) 0 30px, rgba(245,227,182,.085) 38px, rgba(245,227,182,0) 66px);
+  -webkit-mask: radial-gradient(72% 96% at 52% -4%, #000 8%, transparent 72%);
+          mask: radial-gradient(72% 96% at 52% -4%, #000 8%, transparent 72%);
+  transform-origin: 50% 0; animation: heroRays 15s ease-in-out infinite alternate; }
+@keyframes heroRays { 0% { opacity: .3; transform: translateX(-3%) skewX(-2.4deg); } 100% { opacity: .58; transform: translateX(3%) skewX(2.4deg); } }
+
+/* ---- Étincelles marines / poussière d'or (canvas) ---- */
+.hero-spark { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
+
 /* ---- Bandes de vagues qui dérivent en continu (ligne d'eau) ---- */
 .hero-waves { position: absolute; left: 0; right: 0; top: 43%; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden; opacity: .72;
   -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 86%, transparent);
@@ -380,6 +391,12 @@ html.js .service-grid .reveal-card.is-in { transform: none; filter: none; }
 .service-grid .reveal-card.is-in:nth-child(2) { transition-delay: .09s; }
 .service-grid .reveal-card.is-in:nth-child(3) { transition-delay: .18s; }
 .service-grid .reveal-card.is-in:nth-child(4) { transition-delay: .27s; }
+/* balayage de lumière sur le verre à l'apparition de l'encadré */
+.service-card::after { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background: linear-gradient(115deg, transparent 36%, rgba(255,255,255,.16) 48%, rgba(245,227,182,.10) 53%, transparent 62%);
+  transform: translateX(-130%); }
+.reveal-card.is-in .service-card::after { animation: glassSheen 1.15s var(--ease-lux) .22s 1; }
+@keyframes glassSheen { to { transform: translateX(130%); } }
 
 /* ---------- Réalisations / Avant-Après ---------- */
 .ba { position: relative; max-width: 440px; margin: 0 auto 44px; aspect-ratio: 4 / 5; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--sh-md); user-select: none; touch-action: pan-y; }

@@ -824,6 +824,36 @@ document.addEventListener('DOMContentLoaded', () => {
   /* tilt 3D */
   initTilt();
 
+  /* Étincelles marines / poussière d'or — canvas léger (reduced-motion + hors-écran = off) */
+  (function heroSparks(){
+    if(reduceMotion) return;
+    const cv=document.getElementById('hero-spark'); if(!cv) return;
+    const ctx=cv.getContext('2d',{alpha:true}); if(!ctx) return;
+    let W=0,H=0,dpr=1,parts=[],raf=null,vis=true,inview=true;
+    const N=44, rnd=(a,b)=>a+Math.random()*(b-a);
+    function resize(){ dpr=Math.min(2,window.devicePixelRatio||1); const r=cv.getBoundingClientRect();
+      W=cv.width=Math.max(1,Math.round(r.width*dpr)); H=cv.height=Math.max(1,Math.round(r.height*dpr)); }
+    function spawn(){ return { x:rnd(0,W), y:rnd(0,H), r:rnd(0.4,1.8)*dpr, s:rnd(0.05,0.32)*dpr, a:rnd(0.2,0.7), tw:rnd(0,6.28), tv:rnd(0.01,0.04), dx:rnd(-0.08,0.08)*dpr }; }
+    function build(){ resize(); parts=[]; for(let i=0;i<N;i++) parts.push(spawn()); }
+    function step(){ raf=null; if(!vis||!inview) return; ctx.clearRect(0,0,W,H);
+      for(const p of parts){ p.y-=p.s; p.x+=p.dx; p.tw+=p.tv;
+        if(p.y<-6){ p.y=H+6; p.x=rnd(0,W); } if(p.x<-6) p.x=W+6; else if(p.x>W+6) p.x=-6;
+        const al=p.a*(Math.sin(p.tw)*0.4+0.6);
+        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+        g.addColorStop(0,'rgba(245,227,182,'+al.toFixed(3)+')');
+        g.addColorStop(0.5,'rgba(191,226,245,'+(al*0.4).toFixed(3)+')');
+        g.addColorStop(1,'rgba(245,227,182,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*4,0,6.283); ctx.fill(); }
+      run(); }
+    function run(){ if(!raf&&vis&&inview) raf=requestAnimationFrame(step); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } }
+    build();
+    let rt=null; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(build,180); },{passive:true});
+    document.addEventListener('visibilitychange',()=>{ vis=!document.hidden; vis?run():stop(); });
+    if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ inview=es[0].isIntersecting; inview?run():stop(); },{threshold:0}); io.observe(cv); }
+    run();
+  })();
+
   /* GSAP : parallax + reveal cartes */
   if(window.gsap&&!reduceMotion){
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
