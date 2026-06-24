@@ -153,14 +153,13 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 /* ---------- Hero cinématique : mer plein écran + chaussures ---------- */
 .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; z-index: 2; padding: calc(var(--hdr) + 40px) 0 72px; }
 
-/* décor plein écran */
-.hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-/* séquence vidéo pilotée au scroll (canvas) — masque les couches statiques quand active */
-.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; z-index: 1; }
-.hero.seq-on .hero-canvas { display: block; }
-.hero.seq-on .hero-bg, .hero.seq-on .hero-caustics, .hero.seq-on .hero-foam, .hero.seq-on .hero-shoes { display: none; }
+/* décor plein écran — vraie image cinématographique (mer + souliers, Higgsfield) */
+.hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: var(--bg-2); }
 .hero-bg { position: absolute; left: -6%; top: -9%; width: 112%; height: 122%; will-change: transform;
-  background: url("assets/img/hero-sea.jpg") center 42% / cover no-repeat; }
+  background-image: url("https://d8j0ntlcm91z4.cloudfront.net/user_3FZRPw3o8jUiBnk6Q8WThDdlXSm/hf_20260624_071014_d1c09c39-9e0b-47c1-9fc9-d697b74ed0f0.png"), url("assets/img/hero-sea.jpg");
+  background-position: center 44%, center 42%; background-size: cover, cover; background-repeat: no-repeat, no-repeat; }
+/* couches procédurales désormais incrustées dans l'image → masquées */
+.hero-foam, .hero-caustics, .hero-shoes { display: none; }
 .hero-caustics { position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; pointer-events: none;
   background: radial-gradient(40% 30% at 60% 44%, rgba(245,227,182,.30), transparent 70%),
               radial-gradient(64% 42% at 48% 102%, rgba(143,200,234,.20), transparent 72%);
