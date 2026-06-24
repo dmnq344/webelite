@@ -829,6 +829,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
 
+      /* Mer continue : le décor « suit » le défilement (parallaxe lente + léger zoom) */
+      const _world=document.querySelector('.world-sea');
+      if(_world) gsap.to(_world,{ yPercent:10, scale:1.08, ease:'none', transformOrigin:'50% 50%',
+        scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:true } });
+
       /* Hero « Univers marin vivant » : la mer reste le grand décor pendant que
          les souliers dézooment, pivotent en arc 3D (on voit les côtés) et se
          séparent en deux ; la fumée marine s'élève, puis la scène cède la place
