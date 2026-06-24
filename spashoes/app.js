@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=5" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=6" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -842,7 +842,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if(window.matchMedia('(min-width:900px)').matches){
             ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=115%', pin:true, scrub:0.6, anticipatePin:1,
               onUpdate:self=>{ const p=self.progress;
-                gsap.set(_bg, { scale:1.2-0.2*p, xPercent:-6*p, yPercent:3*p });
+                /* voyage autour des souliers : dézoom + pan + léger arc de caméra 3D */
+                gsap.set(_bg, { transformPerspective:1500, transformOrigin:'60% 46%', scale:1.2-0.2*p, xPercent:-6*p, yPercent:3*p, rotationY:(6-12*p), rotationX:(1.5-3*p) });
                 if(_ov) gsap.set(_ov, { yPercent:-13*p, opacity:(1-Math.max(0,(p-0.55)/0.45)).toFixed(3) });
               }});
           } else {
