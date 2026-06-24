@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=9" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=10" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -885,7 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.set(_bg, { transformPerspective:1600, transformOrigin:'50% 42%', scale:1.12-0.07*p, yPercent:-4*p, rotationX:(1-2*p).toFixed(2) });
                 /* la paire entière pivote (les deux vues partagent la même rotation) */
                 if(_shoe) gsap.set(_shoe, { rotationY:rot, scale:dz, yPercent:-5*p, opacity:(1-fade*0.9).toFixed(3) });
-                if(_alt)  gsap.set(_alt,  { rotationY:rot, scale:dz, yPercent:-5*p, opacity:fade.toFixed(3) });
+                if(_alt)  gsap.set(_alt,  { rotationY:rot, scale:dz*1.14, yPercent:-5*p-3, opacity:fade.toFixed(3) });
                 if(_refl) gsap.set(_refl, { opacity:(0.18*(1-Math.min(1,p*1.4))).toFixed(3) });
                 /* fumée marine qui s'élève et s'intensifie ; texte qui monte et s'estompe */
                 if(_mist) gsap.set(_mist, { yPercent:-20*p, scale:1+0.12*p, opacity:(0.7+0.3*p).toFixed(2) });
