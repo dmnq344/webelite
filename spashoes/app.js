@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=15" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=16" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -883,19 +883,19 @@ document.addEventListener('DOMContentLoaded', () => {
                1) souliers TERNES → 2) ils deviennent BRILLANTS & parfaits →
                3) le soleil s'approche, ils se SUBLIMENT dans la lumière pendant que
                   la mer descend et que le soleil se couche (arrivée aux Services sous l'eau). */
-            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=230%', pin:true, scrub:0.9, anticipatePin:1,
+            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=150%', pin:true, scrub:0.9, anticipatePin:1,
               onUpdate:self=>{ const p=self.progress;
-                const T=seg(p,0.24,0.56);    /* transformation terne → brillant */
-                const E=seg(p,0.58,0.92);    /* sublimation / évaporation dans la lumière */
-                const Dn=seg(p,0.5,1);       /* descente sous la mer */
-                const bloom=Math.sin(seg(p,0.5,0.97)*Math.PI);  /* éclat qui culmine puis retombe */
+                const T=seg(p,0.05,0.40);    /* transformation terne → brillant, dès le début du défilement */
+                const E=seg(p,0.52,0.84);    /* sublimation / évaporation dans la lumière */
+                const Dn=seg(p,0.46,1);      /* descente sous la mer */
+                const bloom=Math.sin(seg(p,0.46,0.96)*Math.PI);  /* éclat qui culmine puis retombe */
 
                 /* mer : descente (monte + zoom) + eau profonde qui envahit */
                 if(_world) gsap.set(_world, { yPercent:-15*Dn, scale:1+0.22*Dn });
                 if(_deep)  gsap.set(_deep,  { opacity:(Dn*0.96).toFixed(3) });
 
-                /* souliers : terne → brillant → sublimation (montée + éclat, jamais un simple « pouf ») */
-                const br=(0.7+0.42*T+0.85*E), ct=(0.82+0.32*T), sa=(0.55+0.55*T), bl=(0.55*(1-T)+3.6*E);
+                /* souliers : terne & sombre → clair & brillant → sublimation (montée + éclat) */
+                const br=(0.6+0.55*T+0.85*E), ct=(0.78+0.36*T), sa=(0.45+0.62*T), bl=(0.8*(1-T)+3.6*E);
                 if(_shoe) gsap.set(_shoe, { transformPerspective:1400, rotationY:(8*T).toFixed(2), rotationX:(2-4*Dn).toFixed(2),
                     scale:(1.0+0.07*T+0.16*E), yPercent:(-6*T-48*E), opacity:(1-Math.min(1,E*1.05)).toFixed(3),
                     filter:'blur('+bl.toFixed(2)+'px) brightness('+br.toFixed(3)+') contrast('+ct.toFixed(3)+') saturate('+sa.toFixed(3)+')' });
@@ -903,16 +903,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(_caustic) gsap.set(_caustic, { opacity:0 });
 
                 /* soleil : s'approche (grandit + s'éclaire), puis se couche avec la descente */
-                if(_sun)   gsap.set(_sun,   { opacity:(Math.max(seg(p,0.34,0.7), bloom*0.7)*(1-0.75*seg(p,0.86,1))).toFixed(3),
-                    scale:(0.6+1.05*seg(p,0.34,0.82)), xPercent:(-14*(1-seg(p,0.34,0.72))).toFixed(1), yPercent:(40*Dn).toFixed(1) });
+                if(_sun)   gsap.set(_sun,   { opacity:(Math.max(seg(p,0.3,0.62), bloom*0.7)*(1-0.78*seg(p,0.82,1))).toFixed(3),
+                    scale:(0.6+1.05*seg(p,0.3,0.74)), xPercent:(-14*(1-seg(p,0.3,0.64))).toFixed(1), yPercent:(40*Dn).toFixed(1) });
                 /* éclat de sublimation des souliers */
-                if(_bloom) gsap.set(_bloom, { opacity:(bloom*0.96).toFixed(3), scale:(0.5+2.1*seg(p,0.5,1)) });
+                if(_bloom) gsap.set(_bloom, { opacity:(bloom*0.96).toFixed(3), scale:(0.5+2.1*seg(p,0.46,1)) });
                 /* halo doré de base : présent à la transformation, éteint en profondeur */
                 if(_radiance) gsap.set(_radiance, { opacity:(0.72*(1-Math.max(0.25*T, 0.92*Dn))).toFixed(3) });
 
                 if(_bg)   gsap.set(_bg, { transformPerspective:1600, transformOrigin:'50% 42%', scale:1.12-0.05*Dn, yPercent:-4*Dn, opacity:(1-0.55*Dn).toFixed(3) });
                 if(_mist) gsap.set(_mist, { yPercent:-22*Dn, scale:1+0.14*Dn, opacity:(0.5+0.4*Dn).toFixed(2) });
-                if(_ov)   gsap.set(_ov,   { yPercent:(-16*p).toFixed(1), opacity:(1-seg(p,0.16,0.46)).toFixed(3) });
+                if(_ov)   gsap.set(_ov,   { yPercent:(-16*p).toFixed(1), opacity:(1-seg(p,0.1,0.36)).toFixed(3) });
               }});
           } else {
             const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
