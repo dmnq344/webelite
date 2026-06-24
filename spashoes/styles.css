@@ -75,12 +75,19 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .section-intro { margin-top: 16px; color: var(--muted); font-size: 1.05rem; }
 
 /* ---------- Décor : mer continue (environnement persistant qui suit le scroll) ---------- */
-.world-sea { position: fixed; inset: -8% 0 -8% 0; z-index: 0; pointer-events: none; will-change: transform;
-  background: url("assets/img/hero-sea.jpg?v=8") center 32% / cover no-repeat;
-  filter: brightness(.6) saturate(.92) contrast(1.02); }
+/* ---------- Décor : mer stylisée (couleurs + motifs animés, continue au scroll) ---------- */
+.world-sea { position: fixed; inset: -8% 0 -8% 0; z-index: 0; pointer-events: none; overflow: hidden; will-change: transform;
+  background:
+    radial-gradient(110% 66% at 50% 4%, rgba(143,200,234,.30), transparent 56%),
+    radial-gradient(78% 38% at 50% 26%, rgba(245,227,182,.16), transparent 60%),
+    linear-gradient(180deg, #0c2c48 0%, #14517d 30%, #0f4067 55%, #0a2842 80%, #071f36 100%); }
+/* motifs de vagues qui s'écoulent (lignes fluides, esprit mer) */
+.world-sea::before { content: ""; position: absolute; inset: -12% -22%; mix-blend-mode: screen; opacity: .2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='110'%3E%3Cg fill='none' stroke='%23bfe2f5' stroke-width='1.1'%3E%3Cpath d='M0 22 Q80 8 160 22 T320 22'/%3E%3Cpath d='M0 50 Q80 36 160 50 T320 50' stroke='%23ecd199'/%3E%3Cpath d='M0 78 Q80 64 160 78 T320 78'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 320px 110px; animation: seaPattern 42s linear infinite; }
+@keyframes seaPattern { to { background-position: 320px 0; } }
 .world-sea::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(6,16,28,.60) 0%, rgba(5,14,26,.76) 46%, rgba(3,10,20,.92) 100%),
-              radial-gradient(82% 50% at 50% 0%, rgba(143,200,234,.07), transparent 60%); }
+  background: linear-gradient(180deg, transparent 0%, rgba(7,21,37,.22) 58%, rgba(5,16,30,.5) 100%); }
 
 /* ---------- Décor : aurora + vagues ---------- */
 .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -209,15 +216,13 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 /* ---------- Hero cinématique : mer plein écran + chaussures ---------- */
 .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; z-index: 2; padding: calc(var(--hdr) + 40px) 0 72px; }
 
-/* décor plein écran — mer vivante (fond d'écran dominant, étalonnage navy + or) */
-.hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: var(--bg-2); }
+/* décor du hero — la même mer continue (world-sea) transparaît, + lueur d'intro lumineuse */
+.hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .hero-bg { position: absolute; left: -6%; top: -9%; width: 112%; height: 122%; will-change: transform; transform-origin: 50% 44%;
-  background-image:
-    radial-gradient(120% 80% at 50% 6%, rgba(236,209,153,.12), transparent 52%),
-    radial-gradient(60% 34% at 50% 34%, rgba(245,227,182,.18), transparent 64%),
-    url("assets/img/hero-sea.jpg?v=8");
-  background-position: center 40%, center 40%, center 42%;
-  background-size: cover, cover, cover; background-repeat: no-repeat; }
+  background:
+    radial-gradient(95% 56% at 50% 2%, rgba(191,226,245,.36), transparent 56%),
+    radial-gradient(70% 40% at 50% 28%, rgba(245,227,182,.22), transparent 62%),
+    linear-gradient(180deg, rgba(20,81,125,.32) 0%, transparent 52%); }
 /* anciennes couches procédurales (remplacées par hero-waves / hero-mist) */
 .hero-foam, .hero-caustics { display: none; }
 .hero-caustics { position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; pointer-events: none;
@@ -281,39 +286,27 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   100% { opacity: 0;   transform: translate(34px, -46px) scale(1.3); }
 }
 
-/* ---- Souliers : couche 3D flottante (dézoom + rotation + séparation au scroll) ---- */
+/* ---- Souliers : paire unique, rayonnante & brillante (légère rotation 3D au scroll) ---- */
 .hero-shoes { position: absolute; left: 50%; top: 56%; width: min(320px, 58vw); transform: translate(-50%, -50%); z-index: 3; pointer-events: none;
   perspective: 1500px; }
 .hero-shoes-bob { position: relative; width: 100%; animation: shoeFloat 6.8s ease-in-out infinite; transform-style: preserve-3d; }
-.hero-shoes .shoe { position: absolute; inset: 0; width: 100%; will-change: transform; backface-visibility: hidden; }
-.hero-shoes .shoe img { display: block; width: 100%; filter: drop-shadow(0 32px 44px rgba(0,0,0,.62)); }
-/* la paire est scindée en deux moitiés (couture adoucie) → séparation propre au scroll */
-.hero-shoes .shoe-l img { -webkit-mask: linear-gradient(90deg, #000 0, #000 58%, transparent 73%); mask: linear-gradient(90deg, #000 0, #000 58%, transparent 73%); }
-.hero-shoes .shoe-r img { -webkit-mask: linear-gradient(90deg, transparent 57%, #000 72%, #000 100%); mask: linear-gradient(90deg, transparent 57%, #000 72%, #000 100%); }
-/* la première moitié (.shoe-l) reste au-dessus pour porter le texte alt + le fetchpriority */
-.hero-shoes .shoe-l { position: relative; z-index: 2; }
-.hero-shoes-glow { position: absolute; left: 50%; top: 52%; width: 82%; height: 34%; transform: translateX(-50%); border-radius: 50%; filter: blur(30px); z-index: 0;
-  background: radial-gradient(ellipse, rgba(245,227,182,.55), rgba(143,200,234,.30) 46%, transparent 72%); }
+.hero-shoes .shoe { width: 100%; will-change: transform; transform-origin: 50% 58%; }
+.hero-shoes .shoe-main { position: relative; z-index: 1; }
+/* seconde vue (autre côté brillant) — apparaît en fondu pendant la rotation */
+.hero-shoes .shoe-alt { position: absolute; inset: 0; z-index: 1; opacity: 0; }
+.hero-shoes .shoe img { display: block; width: 100%;
+  filter: drop-shadow(0 30px 44px rgba(0,0,0,.6)) brightness(1.07) contrast(1.08) saturate(1.05); }
+/* rayonnement doré qui respire derrière les souliers (« rayonnantes ») */
+.hero-shoes-radiance { position: absolute; left: 50%; top: 48%; width: 124%; height: 98%; transform: translate(-50%,-50%); z-index: 0; pointer-events: none; border-radius: 50%; filter: blur(26px);
+  background: radial-gradient(ellipse at center, rgba(245,227,182,.52), rgba(191,226,245,.26) 45%, transparent 72%);
+  animation: shoeRadiance 5.6s ease-in-out infinite; }
+@keyframes shoeRadiance { 0%,100% { opacity: .55; transform: translate(-50%,-50%) scale(.95); } 50% { opacity: .92; transform: translate(-50%,-50%) scale(1.07); } }
+.hero-shoes-glow { position: absolute; left: 50%; top: 62%; width: 78%; height: 28%; transform: translateX(-50%); border-radius: 50%; filter: blur(28px); z-index: 0;
+  background: radial-gradient(ellipse, rgba(245,227,182,.48), rgba(143,200,234,.24) 46%, transparent 72%); }
 /* reflet doux de la paire sur l'eau */
-.hero-shoes-refl { position: absolute; left: 0; top: 90%; width: 100%; transform: scaleY(-1); opacity: .20; filter: blur(2px); z-index: 0;
+.hero-shoes-refl { position: absolute; left: 0; top: 90%; width: 100%; transform: scaleY(-1); opacity: .18; filter: blur(2px); z-index: 0;
   -webkit-mask: linear-gradient(#000, transparent 60%); mask: linear-gradient(#000, transparent 60%); }
-/* éclat spéculaire qui balaie le cuir verni en continu (« brillance ») — limité à la silhouette */
-.hero-shoes-gloss { position: absolute; inset: 0; z-index: 3; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=8") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=8") center top / 100% auto no-repeat;
-  background: linear-gradient(112deg, transparent 40%, rgba(255,251,238,.9) 48%, rgba(245,227,182,.65) 53%, transparent 63%);
-  background-size: 260% 100%; background-position: 130% 0; background-repeat: no-repeat;
-  animation: glossSweep 5s ease-in-out infinite; }
-@keyframes glossSweep {
-  0%   { background-position: 135% 0; opacity: 0; }
-  34%  { opacity: .95; }
-  68%  { opacity: .5; }
-  100% { background-position: -35% 0; opacity: 0; }
-}
 @keyframes shoeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-13px); } }
-/* pendant la séparation, l'éclat (calé sur la paire centrée) s'efface proprement */
-.hero-shoes.is-parting .hero-shoes-gloss { opacity: 0 !important; animation: none; }
-.hero-shoes.is-parting .hero-shoes-glow { opacity: .35; }
 
 /* voile de lisibilité */
 .hero-scrim { position: absolute; inset: 0; z-index: 3; pointer-events: none;
