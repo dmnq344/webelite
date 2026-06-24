@@ -840,10 +840,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const _bg=document.getElementById('hero-bg');
         if(_hero && _bg){
           if(window.matchMedia('(min-width:900px)').matches){
-            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=240%', pin:true, scrub:0.7, anticipatePin:1,
+            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=115%', pin:true, scrub:0.6, anticipatePin:1,
               onUpdate:self=>{ const p=self.progress;
-                gsap.set(_bg, { scale:1.24-0.24*p, xPercent:-7*p, yPercent:3*p });
-                if(_ov) gsap.set(_ov, { yPercent:-13*p, opacity:(1-Math.max(0,(p-0.5)/0.5)).toFixed(3) });
+                gsap.set(_bg, { scale:1.2-0.2*p, xPercent:-6*p, yPercent:3*p });
+                if(_ov) gsap.set(_ov, { yPercent:-13*p, opacity:(1-Math.max(0,(p-0.55)/0.45)).toFixed(3) });
               }});
           } else {
             const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
