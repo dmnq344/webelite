@@ -74,20 +74,18 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .section-head--center { margin-inline: auto; text-align: center; }
 .section-intro { margin-top: 16px; color: var(--muted); font-size: 1.05rem; }
 
-/* ---------- Décor : mer continue (environnement persistant qui suit le scroll) ---------- */
-/* ---------- Décor : mer stylisée (couleurs + motifs animés, continue au scroll) ---------- */
+/* ---------- Décor : vraie mer photoréaliste, dynamique, continue au scroll ---------- */
 .world-sea { position: fixed; inset: -8% 0 -8% 0; z-index: 0; pointer-events: none; overflow: hidden; will-change: transform;
-  background:
-    radial-gradient(110% 66% at 50% 4%, rgba(143,200,234,.30), transparent 56%),
-    radial-gradient(78% 38% at 50% 26%, rgba(245,227,182,.16), transparent 60%),
-    linear-gradient(180deg, #0c2c48 0%, #14517d 30%, #0f4067 55%, #0a2842 80%, #071f36 100%); }
-/* motifs de vagues qui s'écoulent (lignes fluides, esprit mer) */
-.world-sea::before { content: ""; position: absolute; inset: -12% -22%; mix-blend-mode: screen; opacity: .2;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='110'%3E%3Cg fill='none' stroke='%23bfe2f5' stroke-width='1.1'%3E%3Cpath d='M0 22 Q80 8 160 22 T320 22'/%3E%3Cpath d='M0 50 Q80 36 160 50 T320 50' stroke='%23ecd199'/%3E%3Cpath d='M0 78 Q80 64 160 78 T320 78'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 320px 110px; animation: seaPattern 42s linear infinite; }
-@keyframes seaPattern { to { background-position: 320px 0; } }
+  background: url("https://d8j0ntlcm91z4.cloudfront.net/user_3FZRPw3o8jUiBnk6Q8WThDdlXSm/hf_20260624_175315_d38111a8-edb8-47fc-9892-1acd8201e83b.png") center 38% / cover no-repeat; }
+/* miroitement doré dynamique sur l'eau (donne le côté « mer vivante ») */
+.world-sea::before { content: ""; position: absolute; inset: 0; mix-blend-mode: screen; pointer-events: none;
+  background: radial-gradient(58% 28% at 50% 48%, rgba(245,227,182,.32), transparent 70%),
+              radial-gradient(120% 52% at 50% 52%, rgba(143,200,234,.12), transparent 74%);
+  animation: seaShine 8.5s ease-in-out infinite alternate; }
+@keyframes seaShine { 0% { opacity: .4; transform: translateX(-2.2%) scale(1); } 100% { opacity: .78; transform: translateX(2.2%) scale(1.04); } }
+/* léger fondu de profondeur (lisibilité), volontairement discret pour garder la mer au 1er plan */
 .world-sea::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(7,21,37,.22) 58%, rgba(5,16,30,.5) 100%); }
+  background: linear-gradient(180deg, rgba(8,24,40,.10) 0%, rgba(7,21,37,.26) 58%, rgba(5,16,30,.5) 100%); }
 
 /* ---------- Décor : aurora + vagues ---------- */
 .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -257,7 +255,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .hero-spark { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
 
 /* ---- Bandes de vagues qui dérivent en continu (ligne d'eau) ---- */
-.hero-waves { position: absolute; left: 0; right: 0; top: 43%; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden; opacity: .4;
+.hero-waves { position: absolute; left: 0; right: 0; top: 43%; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden; opacity: .24;
   -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 86%, transparent);
           mask: linear-gradient(180deg, transparent, #000 20%, #000 86%, transparent); }
 .hero-waves .hw { position: absolute; left: -22%; width: 144%; background-repeat: repeat-x; will-change: background-position; }
