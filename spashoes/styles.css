@@ -76,10 +76,11 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* ---------- Décor : mer continue (environnement persistant qui suit le scroll) ---------- */
 .world-sea { position: fixed; inset: -8% 0 -8% 0; z-index: 0; pointer-events: none; will-change: transform;
-  background: url("assets/img/hero-sea.jpg?v=7") center 32% / cover no-repeat; }
+  background: url("assets/img/hero-sea.jpg?v=8") center 32% / cover no-repeat;
+  filter: brightness(.6) saturate(.92) contrast(1.02); }
 .world-sea::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(8,26,44,.28) 0%, rgba(10,30,50,.58) 44%, rgba(6,18,32,.82) 100%),
-              radial-gradient(80% 50% at 50% 0%, rgba(143,200,234,.10), transparent 60%); }
+  background: linear-gradient(180deg, rgba(6,16,28,.60) 0%, rgba(5,14,26,.76) 46%, rgba(3,10,20,.92) 100%),
+              radial-gradient(82% 50% at 50% 0%, rgba(143,200,234,.07), transparent 60%); }
 
 /* ---------- Décor : aurora + vagues ---------- */
 .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -214,7 +215,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   background-image:
     radial-gradient(120% 80% at 50% 6%, rgba(236,209,153,.12), transparent 52%),
     radial-gradient(60% 34% at 50% 34%, rgba(245,227,182,.18), transparent 64%),
-    url("assets/img/hero-sea.jpg?v=7");
+    url("assets/img/hero-sea.jpg?v=8");
   background-position: center 40%, center 40%, center 42%;
   background-size: cover, cover, cover; background-repeat: no-repeat; }
 /* anciennes couches procédurales (remplacées par hero-waves / hero-mist) */
@@ -251,7 +252,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .hero-spark { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
 
 /* ---- Bandes de vagues qui dérivent en continu (ligne d'eau) ---- */
-.hero-waves { position: absolute; left: 0; right: 0; top: 43%; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden; opacity: .72;
+.hero-waves { position: absolute; left: 0; right: 0; top: 43%; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden; opacity: .4;
   -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 86%, transparent);
           mask: linear-gradient(180deg, transparent, #000 20%, #000 86%, transparent); }
 .hero-waves .hw { position: absolute; left: -22%; width: 144%; background-repeat: repeat-x; will-change: background-position; }
@@ -298,8 +299,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   -webkit-mask: linear-gradient(#000, transparent 60%); mask: linear-gradient(#000, transparent 60%); }
 /* éclat spéculaire qui balaie le cuir verni en continu (« brillance ») — limité à la silhouette */
 .hero-shoes-gloss { position: absolute; inset: 0; z-index: 3; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=7") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=7") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=8") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=8") center top / 100% auto no-repeat;
   background: linear-gradient(112deg, transparent 40%, rgba(255,251,238,.9) 48%, rgba(245,227,182,.65) 53%, transparent 63%);
   background-size: 260% 100%; background-position: 130% 0; background-repeat: no-repeat;
   animation: glossSweep 5s ease-in-out infinite; }

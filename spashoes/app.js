@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=7" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=8" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -830,10 +830,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cv=document.getElementById('hero-spark'); if(!cv) return;
     const ctx=cv.getContext('2d',{alpha:true}); if(!ctx) return;
     let W=0,H=0,dpr=1,parts=[],raf=null,vis=true,inview=true;
-    const N=44, rnd=(a,b)=>a+Math.random()*(b-a);
+    const N=38, rnd=(a,b)=>a+Math.random()*(b-a);
     function resize(){ dpr=Math.min(2,window.devicePixelRatio||1); const r=cv.getBoundingClientRect();
       W=cv.width=Math.max(1,Math.round(r.width*dpr)); H=cv.height=Math.max(1,Math.round(r.height*dpr)); }
-    function spawn(){ return { x:rnd(0,W), y:rnd(0,H), r:rnd(0.4,1.8)*dpr, s:rnd(0.05,0.32)*dpr, a:rnd(0.2,0.7), tw:rnd(0,6.28), tv:rnd(0.01,0.04), dx:rnd(-0.08,0.08)*dpr }; }
+    function spawn(){ return { x:rnd(0,W), y:rnd(0,H), r:rnd(0.3,1.2)*dpr, s:rnd(0.04,0.22)*dpr, a:rnd(0.14,0.46), tw:rnd(0,6.28), tv:rnd(0.008,0.03), dx:rnd(-0.06,0.06)*dpr }; }
     function build(){ resize(); parts=[]; for(let i=0;i<N;i++) parts.push(spawn()); }
     function step(){ raf=null; if(!vis||!inview) return; ctx.clearRect(0,0,W,H);
       for(const p of parts){ p.y-=p.s; p.x+=p.dx; p.tw+=p.tv;
