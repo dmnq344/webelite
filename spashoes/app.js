@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=11" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=12" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -879,12 +879,11 @@ document.addEventListener('DOMContentLoaded', () => {
           if(window.matchMedia('(min-width:900px)').matches){
             ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=160%', pin:true, scrub:0.8, anticipatePin:1,
               onUpdate:self=>{ const p=self.progress;
-                const dz=1.05-0.12*p;              /* léger dézoom */
-                const rotY=(-12+28*p).toFixed(2);  /* belle rotation 3D : on découvre l'angle */
-                const rotX=(2-4*p).toFixed(2);
+                const dz=1.14-0.2*p;               /* dézoom 3D doux (la paire recule légèrement) */
+                const rotX=(4-8*p).toFixed(2);     /* léger basculement 3D vertical (jamais de va-et-vient latéral) */
                 gsap.set(_bg, { transformPerspective:1600, transformOrigin:'50% 42%', scale:1.12-0.07*p, yPercent:-4*p, rotationX:(1-2*p).toFixed(2) });
-                /* la paire reste entière et toujours visible : elle pivote en 3D, ne disparaît pas */
-                if(_shoe) gsap.set(_shoe, { transformPerspective:1400, rotationY:rotY, rotationX:rotX, scale:dz, yPercent:-7*p });
+                /* la paire reste entière et toujours visible : dézoom 3D + léger basculement (pas de flip latéral) */
+                if(_shoe) gsap.set(_shoe, { transformPerspective:1400, rotationX:rotX, scale:dz, yPercent:-8*p });
                 if(_refl) gsap.set(_refl, { opacity:(0.18*(1-Math.min(1,p*1.4))).toFixed(3) });
                 /* fumée marine qui s'élève et s'intensifie ; texte qui monte et s'estompe */
                 if(_mist) gsap.set(_mist, { yPercent:-20*p, scale:1+0.12*p, opacity:(0.7+0.3*p).toFixed(2) });

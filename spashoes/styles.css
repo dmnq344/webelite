@@ -76,16 +76,17 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* ---------- Décor : vraie mer photoréaliste, dynamique, continue au scroll ---------- */
 .world-sea { position: fixed; inset: -8% 0 -8% 0; z-index: 0; pointer-events: none; overflow: hidden; will-change: transform;
-  background: url("https://d8j0ntlcm91z4.cloudfront.net/user_3FZRPw3o8jUiBnk6Q8WThDdlXSm/hf_20260624_175315_d38111a8-edb8-47fc-9892-1acd8201e83b.png") center 38% / cover no-repeat; }
-/* miroitement doré dynamique sur l'eau (donne le côté « mer vivante ») */
+  background: url("https://d8j0ntlcm91z4.cloudfront.net/user_3FZRPw3o8jUiBnk6Q8WThDdlXSm/hf_20260624_175315_d38111a8-edb8-47fc-9892-1acd8201e83b.png") center 40% / cover no-repeat;
+  filter: brightness(.66) saturate(.98) contrast(1.04); }
+/* miroitement doré dynamique sur l'eau (mer vivante, discret) */
 .world-sea::before { content: ""; position: absolute; inset: 0; mix-blend-mode: screen; pointer-events: none;
-  background: radial-gradient(58% 28% at 50% 48%, rgba(245,227,182,.32), transparent 70%),
-              radial-gradient(120% 52% at 50% 52%, rgba(143,200,234,.12), transparent 74%);
-  animation: seaShine 8.5s ease-in-out infinite alternate; }
-@keyframes seaShine { 0% { opacity: .4; transform: translateX(-2.2%) scale(1); } 100% { opacity: .78; transform: translateX(2.2%) scale(1.04); } }
-/* léger fondu de profondeur (lisibilité), volontairement discret pour garder la mer au 1er plan */
+  background: radial-gradient(54% 26% at 50% 46%, rgba(245,227,182,.24), transparent 70%);
+  animation: seaShine 9s ease-in-out infinite alternate; }
+@keyframes seaShine { 0% { opacity: .32; transform: translateX(-2%) scale(1); } 100% { opacity: .6; transform: translateX(2%) scale(1.03); } }
+/* vignette cinématographique (bords sombres → hero « spectaculaire ») */
 .world-sea::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(8,24,40,.10) 0%, rgba(7,21,37,.26) 58%, rgba(5,16,30,.5) 100%); }
+  background: radial-gradient(122% 86% at 50% 42%, transparent 30%, rgba(4,11,22,.64) 100%),
+              linear-gradient(180deg, rgba(6,16,28,.22) 0%, rgba(5,14,26,.42) 60%, rgba(3,9,18,.7) 100%); }
 
 /* ---------- Décor : aurora + vagues ---------- */
 .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -218,9 +219,9 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .hero-bg { position: absolute; left: -6%; top: -9%; width: 112%; height: 122%; will-change: transform; transform-origin: 50% 44%;
   background:
-    radial-gradient(95% 56% at 50% 2%, rgba(191,226,245,.36), transparent 56%),
-    radial-gradient(70% 40% at 50% 28%, rgba(245,227,182,.22), transparent 62%),
-    linear-gradient(180deg, rgba(20,81,125,.32) 0%, transparent 52%); }
+    radial-gradient(44% 40% at 67% 54%, rgba(245,227,182,.26), transparent 62%),   /* spot de lumière sur les souliers */
+    radial-gradient(90% 50% at 50% -2%, rgba(143,200,234,.16), transparent 55%),    /* lueur d'horizon */
+    radial-gradient(120% 96% at 50% 50%, transparent 44%, rgba(4,11,22,.46) 100%);  /* vignette */ }
 /* anciennes couches procédurales (remplacées par hero-waves / hero-mist) */
 .hero-foam, .hero-caustics { display: none; }
 .hero-caustics { position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; pointer-events: none;
@@ -244,7 +245,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes seaShimmer { 0% { opacity: .45; transform: translateX(-2%) scale(1); } 100% { opacity: .82; transform: translateX(2%) scale(1.05); } }
 
 /* ---- Rayons de lumière volumétriques (god rays) depuis l'horizon ---- */
-.hero-rays { position: absolute; left: 0; right: 0; top: 0; height: 80%; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: .5;
+.hero-rays { position: absolute; left: 0; right: 0; top: 0; height: 80%; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: .3;
   background: repeating-linear-gradient(99deg, rgba(245,227,182,0) 0 30px, rgba(245,227,182,.085) 38px, rgba(245,227,182,0) 66px);
   -webkit-mask: radial-gradient(72% 96% at 52% -4%, #000 8%, transparent 72%);
           mask: radial-gradient(72% 96% at 52% -4%, #000 8%, transparent 72%);
@@ -304,7 +305,11 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 /* reflet doux de la paire sur l'eau */
 .hero-shoes-refl { position: absolute; left: 0; top: 90%; width: 100%; transform: scaleY(-1); opacity: .18; filter: blur(2px); z-index: 0;
   -webkit-mask: linear-gradient(#000, transparent 60%); mask: linear-gradient(#000, transparent 60%); }
-@keyframes shoeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-13px); } }
+/* balancement 3D au repos (vivant, type « hero spectaculaire ») + flottement */
+@keyframes shoeFloat {
+  0%, 100% { transform: translateY(0) rotateY(-3.5deg) rotateX(1deg); }
+  50%      { transform: translateY(-12px) rotateY(3.5deg) rotateX(-1deg); }
+}
 
 /* voile de lisibilité */
 .hero-scrim { position: absolute; inset: 0; z-index: 3; pointer-events: none;
