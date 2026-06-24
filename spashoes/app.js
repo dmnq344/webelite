@@ -825,16 +825,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
 
-      /* Hero : vraie image cinématographique (mer + souliers), mouvement piloté
-         au défilement — parallaxe + zoom sur l'image, texte qui s'estompe */
+      /* Hero : zoom « façon villa » piloté au défilement (la caméra plonge dans la
+         scène pendant que la section est épinglée) — gratuit, sur l'image photoréaliste */
       try {
         const _hero=document.querySelector('.hero');
         const _ov=document.querySelector('.hero-overlay');
         const _bg=document.getElementById('hero-bg');
         if(_hero && _bg){
-          const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
-          gsap.to(_bg, { yPercent:14, scale:1.16, ease:'none', scrollTrigger:stOpt });
-          if(_ov) gsap.to(_ov, { yPercent:-12, opacity:.22, ease:'none', scrollTrigger:stOpt });
+          if(window.matchMedia('(min-width:900px)').matches){
+            ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=160%', pin:true, scrub:0.6, anticipatePin:1,
+              onUpdate:self=>{ const p=self.progress;
+                gsap.set(_bg, { scale:1+0.62*p, yPercent:5*p });
+                if(_ov) gsap.set(_ov, { yPercent:-16*p, opacity:(1-Math.max(0,(p-0.42)/0.58)).toFixed(3) });
+              }});
+          } else {
+            const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
+            gsap.to(_bg, { yPercent:12, scale:1.22, ease:'none', scrollTrigger:stOpt });
+            if(_ov) gsap.to(_ov, { yPercent:-12, opacity:.3, ease:'none', scrollTrigger:stOpt });
+          }
           ScrollTrigger.refresh();
         }
       } catch(e){}

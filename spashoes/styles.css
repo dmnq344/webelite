@@ -162,7 +162,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* décor plein écran — vraie image cinématographique (mer + souliers, Higgsfield) */
 .hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: var(--bg-2); }
-.hero-bg { position: absolute; left: -6%; top: -9%; width: 112%; height: 122%; will-change: transform;
+.hero-bg { position: absolute; left: -6%; top: -9%; width: 112%; height: 122%; will-change: transform; transform-origin: 60% 46%;
   background-image: url("https://d8j0ntlcm91z4.cloudfront.net/user_3FZRPw3o8jUiBnk6Q8WThDdlXSm/hf_20260624_071014_d1c09c39-9e0b-47c1-9fc9-d697b74ed0f0.png"), url("assets/img/hero-sea.jpg");
   background-position: center 44%, center 42%; background-size: cover, cover; background-repeat: no-repeat, no-repeat; }
 /* couches procédurales désormais incrustées dans l'image → masquées */
