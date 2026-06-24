@@ -779,8 +779,10 @@ document.addEventListener('DOMContentLoaded', () => {
     mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mn.classList.remove('is-open'); nt.setAttribute('aria-expanded','false');})); }
 
   /* en-tête + progression */
-  const hd=document.querySelector('.site-header'), pr=document.getElementById('scroll-progress');
-  function onScroll(){ hd.classList.toggle('is-scrolled', window.scrollY>8); const h=document.documentElement, m=h.scrollHeight-h.clientHeight; if(pr) pr.style.width=(m>0?(h.scrollTop/m)*100:0)+'%'; }
+  const hd=document.querySelector('.site-header'), pr=document.getElementById('scroll-progress'), veil=document.getElementById('sea-veil');
+  function onScroll(){ hd.classList.toggle('is-scrolled', window.scrollY>8); const h=document.documentElement, m=h.scrollHeight-h.clientHeight; const f=m>0?h.scrollTop/m:0;
+    if(pr) pr.style.width=(f*100)+'%';
+    if(veil) veil.style.opacity=Math.min(0.55, f*0.62).toFixed(3); /* crépuscule → nuit */ }
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
   /* révélations [data-anim] (éléments statiques) */

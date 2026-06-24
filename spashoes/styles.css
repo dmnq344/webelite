@@ -80,14 +80,39 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .aurora .a1 { width: 560px; height: 560px; top: -160px; left: -120px; background: radial-gradient(circle, rgba(236,209,153,.40), transparent 65%); }
 .aurora .a2 { width: 640px; height: 640px; top: 32%; right: -200px; background: radial-gradient(circle, rgba(143,200,234,.34), transparent 65%); }
 .aurora .a3 { width: 520px; height: 520px; bottom: -180px; left: 24%; background: radial-gradient(circle, rgba(236,209,153,.20), transparent 65%); }
-/* Motif de vagues fluides (esprit spa / eau) */
+/* Motif de vagues fluides (esprit spa / eau) — dérive lente continue */
 .waves {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .05;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .06;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='48' viewBox='0 0 240 48'%3E%3Cpath d='M0 24 C 30 6 60 42 90 24 S 150 6 180 24 210 42 240 24' fill='none' stroke='%23ecd199' stroke-width='1.4'/%3E%3C/svg%3E");
   background-size: 240px 64px;
   -webkit-mask-image: radial-gradient(80% 80% at 50% 40%, #000, transparent 100%);
   mask-image: radial-gradient(80% 80% at 50% 40%, #000, transparent 100%);
+  animation: wavePan 48s linear infinite;
 }
+@keyframes wavePan { to { background-position: 240px 0; } }
+
+/* Océan vivant : bandes de vagues remplies, fixes en bas de l'écran, qui coulent
+   en continu (présentes sur toute la page) — design « océan persistant » */
+.ocean {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 46vh; z-index: 0; pointer-events: none; opacity: .5;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 42%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 42%);
+  background-repeat: repeat-x, repeat-x, repeat-x;
+  background-position: 0 100%, 0 90%, 0 82%;
+  background-size: 300px 70px, 460px 100px, 680px 140px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 120 40'%3E%3Cpath d='M0 22 Q30 8 60 22 T120 22 V40 H0 Z' fill='%23bfe2f5' fill-opacity='0.5'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 120 40'%3E%3Cpath d='M0 24 Q30 10 60 24 T120 24 V40 H0 Z' fill='%238fc8ea' fill-opacity='0.45'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 120 40'%3E%3Cpath d='M0 26 Q30 14 60 26 T120 26 V40 H0 Z' fill='%23ecd199' fill-opacity='0.3'/%3E%3C/svg%3E");
+  animation: oceanFlow 26s linear infinite, oceanTide 11s ease-in-out infinite;
+}
+@keyframes oceanFlow { to { background-position: -300px 100%, 460px 90%, -680px 82%; } }
+@keyframes oceanTide { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.8%); } }
+
+/* Voile « crépuscule → nuit » : s'assombrit au fil du défilement (piloté en JS) */
+.sea-veil { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(120% 80% at 50% 120%, rgba(4,14,26,.9), transparent 70%),
+              linear-gradient(180deg, rgba(5,16,30,.5), rgba(4,12,24,.85)); }
 
 /* Grain filmique (texture physique, fixe, non-interactif) */
 .grain { position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
@@ -394,7 +419,8 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
 /* ---------- Mouvement réduit ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  html.js [data-anim], html.js .reveal-card { opacity: 1; transform: none; }
+  html.js [data-anim], html.js .reveal-card { opacity: 1; transform: none; filter: none; }
+  .sea-veil { opacity: 0 !important; }
   .marquee-track, .aurora-blob, .scroll-cue span { animation: none !important; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .16s !important; }
 }
