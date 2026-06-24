@@ -690,7 +690,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <div class="service-media">
-          <img src="assets/img/${s.img}?v=13" alt="" loading="lazy">
+          <img src="assets/img/${s.img}?v=14" alt="" loading="lazy">
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
           <span class="media-tag">${t(s.tag,lang)}</span>
@@ -872,6 +872,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const _refl=document.querySelector('.hero-shoes-refl');
         const _world=document.querySelector('.world-sea');
         const _deep=document.getElementById('sea-deep');
+        const _radiance=document.querySelector('.hero-shoes-radiance');
+        const _caustic=document.querySelector('.hero-shoes-caustic');
         if(_hero && _bg){
           if(window.matchMedia('(min-width:900px)').matches){
             ScrollTrigger.create({ trigger:_hero, start:'top top', end:'+=175%', pin:true, scrub:0.8, anticipatePin:1,
@@ -879,8 +881,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 /* on s'enfonce : la mer monte (la surface + le soleil sortent par le haut) + zoom dans l'eau */
                 if(_world) gsap.set(_world, { yPercent:-15*p, scale:1+0.22*p });
                 if(_deep)  gsap.set(_deep,  { opacity:(p*0.96).toFixed(3) });           /* eau profonde qui envahit */
-                /* souliers : léger zoom (recul) + douce rotation 3D, toujours visibles, dérivent vers le haut */
-                if(_shoe) gsap.set(_shoe, { transformPerspective:1400, rotationY:(14*p).toFixed(2), rotationX:(4-9*p).toFixed(2), scale:1.14-0.16*p, yPercent:-10*p });
+                /* souliers : descente organique (recul + douce rotation + dérive haute) + flou de profondeur */
+                if(_shoe) gsap.set(_shoe, { transformPerspective:1400, rotationY:(10*p).toFixed(2), rotationX:(3-7*p).toFixed(2), scale:1.12-0.16*p, xPercent:(4*p).toFixed(2), yPercent:-12*p,
+                  filter:'blur('+(1.8*p).toFixed(2)+'px) brightness('+(1-0.34*p).toFixed(3)+')' });
+                /* le halo doré (soleil) s'efface, la lumière de l'eau (caustiques) baigne les souliers */
+                if(_radiance) gsap.set(_radiance, { opacity:(0.72*(1-0.85*p)).toFixed(3) });
+                if(_caustic)  gsap.set(_caustic,  { opacity:(Math.min(1,p*1.3)*0.62).toFixed(3) });
                 /* le spot/soleil du hero s'efface à mesure qu'on plonge */
                 gsap.set(_bg, { transformPerspective:1600, transformOrigin:'50% 42%', scale:1.12-0.05*p, yPercent:-4*p, opacity:(1-0.55*p).toFixed(3) });
                 if(_refl) gsap.set(_refl, { opacity:(0.18*(1-Math.min(1,p*1.4))).toFixed(3) });

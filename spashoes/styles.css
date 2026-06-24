@@ -308,11 +308,22 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .hero-shoes .shoe-alt { position: absolute; inset: 0; z-index: 1; opacity: 0; }
 .hero-shoes .shoe img { display: block; width: 100%;
   filter: drop-shadow(0 30px 44px rgba(0,0,0,.6)) brightness(1.07) contrast(1.08) saturate(1.05); }
-/* rayonnement doré qui respire derrière les souliers (« rayonnantes ») */
-.hero-shoes-radiance { position: absolute; left: 50%; top: 48%; width: 124%; height: 98%; transform: translate(-50%,-50%); z-index: 0; pointer-events: none; border-radius: 50%; filter: blur(26px);
+/* rayonnement doré (soleil) derrière les souliers — s'efface quand on plonge (piloté JS) */
+.hero-shoes-radiance { position: absolute; left: 50%; top: 48%; width: 124%; height: 98%; transform: translate(-50%,-50%); z-index: 0; pointer-events: none; border-radius: 50%; filter: blur(26px); opacity: .72;
   background: radial-gradient(ellipse at center, rgba(245,227,182,.52), rgba(191,226,245,.26) 45%, transparent 72%);
   animation: shoeRadiance 5.6s ease-in-out infinite; }
-@keyframes shoeRadiance { 0%,100% { opacity: .55; transform: translate(-50%,-50%) scale(.95); } 50% { opacity: .92; transform: translate(-50%,-50%) scale(1.07); } }
+@keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
+/* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
+.hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
+  -webkit-mask: url("assets/img/hero-product.png?v=14") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=14") center top / 100% auto no-repeat;
+  background:
+    radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
+    radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
+    radial-gradient(30% 22% at 52% 80%, rgba(180,224,244,.4), transparent 64%);
+  background-size: 180% 180%, 200% 200%, 160% 160%;
+  animation: causticShoe 9s ease-in-out infinite alternate; }
+@keyframes causticShoe { 0% { background-position: 20% 30%, 70% 60%, 50% 80%; } 100% { background-position: 34% 44%, 56% 48%, 60% 66%; } }
 .hero-shoes-glow { position: absolute; left: 50%; top: 62%; width: 78%; height: 28%; transform: translateX(-50%); border-radius: 50%; filter: blur(28px); z-index: 0;
   background: radial-gradient(ellipse, rgba(245,227,182,.48), rgba(143,200,234,.24) 46%, transparent 72%); }
 /* reflet doux de la paire sur l'eau */
