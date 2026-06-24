@@ -227,6 +227,9 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* ---------- Hero cinématique : mer plein écran + chaussures ---------- */
 .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; z-index: 2; padding: calc(var(--hdr) + 40px) 0 72px; }
+/* soleil chaud qui s'approche des souliers (côté droit) puis se couche (piloté JS) */
+.hero-sun { position: absolute; left: 67%; top: 50%; width: 62%; height: 62%; transform: translate(-50%,-50%) scale(.6); z-index: 1; pointer-events: none; opacity: 0; mix-blend-mode: screen; border-radius: 50%; filter: blur(8px);
+  background: radial-gradient(circle, rgba(255,245,218,.92), rgba(246,206,142,.5) 26%, rgba(236,172,92,.18) 50%, transparent 70%); }
 
 /* décor du hero — la même mer continue (world-sea) transparaît, + lueur d'intro lumineuse */
 .hero-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -315,8 +318,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=14") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=14") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=15") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=15") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -326,6 +329,9 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes causticShoe { 0% { background-position: 20% 30%, 70% 60%, 50% 80%; } 100% { background-position: 34% 44%, 56% 48%, 60% 66%; } }
 .hero-shoes-glow { position: absolute; left: 50%; top: 62%; width: 78%; height: 28%; transform: translateX(-50%); border-radius: 50%; filter: blur(28px); z-index: 0;
   background: radial-gradient(ellipse, rgba(245,227,182,.48), rgba(143,200,234,.24) 46%, transparent 72%); }
+/* éclat de sublimation : les souliers se subliment en lumière (piloté JS) */
+.hero-shoes-bloom { position: absolute; left: 50%; top: 50%; width: 130%; height: 130%; transform: translate(-50%,-50%) scale(.5); z-index: 4; pointer-events: none; opacity: 0; mix-blend-mode: screen; border-radius: 50%; filter: blur(16px);
+  background: radial-gradient(circle, rgba(255,250,236,.96), rgba(245,221,170,.55) 30%, rgba(236,198,140,.2) 52%, transparent 72%); }
 /* reflet doux de la paire sur l'eau */
 .hero-shoes-refl { position: absolute; left: 0; top: 90%; width: 100%; transform: scaleY(-1); opacity: .18; filter: blur(2px); z-index: 0;
   -webkit-mask: linear-gradient(#000, transparent 60%); mask: linear-gradient(#000, transparent 60%); }
