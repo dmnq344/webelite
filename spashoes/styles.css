@@ -318,8 +318,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=17") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=17") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=18") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=18") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -371,10 +371,25 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
-/* ---------- Cartes génériques (verre) ---------- */
+/* ---------- Cartes génériques : verre dépoli premium (cohérent au-dessus de la mer) ---------- */
 .service-card, .spa-card, .work-tile, .step, .contact-form, .price-panel, .about-mission {
-  background: var(--surface); border: 1px solid var(--line); backdrop-filter: blur(6px);
+  background: rgba(15, 44, 70, .34); border: 1px solid rgba(244, 249, 252, .15);
+  backdrop-filter: blur(15px) saturate(145%); -webkit-backdrop-filter: blur(15px) saturate(145%);
+  box-shadow: 0 16px 44px rgba(5, 18, 32, .34), inset 0 1px 0 rgba(255, 255, 255, .07);
 }
+
+/* ---------- Finitions de design (cohérence, profondeur, survols premium) ---------- */
+/* apparitions en cascade cohérentes (forfaits Spa, comme les services) */
+.spa-grid .reveal-card.is-in:nth-child(2) { transition-delay: .08s; }
+.spa-grid .reveal-card.is-in:nth-child(3) { transition-delay: .16s; }
+/* survols premium : léger soulèvement + halo doré/bleu discret */
+.spa-card:hover, .step:hover { border-color: var(--line-2); box-shadow: 0 24px 56px rgba(5,18,32,.5), 0 0 34px rgba(143,200,234,.12); }
+.about-mission { transition: transform .4s var(--ease), box-shadow .4s ease, border-color .4s ease; }
+.about-mission:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 22px 50px rgba(5,18,32,.46); }
+/* profondeur en haut des sections alternées (lueur douce, esprit « hero ») */
+.section--alt::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 180px; pointer-events: none; z-index: 0;
+  background: radial-gradient(72% 100% at 50% 0%, rgba(143,200,234,.09), transparent 72%); }
+.section--alt .container { position: relative; z-index: 1; }
 
 /* ---------- Réalisations : galerie avant|après ---------- */
 .real-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 44px; }
