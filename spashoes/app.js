@@ -711,9 +711,14 @@ function renderSpa(lang){
       <div class="spa-prices">${p.prices.map(([k,v])=>`<div><span>${t(k,lang)}</span><strong>${v}</strong></div>`).join('')}</div>
     </article>`).join('');
 }
+const PT_ICONS = {
+  women:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v8c0 3.2 2.2 5.5 6 5.5h8"/><path d="M5 12c4.5 0 6.5 1.6 8.5 5.5"/><path d="M17 17.5V20"/></svg>',
+  men:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v5h16a2 2 0 0 0 2-2c0-1.7-2.2-2.2-5-3-2.2-.6-3.4-2-5-3H3Z"/><path d="M3 14h18"/></svg>',
+  sewing:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 18 6"/><path d="M15.5 3.5 20.5 8.5"/><path d="M13.5 8.5c-2.2 0-3.5 1.3-3.5 3.5"/></svg>'
+};
 function renderPriceTabs(lang){
   const tabs = document.getElementById('price-tabs'); if(!tabs) return;
-  tabs.innerHTML = PRICE_CATS.map(([lbl,cat])=>`<button class="price-tab${cat===activeCat?' is-active':''}" data-cat="${cat}" role="tab" aria-selected="${cat===activeCat}">${t(lbl,lang)}</button>`).join('');
+  tabs.innerHTML = PRICE_CATS.map(([lbl,cat])=>`<button class="price-tab${cat===activeCat?' is-active':''}" data-cat="${cat}" role="tab" aria-selected="${cat===activeCat}"><span class="pt-ico">${PT_ICONS[cat]||''}</span>${t(lbl,lang)}</button>`).join('');
   renderPricePanel(lang);
 }
 function renderPricePanel(lang){
