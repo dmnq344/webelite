@@ -684,19 +684,22 @@ function priceFor(item, lang){ return typeof item.price === 'string' ? item.pric
 function renderServices(lang){
   const el = document.getElementById('service-grid'); if(!el) return;
   el.innerHTML = SERVICES.map((s,i)=>`
-    <article class="service-card reveal-card">
-      <div class="service-media">
-        <img src="assets/img/${s.img}" alt="" loading="lazy">
-        <span class="service-scrim"></span>
-        <span class="service-ico">${SICONS[s.ico]||''}</span>
-        <span class="media-tag">${t(s.tag,lang)}</span>
-        <span class="service-num">0${i+1}</span>
-      </div>
-      <div class="service-body">
-        <h3>${t('services.'+s.key+'.title',lang)}</h3>
-        <ul>${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
-      </div>
-    </article>`).join('');
+    <div class="service-cell reveal-card">
+      <span class="service-aura" aria-hidden="true"></span>
+      <article class="service-card">
+        <div class="service-media">
+          <img src="assets/img/${s.img}" alt="" loading="lazy">
+          <span class="service-scrim"></span>
+          <span class="service-ico">${SICONS[s.ico]||''}</span>
+          <span class="media-tag">${t(s.tag,lang)}</span>
+          <span class="service-num">0${i+1}</span>
+        </div>
+        <div class="service-body">
+          <h3>${t('services.'+s.key+'.title',lang)}</h3>
+          <ul>${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
+        </div>
+      </article>
+    </div>`).join('');
 }
 function renderSpa(lang){
   const el = document.getElementById('spa-grid'); if(!el) return;
@@ -817,17 +820,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
 
-      /* Hero cinématique : la chaussure « joue » avec le défilement (zoom + dérive + rotation) */
+      /* Hero cinématique : la mer et les chaussures « jouent » au défilement
+         (parallaxe inversée — le fond descend, les chaussures montent et zooment) */
       try {
         const _hero=document.querySelector('.hero');
-        const _prod=document.querySelector('.hero-visual .product-img');
-        const _glow=document.querySelector('.hero-visual .product-glow');
-        const _copy=document.querySelector('.hero-copy');
-        if(_hero && _prod){
+        const _bg=document.getElementById('hero-bg');
+        const _shoes=document.getElementById('hero-shoes');
+        const _ov=document.querySelector('.hero-overlay');
+        if(_hero && (_bg||_shoes)){
           const stOpt={ trigger:_hero, start:'top top', end:'bottom top', scrub:1 };
-          gsap.to(_prod, { scale:1.18, yPercent:-7, rotation:-3.5, ease:'none', scrollTrigger:stOpt });
-          if(_glow) gsap.to(_glow, { scale:1.3, opacity:.85, ease:'none', scrollTrigger:stOpt });
-          if(_copy) gsap.to(_copy, { yPercent:-16, opacity:.35, ease:'none', scrollTrigger:stOpt });
+          if(_bg)    gsap.to(_bg,    { yPercent:16, scale:1.12, ease:'none', scrollTrigger:stOpt });
+          if(_shoes){
+            gsap.set(_shoes,{ xPercent:-50, yPercent:-50 }); /* reprend le centrage CSS, sans saut */
+            gsap.to(_shoes, { y:-150, scale:1.14, ease:'none', scrollTrigger:stOpt }); /* dérive en px, garde le centrage */
+          }
+          if(_ov)    gsap.to(_ov,    { yPercent:-10, opacity:.25, ease:'none', scrollTrigger:stOpt });
           ScrollTrigger.refresh();
         }
       } catch(e){}
@@ -845,7 +852,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch(e){}
     }
-    gsap.to('.hero-card-badge',{y:-9,duration:3,repeat:-1,yoyo:true,ease:'sine.inOut'});
   }
 });
 

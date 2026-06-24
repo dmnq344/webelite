@@ -173,42 +173,41 @@
 
   <main id="main">
 
-    <!-- ===================== HERO ===================== -->
+    <!-- ===================== HERO CINÉMATIQUE (mer + chaussures) ===================== -->
     <section class="hero" id="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <p class="kicker" data-anim="hero"><span class="kicker-dot"></span><span data-i18n="hero.eyebrow">Le spa de vos chaussures</span></p>
-          <h1 class="hero-title">
-            <span class="line" data-anim="hero" data-i18n="hero.title.1">Vos chaussures méritent</span>
-            <em class="line" data-anim="hero" data-i18n="hero.title.2">une seconde vie.</em>
-          </h1>
-          <p class="hero-sub" data-anim="hero" data-i18n="hero.subtitle">Nous nettoyons, réparons, teignons et redonnons de l'éclat à toutes vos chaussures — ramassage et livraison inclus.</p>
-          <div class="hero-cta" data-anim="hero">
-            <a href="#contact" class="btn btn-primary btn-cta" data-i18n="nav.order">Passer la commande</a>
-            <a href="#works" class="hero-link" data-i18n="nav.works">Réalisations</a>
-          </div>
-          <ul class="hero-stats" data-anim="hero">
-            <li><strong data-count="40" data-suffix="+">40+</strong><span data-i18n="stat.years">ans d'expérience</span></li>
-            <li><strong data-count="12000" data-suffix="+">12000+</strong><span data-i18n="stat.pairs">paires soignées</span></li>
-            <li><strong data-count="48" data-suffix="h">48h</strong><span data-i18n="stat.delivery">délai moyen</span></li>
-          </ul>
+      <!-- Décor plein écran : mer animée qui bouge au défilement -->
+      <div class="hero-scene" aria-hidden="true">
+        <div class="hero-bg" id="hero-bg"></div>
+        <div class="hero-caustics"></div>
+        <div class="hero-foam">
+          <svg class="foam f1" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 70 Q 180 40 360 70 T 720 70 T 1080 70 T 1440 70 V120 H0 Z"/></svg>
+          <svg class="foam f2" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 80 Q 240 55 480 80 T 960 80 T 1440 80 V120 H0 Z"/></svg>
         </div>
+        <div class="hero-shoes" id="hero-shoes">
+          <span class="hero-shoes-glow" aria-hidden="true"></span>
+          <img src="assets/img/hero-product.png" alt="Paire de souliers vernis impeccables" fetchpriority="high" />
+          <img class="hero-shoes-refl" src="assets/img/hero-product.png" alt="" aria-hidden="true" />
+        </div>
+        <div class="hero-scrim"></div>
+      </div>
 
-        <div class="hero-visual" data-anim="hero-visual">
-          <div class="stage">
-            <span class="stage-halo" aria-hidden="true"></span>
-            <span class="stage-ring" aria-hidden="true"></span>
-            <span class="orb orb-1" aria-hidden="true"></span>
-            <span class="orb orb-2" aria-hidden="true"></span>
-            <div class="tilt" id="hero-tilt">
-              <div class="product">
-                <span class="product-glow" aria-hidden="true"></span>
-                <img class="product-img" src="assets/img/hero-product.png" alt="Soulier verni noir impeccable" fetchpriority="high" />
-              </div>
-              <div class="hero-card-badge"><strong>4.9</strong><span>★★★★★<br>800+ avis</span></div>
-            </div>
-          </div>
+      <!-- Texte superposé -->
+      <div class="container hero-overlay">
+        <p class="kicker" data-anim="hero"><span class="kicker-dot"></span><span data-i18n="hero.eyebrow">Le spa de vos chaussures</span></p>
+        <h1 class="hero-title">
+          <span class="line" data-anim="hero" data-i18n="hero.title.1">Vos chaussures méritent</span>
+          <em class="line" data-anim="hero" data-i18n="hero.title.2">une seconde vie.</em>
+        </h1>
+        <p class="hero-sub" data-anim="hero" data-i18n="hero.subtitle">Nous nettoyons, réparons, teignons et redonnons de l'éclat à toutes vos chaussures — ramassage et livraison inclus.</p>
+        <div class="hero-cta" data-anim="hero">
+          <a href="#contact" class="btn btn-primary btn-cta" data-i18n="nav.order">Passer la commande</a>
+          <a href="#works" class="hero-link" data-i18n="nav.works">Réalisations</a>
         </div>
+        <ul class="hero-stats" data-anim="hero">
+          <li><strong data-count="40" data-suffix="+">40+</strong><span data-i18n="stat.years">ans d'expérience</span></li>
+          <li><strong data-count="12000" data-suffix="+">12000+</strong><span data-i18n="stat.pairs">paires soignées</span></li>
+          <li><strong data-count="48" data-suffix="h">48h</strong><span data-i18n="stat.delivery">délai moyen</span></li>
+        </ul>
       </div>
       <a href="#services" class="scroll-cue" aria-hidden="true"><span></span></a>
     </section>
