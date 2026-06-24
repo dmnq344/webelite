@@ -472,3 +472,63 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; }
   background: radial-gradient(ellipse at center, rgba(143,200,234,.55), rgba(236,209,153,.28) 38%, transparent 72%); filter: blur(22px); }
 .hero-visual .hero-card-badge { left: 4%; bottom: 0; }
 .stage-ring { opacity: .42; }
+
+/* ==================================================================
+   SHOWCASE — défilement épinglé « scroll scrub » (savoir-faire en mouvement)
+   Fallback lisible si pas de GSAP / reduced-motion ; mode .scrub-on = scènes
+   superposées pilotées par le scroll (voir app.js).
+   ================================================================== */
+.showcase { position: relative; background: linear-gradient(180deg, transparent, rgba(8,22,38,.22) 50%, transparent); }
+.showcase-pin {
+  position: relative; min-height: 80vh; display: grid; place-items: center;
+  text-align: center; padding: clamp(64px, 9vw, 128px) 22px; overflow: hidden;
+}
+.showcase-eyebrow { position: relative; z-index: 5; margin-bottom: 10px; }
+
+.showcase-glow {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); z-index: 0; pointer-events: none;
+  width: min(780px, 94vw); aspect-ratio: 1; border-radius: 50%; filter: blur(38px);
+  background: radial-gradient(circle, rgba(143,200,234,.30), rgba(236,209,153,.16) 42%, transparent 70%);
+}
+.showcase-shoe {
+  position: absolute; left: 50%; top: 52%; transform: translate(-50%,-50%); z-index: 1; margin: 0; pointer-events: none;
+  width: min(640px, 86vw); filter: drop-shadow(0 38px 52px rgba(0,0,0,.55));
+}
+.showcase-shoe img { width: 100%; }
+
+.showcase-scenes { position: relative; z-index: 3; width: 100%; max-width: 660px; }
+.scene { display: grid; gap: 12px; justify-items: center; text-align: center; }
+.scene-idx {
+  font-family: var(--serif); font-size: clamp(2.6rem, 7vw, 4.6rem); line-height: 1; opacity: .92;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.scene h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -.012em; font-size: clamp(2rem, 5.2vw, 3.4rem); }
+.scene p { color: var(--muted-2); font-size: clamp(1rem, 1.7vw, 1.2rem); max-width: 46ch; }
+
+.showcase-progress {
+  position: absolute; left: 50%; bottom: clamp(26px, 5vw, 54px); transform: translateX(-50%); z-index: 5;
+  width: min(220px, 56vw); height: 3px; border-radius: 99px; background: var(--line-2); overflow: hidden;
+}
+.showcase-progress span {
+  display: block; height: 100%; width: 100%; border-radius: inherit;
+  background: var(--grad); transform: scaleX(0); transform-origin: left center;
+}
+
+/* Mode épinglé actif (desktop + GSAP) : scènes superposées pilotées par le scroll */
+.scrub-on .showcase-pin { min-height: 100vh; min-height: 100svh; }
+.scrub-on .showcase-scenes { position: absolute; inset: 0; max-width: none; }
+.scrub-on .scene {
+  position: absolute; top: 50%; left: 0; right: 0; width: 100%; margin: 0;
+  padding-inline: 22px; will-change: opacity, transform; transition: opacity .45s var(--ease);
+}
+
+/* Fallback (sans scrub) : scènes empilées et lisibles */
+.showcase:not(.scrub-on) .showcase-scenes { display: grid; gap: clamp(40px, 6vw, 66px); margin-top: clamp(28px, 5vw, 56px); }
+.showcase:not(.scrub-on) .showcase-shoe { position: relative; left: auto; top: auto; transform: none; margin: 0 auto clamp(10px,3vw,28px); opacity: .92; }
+.showcase:not(.scrub-on) .showcase-glow { top: 34%; }
+.showcase:not(.scrub-on) .showcase-progress { display: none; }
+
+@media (max-width: 899px) {
+  .showcase-shoe { width: min(420px, 78vw); opacity: .85; }
+  .showcase-pin { min-height: auto; }
+}

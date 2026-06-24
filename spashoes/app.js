@@ -665,6 +665,14 @@ const PRICE_CATS = [['pricing.women.title','women'],['pricing.men.title','men'],
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 for (const l in EXTRA) Object.assign(translations[l], EXTRA[l]);
+const SHOWCASE_I18N = {
+  fr:{'showcase.eyebrow':'Le savoir-faire en mouvement','sc.1.t':'Nettoyage','sc.1.d':"On élimine la saleté, les taches et les odeurs — vos chaussures respirent à nouveau.",'sc.2.t':'Restauration','sc.2.d':'On ravive la couleur et on estompe les rayures du cuir.','sc.3.t':'Cordonnerie','sc.3.d':'Talons, semelles, coutures — réparé pour durer.'},
+  en:{'showcase.eyebrow':'Craftsmanship in motion','sc.1.t':'Cleaning','sc.1.d':'We remove dirt, stains and odours — your shoes breathe again.','sc.2.t':'Restoration','sc.2.d':'We revive the colour and blend out leather scratches.','sc.3.t':'Cobbling','sc.3.d':'Heels, soles, stitching — repaired to last.'},
+  ro:{'showcase.eyebrow':'Meșteșugul în mișcare','sc.1.t':'Curățare','sc.1.d':'Eliminăm murdăria, petele și mirosurile — pantofii respiră din nou.','sc.2.t':'Restaurare','sc.2.d':'Reînviem culoarea și estompăm zgârieturile pielii.','sc.3.t':'Cizmărie','sc.3.d':'Tocuri, tălpi, cusături — reparat să dureze.'},
+  it:{'showcase.eyebrow':"L'arte in movimento",'sc.1.t':'Pulizia','sc.1.d':'Eliminiamo sporco, macchie e odori — le tue scarpe respirano di nuovo.','sc.2.t':'Restauro','sc.2.d':'Ravviviamo il colore e attenuiamo i graffi della pelle.','sc.3.t':'Calzoleria','sc.3.d':'Tacchi, suole, cuciture — riparato per durare.'}
+};
+for (const l in SHOWCASE_I18N) Object.assign(translations[l], SHOWCASE_I18N[l]);
+
 /* Filet de sécurité : titre des forfaits Spa */
 const SPA_TITLE = { fr: "Forfaits Spa", en: "Spa packages", ro: "Pachete Spa", it: "Pacchetti Spa" };
 for (const l in SPA_TITLE) { if (translations[l] && translations[l]["pricing.spa.title"] === undefined) translations[l]["pricing.spa.title"] = SPA_TITLE[l]; }
@@ -808,6 +816,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if(window.gsap&&!reduceMotion){
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
+      /* Vitrine épinglée à défilement (scroll-scrub) */
+      try {
+        const _sc=document.querySelector('.showcase');
+        if(_sc && window.matchMedia('(min-width:900px)').matches){
+          _sc.classList.add('scrub-on');
+          const _scenes=gsap.utils.toArray('.showcase .scene');
+          const _prog=document.querySelector('.showcase-progress span');
+          const _shoe=document.querySelector('.showcase-shoe');
+          _scenes.forEach((s,i)=>{ s.style.opacity=i===0?1:0; });
+          if(_shoe) gsap.set(_shoe,{xPercent:-50, yPercent:-50}); /* base centrage géré par GSAP */
+          ScrollTrigger.create({ trigger:_sc, start:'top top', end:'+=200%', pin:'.showcase .showcase-pin', scrub:1, anticipatePin:1,
+            onUpdate:self=>{ const p=self.progress, n=_scenes.length; const idx=Math.min(n-1,Math.floor(p*n*0.999));
+              _scenes.forEach((s,i)=>{ const on=i===idx; s.style.opacity=on?1:0; s.style.transform='translateY('+(on?-50:(i<idx?-64:-36))+'%)'; });
+              if(_shoe) gsap.set(_shoe,{x:-34*p, rotation:-4*p, scale:1+0.08*p}); /* parallaxe ajoutée au centrage */
+              if(_prog) _prog.style.transform='scaleX('+p+')';
+            }
+          });
+          ScrollTrigger.refresh();
+        }
+      } catch(e){ const _s=document.querySelector('.showcase'); if(_s)_s.classList.remove('scrub-on'); }
     }
     gsap.to('.hero-card',{y:-10,duration:3,repeat:-1,yoyo:true,ease:'sine.inOut'});
   }
