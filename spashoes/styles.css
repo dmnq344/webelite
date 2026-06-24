@@ -249,8 +249,18 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   background: var(--surface); border: 1px solid var(--line); backdrop-filter: blur(6px);
 }
 
-/* ---------- Services (grille 2×2, encadrés rayonnants) ---------- */
-.service-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+/* ---------- Réalisations : galerie avant|après ---------- */
+.real-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 44px; }
+.real-tile { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 5 / 4; box-shadow: var(--sh-sm); isolation: isolate; }
+.real-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-lux); }
+.real-tile:hover img { transform: scale(1.06); }
+.real-tile::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(7,21,37,.5)); }
+.real-tile::after { content: ""; position: absolute; top: 9%; bottom: 9%; left: 50%; width: 1px; z-index: 1; pointer-events: none;
+  background: linear-gradient(rgba(244,249,252,0), rgba(244,249,252,.55), rgba(244,249,252,0)); }
+.real-tile figcaption { position: absolute; left: 12px; bottom: 12px; z-index: 2; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text); background: rgba(7,21,37,.55); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
+
+/* ---------- Services (grille 2×2 compacte, encadrés rayonnants) ---------- */
+.service-grid { display: grid; grid-template-columns: 1fr; gap: 22px; max-width: 880px; margin-inline: auto; }
 /* cellule + halo rayonnant animé autour de chaque encadré */
 .service-cell { position: relative; display: flex; }
 .service-aura { position: absolute; inset: -9px; z-index: 0; pointer-events: none; border-radius: calc(var(--r-lg) + 9px);
@@ -615,3 +625,20 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
 @media (prefers-reduced-motion: reduce) {
   .eyebrow, .kicker-dot { animation: none !important; }
 }
+
+/* ==================================================================
+   Réalisations responsive + Services compacts
+   ================================================================== */
+@media (min-width: 640px) { .real-grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
+@media (min-width: 980px) { .real-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* cases services plus petites */
+.service-media { aspect-ratio: 16 / 10; }
+.service-body { padding: 18px 20px 22px; }
+.service-body h3 { font-size: 1.28rem; margin-bottom: 11px; }
+.service-body ul { gap: 7px; }
+.service-body li { font-size: 0.9rem; padding-left: 19px; }
+.service-num { font-size: 1.8rem; }
+.service-ico { width: 38px; height: 38px; }
+.service-ico svg { width: 19px; height: 19px; }
+@media (min-width: 900px) { .service-grid { gap: 26px; } }

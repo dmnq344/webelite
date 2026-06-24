@@ -672,6 +672,8 @@ const WORKS_PROMISE = {
   it:{'works.promise':'Ogni paio, restaurato a mano.'}
 };
 for (const l in WORKS_PROMISE) Object.assign(translations[l], WORKS_PROMISE[l]);
+const REAL_TAG = { fr:{'real.tag':'Avant · Après'}, en:{'real.tag':'Before · After'}, ro:{'real.tag':'Înainte · După'}, it:{'real.tag':'Prima · Dopo'} };
+for (const l in REAL_TAG) Object.assign(translations[l], REAL_TAG[l]);
 
 /* Filet de sécurité : titre des forfaits Spa */
 const SPA_TITLE = { fr: "Forfaits Spa", en: "Spa packages", ro: "Pachete Spa", it: "Pacchetti Spa" };
