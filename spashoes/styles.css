@@ -88,6 +88,19 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   background: radial-gradient(122% 86% at 50% 42%, transparent 30%, rgba(4,11,22,.64) 100%),
               linear-gradient(180deg, rgba(6,16,28,.22) 0%, rgba(5,14,26,.42) 60%, rgba(3,9,18,.7) 100%); }
 
+/* ---------- Plongée sous la surface : eau profonde qui monte au défilement ---------- */
+.sea-deep { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; will-change: opacity;
+  background:
+    radial-gradient(95% 48% at 50% -10%, rgba(120,200,232,.20), transparent 58%),
+    linear-gradient(180deg, rgba(8,52,82,.55) 0%, rgba(4,30,56,.84) 50%, rgba(2,15,30,.97) 100%); }
+/* caustiques : reflets de lumière ondulants sous l'eau */
+.sea-deep::before { content: ""; position: absolute; inset: -10%; mix-blend-mode: screen; opacity: .5;
+  background:
+    repeating-linear-gradient(108deg, transparent 0 26px, rgba(150,212,236,.05) 34px, transparent 48px),
+    repeating-linear-gradient(72deg, transparent 0 30px, rgba(120,190,224,.04) 40px, transparent 56px);
+  animation: causticDrift 18s linear infinite; }
+@keyframes causticDrift { to { transform: translate(56px, 26px); } }
+
 /* ---------- Décor : aurora + vagues ---------- */
 .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .aurora-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; will-change: transform; }
