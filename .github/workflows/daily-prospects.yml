@@ -1,0 +1,53 @@
+name: Prospects quotidiens
+
+# Exécute l'agent tous les jours à 12:00 UTC (~7h00 au Québec).
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch: {} # permet aussi de lancer manuellement depuis l'onglet Actions
+
+permissions:
+  contents: write # pour committer la mémoire anti-doublons (data/seen.json)
+
+concurrency:
+  group: daily-prospects
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - run: npm install
+
+      - name: Lancer l'agent prospects
+        env:
+          DAILY_TARGET: ${{ vars.DAILY_TARGET || '100' }}
+          TARGET_CITIES: ${{ vars.TARGET_CITIES }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: npm start
+
+      - name: Sauvegarder la mémoire anti-doublons
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain data/seen.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/seen.json
+            git commit -m "chore: maj mémoire anti-doublons ($(date -u +%Y-%m-%d))"
+            git push
+          else
+            echo "Aucun changement dans la mémoire."
+          fi

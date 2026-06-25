@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.log
+
+# Données générées localement (les exports CSV quotidiens)
+out/*.csv
+
+# Garde la mémoire anti-doublons versionnée mais ignore les sauvegardes
+data/*.bak
+out/
