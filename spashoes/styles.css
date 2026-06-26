@@ -319,8 +319,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=25") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=25") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=26") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=26") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -393,6 +393,16 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .section--alt .container { position: relative; z-index: 1; }
 
 /* ---------- Réalisations : galerie avant|après ---------- */
+/* Bannière vedette « Avant | Après » */
+.real-feature { position: relative; max-width: 940px; margin: 0 auto 40px; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--sh-lg); aspect-ratio: 3 / 2; isolation: isolate; }
+.real-feature img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .9s var(--ease-lux); }
+.real-feature:hover img { transform: scale(1.045); }
+.real-feature::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(6,18,32,.18) 0%, transparent 28%, transparent 62%, rgba(6,18,32,.55)); }
+.rf-divider { position: absolute; top: 9%; bottom: 9%; left: 50%; width: 1px; z-index: 2; pointer-events: none; background: linear-gradient(rgba(244,249,252,0), rgba(245,227,182,.65), rgba(244,249,252,0)); }
+.rf-tag { position: absolute; bottom: 16px; z-index: 2; font-size: .66rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; background: rgba(7,21,37,.6); border: 1px solid var(--line-2); backdrop-filter: blur(5px); }
+.rf-before { left: 16px; color: var(--muted-2); }
+.rf-after { right: 16px; color: var(--sky); }
+
 .real-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 44px; }
 .real-tile { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 5 / 4; box-shadow: var(--sh-sm); isolation: isolate; }
 .real-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-lux); }
