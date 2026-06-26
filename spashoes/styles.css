@@ -30,7 +30,7 @@
   --sans:  "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --container: 1200px;
-  --r: 16px; --r-lg: 30px; --hdr: 132px;
+  --r: 16px; --r-lg: 30px; --hdr: 158px;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-lux: cubic-bezier(0.32, 0.72, 0, 1);
@@ -177,7 +177,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* ---------- En-tête : barre de verre flottante (genre « resort ») ---------- */
 .site-header {
-  position: fixed; inset: 0 0 auto 0; z-index: 100; padding: 30px 0 0;
+  position: fixed; inset: 0 0 auto 0; z-index: 100; padding: 44px 0 0;
   background: none; border: 0; transition: padding 300ms var(--ease);
 }
 .header-inner { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -186,7 +186,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   border: 1px solid rgba(244, 249, 252, 0.16);
   box-shadow: 0 12px 36px rgba(5, 18, 32, .34), inset 0 1px 0 rgba(255, 255, 255, .08);
   transition: background 300ms ease, box-shadow 300ms ease, height 300ms var(--ease); }
-.site-header.is-scrolled { padding-top: 20px; }
+.site-header.is-scrolled { padding-top: 34px; }
 .site-header.is-scrolled .header-inner { height: 58px; background: rgba(12, 38, 61, 0.66);
   box-shadow: 0 16px 44px rgba(5, 18, 32, .52), inset 0 1px 0 rgba(255, 255, 255, .10); }
 .brand { display: inline-flex; align-items: center; gap: 11px; }
@@ -318,8 +318,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=20") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=20") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=21") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=21") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -599,9 +599,9 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
    ================================================================== */
 
 /* ---- Emblème cordonnier (logo B) — agrandi + animation d'entrée ---- */
-.brand-mark { position: relative; width: 132px; height: 132px; background: none; border: 0; padding: 0; filter: drop-shadow(0 8px 20px rgba(8,28,46,.55)); transition: transform .45s var(--ease-lux); }
-.brand-mark--lg { width: 148px; height: 148px; }
-@media (max-width: 640px) { .brand-mark { width: 100px; height: 100px; } .header-inner { height: 58px; } .site-header.is-scrolled .header-inner { height: 50px; } }
+.brand-mark { position: relative; width: 156px; height: 156px; background: none; border: 0; padding: 0; filter: drop-shadow(0 8px 20px rgba(8,28,46,.55)); transition: transform .45s var(--ease-lux); }
+.brand-mark--lg { width: 172px; height: 172px; }
+@media (max-width: 640px) { .brand-mark { width: 116px; height: 116px; } .header-inner { height: 58px; } .site-header.is-scrolled .header-inner { height: 50px; } }
 /* halo doré qui respire derrière l'emblème */
 .brand-mark::after { content: ""; position: absolute; left: 50%; top: 54%; width: 126%; height: 126%; transform: translate(-50%,-50%); z-index: -1; border-radius: 50%; pointer-events: none;
   background: radial-gradient(circle, rgba(236,209,153,.38), rgba(143,200,234,.18) 46%, transparent 70%); filter: blur(9px); animation: logoGlow 4.6s ease-in-out infinite; }
