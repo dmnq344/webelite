@@ -190,8 +190,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .site-header.is-scrolled .header-inner { height: 58px; background: rgba(12, 38, 61, 0.66);
   box-shadow: 0 16px 44px rgba(5, 18, 32, .52), inset 0 1px 0 rgba(255, 255, 255, .10); }
 .brand { display: inline-flex; align-items: center; gap: 11px; }
-.brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; background: var(--surface); border: 1px solid var(--line-2); }
-.brand-mark svg { width: 26px; height: 26px; }
+.brand-mark { display: grid; place-items: center; }
+.brand-mark svg { width: 100%; height: 100%; }
 .bm-shoe { fill: var(--text); } .bm-sole { fill: var(--gold); } .bm-spark { fill: var(--sky); }
 .brand-text { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
 .brand-accent { color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; }
@@ -318,8 +318,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=21") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=21") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=22") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=22") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
