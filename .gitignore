@@ -8,3 +8,6 @@ out/*.csv
 # Garde la mémoire anti-doublons versionnée mais ignore les sauvegardes
 data/*.bak
 out/
+
+# Mémoire des prospects déjà contactés (gardée localement)
+data/contacted.json

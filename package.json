@@ -7,6 +7,9 @@
   "scripts": {
     "start": "node src/index.js",
     "dry-run": "node src/index.js --dry-run",
+    "outreach": "node src/index.js --outreach",
+    "outreach:dry": "node src/index.js --outreach --dry-run",
+    "outreach:auto": "node src/index.js --outreach --auto",
     "test": "node --test"
   },
   "engines": {

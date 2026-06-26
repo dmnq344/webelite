@@ -54,6 +54,55 @@ npm run dry-run
 npm start
 ```
 
+## ✉️ Prospection : envoyer des courriels à ta place
+
+L'agent peut aussi **rédiger et envoyer des courriels de prospection
+personnalisés** à chaque prospect (ceux qui ont une adresse email), **depuis ta
+propre adresse**. Deux modes :
+
+- **`draft` (par défaut)** — l'agent génère tous les courriels et **te les
+  envoie À TOI** pour relecture/validation. Rien n'est envoyé aux prospects.
+- **`auto`** — l'agent **envoie directement** aux prospects depuis ton adresse,
+  en respectant un plafond quotidien et un délai entre chaque envoi.
+
+```bash
+npm run outreach:dry    # aperçu, aucun envoi
+npm run outreach        # mode défini par OUTREACH_MODE (.env) — « draft » par défaut
+npm run outreach:auto   # force l'envoi direct aux prospects
+```
+
+### Identité expéditeur (obligatoire pour l'envoi auto)
+
+La loi anti-pourriel canadienne (**LCAP / C-28**) exige que tu t'identifies.
+Renseigne dans `.env` :
+
+```
+SENDER_NAME=Bilal Mezidi
+SENDER_BUSINESS=WebElite
+SENDER_PHONE=514-555-0199
+SENDER_ADDRESS=123 rue Principale, Montréal, QC H2X 1A1   # adresse physique OBLIGATOIRE
+SENDER_PORTFOLIO=https://webelite.ca
+OUTREACH_MODE=draft        # ou « auto »
+OUTREACH_DAILY_CAP=40      # max de courriels/jour
+OUTREACH_THROTTLE_MS=8000  # délai entre envois (anti-spam)
+```
+
+Chaque courriel inclut automatiquement ta signature, ton adresse physique et un
+mécanisme de désabonnement (« répondez STOP » + en-tête `List-Unsubscribe`).
+L'agent **ne contacte jamais deux fois** la même entreprise.
+
+> ⚖️ **Important** : n'active le mode `auto` que si tu acceptes la
+> responsabilité légale de prospecter par courriel (LCAP). Commence par le mode
+> `draft` pour valider le ton.
+
+### Automatisation de la prospection
+
+Le workflow `.github/workflows/outreach.yml` se lance **manuellement** (onglet
+Actions → *Prospection* → Run workflow → choisis `draft` ou `auto`). Pour le
+rendre quotidien, dé-commente le bloc `schedule` dans ce fichier. Ajoute les
+**variables** `SENDER_NAME`, `SENDER_ADDRESS`, etc. dans *Settings → Secrets and
+variables → Actions → Variables*.
+
 ## Automatisation quotidienne (GitHub Actions)
 
 Le workflow `.github/workflows/daily-prospects.yml` lance l'agent **tous les

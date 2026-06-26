@@ -1,0 +1,68 @@
+name: Prospection (envoi de courriels)
+
+# Envoie des courriels de prospection personnalisés aux prospects.
+# Déclenchement MANUEL par défaut (tu choisis le mode à chaque fois).
+# Pour automatiser : dé-commente le bloc « schedule » ci-dessous.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Mode d'envoi"
+        type: choice
+        default: draft
+        options:
+          - draft # génère les brouillons et te les envoie pour validation
+          - auto # envoie directement aux prospects depuis ton adresse
+  # schedule:
+  #   - cron: '0 13 * * 1-5'  # ex. 8h00 (Québec), du lundi au vendredi
+
+permissions:
+  contents: write
+
+concurrency:
+  group: outreach
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+
+      - name: Lancer la prospection
+        env:
+          DAILY_TARGET: ${{ vars.DAILY_TARGET || '100' }}
+          TARGET_CITIES: ${{ vars.TARGET_CITIES }}
+          OUTREACH_MODE: ${{ inputs.mode || vars.OUTREACH_MODE || 'draft' }}
+          OUTREACH_DAILY_CAP: ${{ vars.OUTREACH_DAILY_CAP || '40' }}
+          OUTREACH_THROTTLE_MS: ${{ vars.OUTREACH_THROTTLE_MS || '8000' }}
+          SENDER_NAME: ${{ vars.SENDER_NAME }}
+          SENDER_BUSINESS: ${{ vars.SENDER_BUSINESS || 'WebElite' }}
+          SENDER_PHONE: ${{ vars.SENDER_PHONE }}
+          SENDER_ADDRESS: ${{ vars.SENDER_ADDRESS }}
+          SENDER_PORTFOLIO: ${{ vars.SENDER_PORTFOLIO }}
+          SENDER_REPLY_TO: ${{ vars.SENDER_REPLY_TO }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: node src/index.js --outreach
+
+      - name: Sauvegarder la mémoire anti-doublons
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain data/seen.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/seen.json
+            git commit -m "chore: maj mémoire après prospection ($(date -u +%Y-%m-%d))"
+            git push
+          fi

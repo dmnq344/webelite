@@ -18,8 +18,11 @@ import { loadSeen, saveSeen, dedupKey } from './store.js';
 import { rankProspects } from './score.js';
 import { writeCsvFile } from './csv.js';
 import { sendProspectEmail } from './deliver/email.js';
+import { runOutreach } from './outreach/run.js';
 
 const DRY_RUN = process.argv.includes('--dry-run');
+const OUTREACH = process.argv.includes('--outreach');
+const FORCE_AUTO = process.argv.includes('--auto'); // force le mode envoi auto
 
 function todayStr() {
   // Date au format AAAA-MM-JJ dans le fuseau du Québec.
@@ -102,6 +105,26 @@ async function main() {
 
   const csvPath = writeCsvFile(selected, dateStr);
   console.log(`CSV écrit : ${csvPath}`);
+
+  // --- Mode PROSPECTION : envoie des courriels personnalisés aux prospects ---
+  if (OUTREACH) {
+    if (!DRY_RUN && !emailConfigured()) {
+      console.error('\n⚠️  Email non configuré : impossible d’envoyer la prospection.');
+      process.exit(1);
+    }
+    const summary = await runOutreach(selected, dateStr, {
+      forcedMode: FORCE_AUTO ? 'auto' : undefined,
+      dryRun: DRY_RUN,
+    });
+    console.log(`\n✓ Prospection terminée :`, summary);
+    // En envoi auto, on marque aussi ces prospects comme "vus" pour ne pas les
+    // re-sélectionner dans la liste quotidienne.
+    if (summary.mode === 'auto' && summary.sent > 0) {
+      for (const p of selected) seen.add(dedupKey(p));
+      saveSeen(seen);
+    }
+    return;
+  }
 
   if (DRY_RUN) {
     console.log('\n--- DRY-RUN : aucun email envoyé, doublons non marqués. ---');
