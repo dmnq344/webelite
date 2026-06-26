@@ -651,10 +651,10 @@ const SICONS = {
   needle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21L21 3"/><circle cx="6" cy="18" r="2"/><path d="M14 6l4 4"/></svg>'
 };
 const SERVICES = [
-  { key:'cleaning', ico:'sparkle', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
-  { key:'dye',      ico:'brush', img:'service-peinture.jpg',    tag:'placeholder.beforeafter', items:['services.dye.1'] },
-  { key:'repairs',  ico:'hammer', img:'service-reparation.jpg',  tag:'placeholder.beforeafter', items:['services.repairs.1','services.repairs.2'] },
-  { key:'cobbler',  ico:'needle', img:'service-cordonnerie.jpg', tag:'placeholder.craft',       items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
+  { key:'cleaning', ico:'sparkle', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', shots:['service-reparation.jpg','real/real-02.jpg','real/real-03.jpg','real/real-07.jpg'], items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
+  { key:'dye',      ico:'brush', img:'service-peinture.jpg',    tag:'placeholder.beforeafter', shots:['real/real-11.jpg','real/real-10.jpg','real/real-04.jpg','real/real-06.jpg'], items:['services.dye.1'] },
+  { key:'repairs',  ico:'hammer', img:'',                        tag:'placeholder.beforeafter', shots:[], items:['services.repairs.1','services.repairs.2'] },
+  { key:'cobbler',  ico:'needle', img:'service-cordonnerie.jpg', tag:'placeholder.craft',       shots:[], items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
 ];
 const SPA = [
   { title:'pricing.spa.inout.title', feats:['pricing.spa.inout.f1','pricing.spa.inout.f2','pricing.spa.inout.f3','pricing.spa.inout.f4','pricing.spa.inout.f5','pricing.spa.inout.f6','pricing.spa.inout.f7'], prices:[['pricing.audience.kids','30 $'],['pricing.audience.adult','40 $'],['pricing.audience.boots','50 $']], featured:false },
@@ -674,6 +674,8 @@ const WORKS_PROMISE = {
 for (const l in WORKS_PROMISE) Object.assign(translations[l], WORKS_PROMISE[l]);
 const REAL_TAG = { fr:{'real.tag':'Avant · Après'}, en:{'real.tag':'Before · After'}, ro:{'real.tag':'Înainte · După'}, it:{'real.tag':'Prima · Dopo'} };
 for (const l in REAL_TAG) Object.assign(translations[l], REAL_TAG[l]);
+const SVC_SOON = { fr:{'services.soon':'Talon & semelle — exemples à venir'}, en:{'services.soon':'Heel & sole — examples coming soon'}, ro:{'services.soon':'Toc & talpă — exemple în curând'}, it:{'services.soon':'Tacco & suola — esempi in arrivo'} };
+for (const l in SVC_SOON) Object.assign(translations[l], SVC_SOON[l]);
 
 /* Filet de sécurité : titre des forfaits Spa */
 const SPA_TITLE = { fr: "Forfaits Spa", en: "Spa packages", ro: "Pachete Spa", it: "Pacchetti Spa" };
@@ -685,15 +687,20 @@ function priceFor(item, lang){ return typeof item.price === 'string' ? item.pric
 
 function renderServices(lang){
   const el = document.getElementById('service-grid'); if(!el) return;
-  el.innerHTML = SERVICES.map((s,i)=>`
+  el.innerHTML = SERVICES.map((s,i)=>{
+    const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
+    const n = Math.min(shots.length, 4);
+    const media = shots.length
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=27" alt="" loading="lazy"></figure>`).join('')}</div>`
+      : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
+    return `
     <div class="service-cell reveal-card">
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
-        <div class="service-media">
-          <img src="assets/img/${s.img}?v=26" alt="" loading="lazy">
+        <div class="service-media${n>1?' is-gallery':''}">
+          ${media}
           <span class="service-scrim"></span>
           <span class="service-ico">${SICONS[s.ico]||''}</span>
-          <span class="media-tag">${t(s.tag,lang)}</span>
           <span class="service-num">0${i+1}</span>
         </div>
         <div class="service-body">
@@ -701,7 +708,8 @@ function renderServices(lang){
           <ul>${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
         </div>
       </article>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 function renderSpa(lang){
   const el = document.getElementById('spa-grid'); if(!el) return;

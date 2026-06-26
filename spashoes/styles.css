@@ -319,8 +319,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=26") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=26") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=27") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=27") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -426,6 +426,18 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .service-media { position: relative; aspect-ratio: 16 / 11; overflow: hidden; }
 .service-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease); }
 .service-card:hover .service-media img { transform: scale(1.05); }
+/* galerie avant/après dans la carte service */
+.service-media.is-gallery { aspect-ratio: auto; }
+.service-shots { display: grid; gap: 4px; width: 100%; }
+.service-shots.n1 { grid-template-columns: 1fr; height: 100%; }
+.service-shots.n2, .service-shots.n3, .service-shots.n4 { grid-template-columns: 1fr 1fr; }
+.service-shots .shot { position: relative; margin: 0; overflow: hidden; background: #0b2236; }
+.service-shots.n1 .shot { height: 100%; }
+.service-media.is-gallery .shot { aspect-ratio: 16 / 10; }
+.service-shots .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.service-card:hover .service-shots .shot img { transform: scale(1.05); }
+.service-shots.empty { aspect-ratio: 16 / 11; display: grid; place-items: center; background: rgba(8,22,38,.5); }
+.service-shots.empty span { font-size: .82rem; color: var(--muted); text-align: center; padding: 0 16px; letter-spacing: .02em; }
 .media-tag { position: absolute; top: 13px; left: 13px; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #11314c; background: var(--grad); padding: 6px 12px; border-radius: 999px; }
 .service-num { position: absolute; right: 16px; bottom: 12px; font-family: var(--serif); font-size: 2.2rem; color: rgba(244,249,252,.9); text-shadow: 0 2px 12px rgba(0,0,0,.5); }
 .service-body { padding: 24px 26px 28px; }
