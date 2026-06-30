@@ -591,7 +591,6 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
 
 /* ---------- Responsive ---------- */
 @media (min-width: 640px) {
-  .header-actions .btn-sm { display: inline-flex; }
   .service-grid { grid-template-columns: repeat(2, 1fr); }
   .works-grid { grid-template-columns: repeat(3, 1fr); }
   .steps { grid-template-columns: repeat(3, 1fr); }
@@ -602,10 +601,24 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
   .section { padding: 120px 0; }
   .main-nav { display: flex; }
   .nav-toggle { display: none; }
+  .header-actions .btn-sm { display: inline-flex; }
   .hero-shoes { width: min(430px, 32vw); left: 67%; top: 58%; }
   .service-grid { grid-template-columns: repeat(2, 1fr); gap: 34px; }
   .about-inner { grid-template-columns: 0.9fr 1.1fr; gap: 60px; }
   .contact-inner { grid-template-columns: 1fr 1fr; gap: 56px; }
+}
+
+/* ---------- Mobile / tablette : header compact + souliers au-dessus du texte ---------- */
+@media (max-width: 899px) {
+  /* souliers remontés dans l'espace vide en haut du hero, plus au-dessus du titre */
+  .hero-shoes { top: 34%; width: min(300px, 54vw); }
+}
+@media (max-width: 600px) {
+  /* le médaillon devient la marque ; on libère la place pour les 4 langues + le burger */
+  .brand-text { display: none; }
+  .header-actions { gap: 7px; }
+  .lang-btn { padding: 8px 7px; min-height: 38px; font-size: 0.74rem; }
+  .hero-shoes { top: 28%; width: min(250px, 60vw); }
 }
 
 /* ---------- Mouvement réduit ---------- */
