@@ -677,6 +677,87 @@ for (const l in REAL_TAG) Object.assign(translations[l], REAL_TAG[l]);
 const SVC_SOON = { fr:{'services.soon':'Talon & semelle — exemples à venir'}, en:{'services.soon':'Heel & sole — examples coming soon'}, ro:{'services.soon':'Toc & talpă — exemple în curând'}, it:{'services.soon':'Tacco & suola — esempi in arrivo'} };
 for (const l in SVC_SOON) Object.assign(translations[l], SVC_SOON[l]);
 
+/* === Nouveaux contenus (nav, hero tél, citation, adresse, Blog, Corporate, Charité, Avis) === */
+const ADD_I18N = {
+  fr: {
+    'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Charité', 'nav.reviews':'Avis', 'nav.about':'À propos',
+    'hero.callLabel':'Appel & WhatsApp', 'hero.wa':'WhatsApp',
+    'services.quote':'« Chaque paire mérite une seconde vie — nous lui rendons tout son éclat. »', 'services.quoteBy':'— Spapoursouliers',
+    'form.addressTitle':'Adresse de ramassage', 'form.street':'Adresse (n° et rue)', 'form.city':'Ville', 'form.province':'Province', 'form.postal':'Code postal', 'form.provincePick':'Choisir…',
+    'blog.eyebrow':'Le journal de l’atelier', 'blog.title':'Réalisations & vidéos', 'blog.intro':'Nos transformations en images et en vidéo, ajoutées régulièrement par l’atelier.', 'blog.video':'Voir la vidéo', 'blog.soon':'Vidéo bientôt en ligne',
+    'blog.p1.title':'Restauration cuir', 'blog.p1.text':'Une paire de derbies redonnée à neuf.',
+    'blog.p2.title':'Nettoyage sneakers', 'blog.p2.text':'Des baskets blanches comme au premier jour.',
+    'blog.p3.title':'Teinture & patine', 'blog.p3.text':'Couleur ravivée, brillance miroir.',
+    'corporate.eyebrow':'Entreprises & partenaires', 'corporate.title':'Solutions corporatives', 'corporate.intro':'Pour hôtels, boutiques, équipes et événements : un service de soin de chaussures sur mesure, en volume.',
+    'corporate.f1':'Contrats sur mesure', 'corporate.f2':'Tarifs de groupe', 'corporate.f3':'Ramassage & livraison planifiés', 'corporate.cta':'Demander une offre',
+    'charity.eyebrow':'Redonner au suivant', 'charity.title':'Notre engagement', 'charity.intro':'Nous restaurons et offrons des chaussures à ceux qui en ont besoin, et soutenons des causes locales.',
+    'charity.f1':'Dons de chaussures restaurées', 'charity.f2':'Partenariats locaux', 'charity.f3':'Collectes saisonnières', 'charity.cta':'Participer ou faire un don',
+    'reviews.eyebrow':'Ils nous font confiance', 'reviews.title':'Avis de nos clients', 'reviews.intro':'La satisfaction, paire après paire.',
+    'reviews.r1.text':'Mes souliers de mariage étaient fichus, ils les ont rendus comme neufs. Service impeccable !', 'reviews.r1.name':'Sophie L.',
+    'reviews.r2.text':'Ramassage, nettoyage, livraison — simple et rapide. Mes sneakers sont éclatantes.', 'reviews.r2.name':'Marc T.',
+    'reviews.r3.text':'Un vrai savoir-faire. La teinture de mes bottes en cuir est parfaite.', 'reviews.r3.name':'Élodie R.',
+    'reviews.r4.text':'Professionnel et passionné. Je recommande les yeux fermés.', 'reviews.r4.name':'David M.'
+  },
+  en: {
+    'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Charity', 'nav.reviews':'Reviews', 'nav.about':'About',
+    'hero.callLabel':'Call & WhatsApp', 'hero.wa':'WhatsApp',
+    'services.quote':'“Every pair deserves a second life — we bring back all its shine.”', 'services.quoteBy':'— Spapoursouliers',
+    'form.addressTitle':'Pickup address', 'form.street':'Street address', 'form.city':'City', 'form.province':'Province', 'form.postal':'Postal code', 'form.provincePick':'Choose…',
+    'blog.eyebrow':'From the workshop', 'blog.title':'Work & videos', 'blog.intro':'Our transformations in photos and video, added regularly by the workshop.', 'blog.video':'Watch the video', 'blog.soon':'Video coming soon',
+    'blog.p1.title':'Leather restoration', 'blog.p1.text':'A pair of derbies brought back to life.',
+    'blog.p2.title':'Sneaker cleaning', 'blog.p2.text':'White sneakers like day one.',
+    'blog.p3.title':'Dyeing & patina', 'blog.p3.text':'Revived colour, mirror shine.',
+    'corporate.eyebrow':'Businesses & partners', 'corporate.title':'Corporate solutions', 'corporate.intro':'For hotels, boutiques, teams and events: a tailored shoe-care service, at scale.',
+    'corporate.f1':'Tailored contracts', 'corporate.f2':'Group pricing', 'corporate.f3':'Scheduled pickup & delivery', 'corporate.cta':'Request a quote',
+    'charity.eyebrow':'Giving back', 'charity.title':'Our commitment', 'charity.intro':'We restore and donate shoes to those in need, and support local causes.',
+    'charity.f1':'Donations of restored shoes', 'charity.f2':'Local partnerships', 'charity.f3':'Seasonal drives', 'charity.cta':'Join or donate',
+    'reviews.eyebrow':'Trusted by our clients', 'reviews.title':'Client reviews', 'reviews.intro':'Satisfaction, pair after pair.',
+    'reviews.r1.text':'My wedding shoes were ruined — they made them like new. Impeccable service!', 'reviews.r1.name':'Sophie L.',
+    'reviews.r2.text':'Pickup, cleaning, delivery — simple and fast. My sneakers are spotless.', 'reviews.r2.name':'Marc T.',
+    'reviews.r3.text':'True craftsmanship. The dye on my leather boots is perfect.', 'reviews.r3.name':'Élodie R.',
+    'reviews.r4.text':'Professional and passionate. I recommend with eyes closed.', 'reviews.r4.name':'David M.'
+  },
+  ro: {
+    'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Caritate', 'nav.reviews':'Recenzii', 'nav.about':'Despre',
+    'hero.callLabel':'Apel & WhatsApp', 'hero.wa':'WhatsApp',
+    'services.quote':'„Fiecare pereche merită o a doua viață — îi redăm toată strălucirea.”', 'services.quoteBy':'— Spapoursouliers',
+    'form.addressTitle':'Adresă de ridicare', 'form.street':'Adresă (stradă)', 'form.city':'Oraș', 'form.province':'Provincie', 'form.postal':'Cod poștal', 'form.provincePick':'Alege…',
+    'blog.eyebrow':'Jurnalul atelierului', 'blog.title':'Realizări & video', 'blog.intro':'Transformările noastre în imagini și video, adăugate regulat de atelier.', 'blog.video':'Vezi videoclipul', 'blog.soon':'Video în curând',
+    'blog.p1.title':'Restaurare piele', 'blog.p1.text':'O pereche de derby ca nouă.',
+    'blog.p2.title':'Curățare sneakers', 'blog.p2.text':'Adidași albi ca în prima zi.',
+    'blog.p3.title':'Vopsire & patină', 'blog.p3.text':'Culoare reînviată, luciu oglindă.',
+    'corporate.eyebrow':'Companii & parteneri', 'corporate.title':'Soluții corporative', 'corporate.intro':'Pentru hoteluri, magazine, echipe și evenimente: un serviciu de îngrijire a încălțămintei, la scară.',
+    'corporate.f1':'Contracte personalizate', 'corporate.f2':'Prețuri de grup', 'corporate.f3':'Ridicare & livrare programate', 'corporate.cta':'Cere o ofertă',
+    'charity.eyebrow':'Să dăm mai departe', 'charity.title':'Angajamentul nostru', 'charity.intro':'Restaurăm și oferim încălțăminte celor în nevoie și sprijinim cauze locale.',
+    'charity.f1':'Donații de încălțăminte restaurată', 'charity.f2':'Parteneriate locale', 'charity.f3':'Colecte sezoniere', 'charity.cta':'Participă sau donează',
+    'reviews.eyebrow':'Clienții au încredere', 'reviews.title':'Recenziile clienților', 'reviews.intro':'Satisfacție, pereche după pereche.',
+    'reviews.r1.text':'Pantofii mei de nuntă erau distruși — i-au făcut ca noi. Serviciu impecabil!', 'reviews.r1.name':'Sophie L.',
+    'reviews.r2.text':'Ridicare, curățare, livrare — simplu și rapid. Adidașii mei sunt impecabili.', 'reviews.r2.name':'Marc T.',
+    'reviews.r3.text':'Meșteșug adevărat. Vopsirea cizmelor mele din piele e perfectă.', 'reviews.r3.name':'Élodie R.',
+    'reviews.r4.text':'Profesionist și pasionat. Recomand cu ochii închiși.', 'reviews.r4.name':'David M.'
+  },
+  it: {
+    'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Beneficenza', 'nav.reviews':'Recensioni', 'nav.about':'Chi siamo',
+    'hero.callLabel':'Chiamata & WhatsApp', 'hero.wa':'WhatsApp',
+    'services.quote':'«Ogni paio merita una seconda vita — gli ridiamo tutto il suo splendore.»', 'services.quoteBy':'— Spapoursouliers',
+    'form.addressTitle':'Indirizzo di ritiro', 'form.street':'Indirizzo (via)', 'form.city':'Città', 'form.province':'Provincia', 'form.postal':'CAP', 'form.provincePick':'Scegli…',
+    'blog.eyebrow':'Dal laboratorio', 'blog.title':'Lavori & video', 'blog.intro':'Le nostre trasformazioni in foto e video, aggiunte regolarmente dal laboratorio.', 'blog.video':'Guarda il video', 'blog.soon':'Video in arrivo',
+    'blog.p1.title':'Restauro pelle', 'blog.p1.text':'Un paio di derby tornati come nuovi.',
+    'blog.p2.title':'Pulizia sneakers', 'blog.p2.text':'Sneakers bianche come il primo giorno.',
+    'blog.p3.title':'Tintura & patina', 'blog.p3.text':'Colore ravvivato, lucentezza a specchio.',
+    'corporate.eyebrow':'Aziende & partner', 'corporate.title':'Soluzioni corporate', 'corporate.intro':'Per hotel, boutique, team ed eventi: un servizio di cura delle scarpe su misura, in volume.',
+    'corporate.f1':'Contratti su misura', 'corporate.f2':'Prezzi di gruppo', 'corporate.f3':'Ritiro & consegna programmati', 'corporate.cta':'Richiedi un preventivo',
+    'charity.eyebrow':'Restituire', 'charity.title':'Il nostro impegno', 'charity.intro':'Restauriamo e doniamo scarpe a chi ne ha bisogno e sosteniamo cause locali.',
+    'charity.f1':'Donazioni di scarpe restaurate', 'charity.f2':'Partnership locali', 'charity.f3':'Raccolte stagionali', 'charity.cta':'Partecipa o dona',
+    'reviews.eyebrow':'Si fidano di noi', 'reviews.title':'Recensioni dei clienti', 'reviews.intro':'Soddisfazione, paio dopo paio.',
+    'reviews.r1.text':'Le mie scarpe da sposa erano rovinate — le hanno fatte come nuove. Servizio impeccabile!', 'reviews.r1.name':'Sophie L.',
+    'reviews.r2.text':'Ritiro, pulizia, consegna — semplice e veloce. Le mie sneakers sono splendenti.', 'reviews.r2.name':'Marc T.',
+    'reviews.r3.text':'Vero artigianato. La tintura dei miei stivali in pelle è perfetta.', 'reviews.r3.name':'Élodie R.',
+    'reviews.r4.text':'Professionale e appassionato. Lo consiglio a occhi chiusi.', 'reviews.r4.name':'David M.'
+  }
+};
+for (const l in ADD_I18N) Object.assign(translations[l], ADD_I18N[l]);
+
 /* Filet de sécurité : titre des forfaits Spa */
 const SPA_TITLE = { fr: "Forfaits Spa", en: "Spa packages", ro: "Pachete Spa", it: "Pacchetti Spa" };
 for (const l in SPA_TITLE) { if (translations[l] && translations[l]["pricing.spa.title"] === undefined) translations[l]["pricing.spa.title"] = SPA_TITLE[l]; }
@@ -691,7 +772,7 @@ function renderServices(lang){
     const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
     const n = Math.min(shots.length, 4);
     const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=27" alt="" loading="lazy"></figure>`).join('')}</div>`
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=28" alt="" loading="lazy"></figure>`).join('')}</div>`
       : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
     return `
     <div class="service-cell reveal-card">

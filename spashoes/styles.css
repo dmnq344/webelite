@@ -197,8 +197,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .brand-text { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
 .brand-accent { color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; }
 
-.main-nav { display: none; gap: 26px; }
-.main-nav a { position: relative; font-size: 0.9rem; font-weight: 500; color: var(--muted-2); padding: 6px 0; transition: color 200ms ease; }
+.main-nav { display: none; gap: 17px; }
+.main-nav a { position: relative; font-size: 0.84rem; font-weight: 500; color: var(--muted-2); padding: 6px 0; white-space: nowrap; transition: color 200ms ease; }
 .main-nav a::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 100%; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform 260ms var(--ease); }
 .main-nav a:hover, .main-nav a.is-active { color: var(--text); }
 .main-nav a:hover::after, .main-nav a.is-active::after { transform: scaleX(1); }
@@ -319,8 +319,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=27") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=27") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=28") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=28") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -831,3 +831,79 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
 .service-ico { width: 38px; height: 38px; }
 .service-ico svg { width: 19px; height: 19px; }
 @media (min-width: 900px) { .service-grid { gap: 26px; } }
+
+/* ==================================================================
+   NOUVEAUX COMPOSANTS — tél hero, emblème services, citation,
+   adresse, Blog, Corporate, Charité, Avis, footer-nav
+   ================================================================== */
+/* Hero : téléphone + WhatsApp en or */
+.hero-call { display: flex; flex-direction: column; gap: 7px; }
+.hero-call-label { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
+.hero-call-row { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.hero-phone { font-family: var(--serif); font-weight: 500; font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1; letter-spacing: .01em;
+  color: transparent; background: linear-gradient(100deg, var(--gold-br), var(--gold) 58%, #d8b06a); -webkit-background-clip: text; background-clip: text;
+  animation: heroPhonePulse 2.8s ease-in-out infinite; }
+.hero-phone:hover { filter: brightness(1.12); }
+@keyframes heroPhonePulse { 0%,100% { filter: drop-shadow(0 2px 14px rgba(236,209,153,.25)); } 50% { filter: drop-shadow(0 2px 24px rgba(236,209,153,.6)); } }
+.hero-wa { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; font-size: .78rem; font-weight: 600; color: #0c2740;
+  background: var(--grad); box-shadow: 0 8px 22px rgba(236,209,153,.3); transition: transform .2s var(--ease), box-shadow .25s ease; }
+.hero-wa svg { width: 16px; height: 16px; }
+.hero-wa:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(236,209,153,.45); }
+
+/* Emblème dans le titre de section (Services) */
+.section-emblem { display: block; width: 80px; height: 80px; margin: 0 auto 16px; }
+
+/* Citation Services */
+.svc-quote { position: relative; max-width: 760px; margin: 50px auto 0; text-align: center; padding: 12px 20px; }
+.svc-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 2.6vw, 1.7rem); line-height: 1.4; color: var(--text); }
+.svc-quote cite { display: block; margin-top: 14px; font-style: normal; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.svc-quote-mark { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-family: var(--serif); font-size: 4rem; line-height: 1; color: var(--gold); opacity: .3; }
+
+/* Formulaire : groupe adresse */
+.field-group { border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px 2px; margin-bottom: 16px; }
+.field-group legend { padding: 0 8px; font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+.field-row { display: grid; grid-template-columns: 1fr; gap: 0 14px; }
+@media (min-width: 560px) { .field-row { grid-template-columns: 1.3fr 1fr 1fr; } }
+
+/* Blog */
+.blog-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 720px) { .blog-grid { grid-template-columns: repeat(3, 1fr); } }
+.blog-card { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line-2); background: rgba(15,44,70,.34); backdrop-filter: blur(14px); box-shadow: var(--sh-md); transition: transform .4s var(--ease), box-shadow .4s ease; }
+.blog-card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); }
+.blog-media { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+.blog-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.blog-card:hover .blog-media img { transform: scale(1.06); }
+.blog-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: #0c2740; background: var(--grad); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+.blog-play svg { width: 26px; height: 26px; margin-left: 3px; }
+.blog-soon { position: absolute; top: 12px; left: 12px; font-size: .6rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text); background: rgba(7,21,37,.6); border: 1px solid var(--line-2); padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(4px); }
+.blog-body { padding: 20px 22px 24px; }
+.blog-body h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; margin-bottom: 7px; }
+.blog-body p { color: var(--muted); font-size: .94rem; margin-bottom: 12px; }
+.blog-link { font-size: .8rem; font-weight: 600; letter-spacing: .04em; color: var(--gold); cursor: pointer; }
+.blog-link::after { content: " \2192"; }
+
+/* Corporate / Charité : rangée de features */
+.feature-row { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 980px; margin: 0 auto; }
+@media (min-width: 700px) { .feature-row { grid-template-columns: repeat(3, 1fr); } }
+.feature { text-align: center; padding: 30px 22px; border-radius: var(--r-lg); border: 1px solid var(--line); background: rgba(15,44,70,.3); backdrop-filter: blur(12px); box-shadow: var(--sh-sm); transition: transform .4s var(--ease), box-shadow .4s ease, border-color .3s ease; }
+.feature:hover { transform: translateY(-5px); border-color: var(--line-2); box-shadow: var(--sh-md); }
+.feature-ico { display: inline-grid; place-items: center; width: 60px; height: 60px; border-radius: 16px; margin-bottom: 16px; color: var(--gold); background: rgba(8,22,38,.5); border: 1px solid var(--line-2); }
+.feature-ico svg { width: 28px; height: 28px; }
+.feature h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; }
+
+/* Avis / témoignages */
+.reviews-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 640px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .reviews-grid { grid-template-columns: repeat(4, 1fr); } }
+.review-card { position: relative; margin: 0; padding: 30px 26px 26px; border-radius: var(--r-lg); border: 1px solid var(--line-2); background: rgba(15,44,70,.36); backdrop-filter: blur(15px); box-shadow: var(--sh-md); overflow: hidden; }
+.rv-quote { position: absolute; top: 4px; right: 18px; font-family: var(--serif); font-size: 4.4rem; line-height: 1; color: var(--gold); opacity: .16; }
+.stars { color: var(--gold); letter-spacing: 3px; font-size: 1rem; margin-bottom: 14px; }
+.review-card blockquote { color: var(--muted-2); font-size: .98rem; line-height: 1.55; }
+.review-card figcaption { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+.rv-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font-family: var(--serif); font-weight: 600; color: #0c2740; background: var(--grad); }
+.rv-name { font-weight: 600; font-size: .92rem; color: var(--text); }
+
+/* Footer : nav secondaire */
+.footer-nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 16px; }
+.footer-nav a { color: var(--muted); font-size: .9rem; transition: color .2s ease; }
+.footer-nav a:hover { color: var(--gold-br); }
