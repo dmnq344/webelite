@@ -651,10 +651,10 @@ const SICONS = {
   needle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21L21 3"/><circle cx="6" cy="18" r="2"/><path d="M14 6l4 4"/></svg>'
 };
 const SERVICES = [
-  { key:'cleaning', ico:'sparkle', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', shots:['service-reparation.jpg','real/real-02.jpg','real/real-03.jpg','real/real-07.jpg'], items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
-  { key:'dye',      ico:'brush', img:'service-peinture.jpg',    tag:'placeholder.beforeafter', shots:['real/real-11.jpg','real/real-10.jpg','real/real-04.jpg','real/real-06.jpg'], items:['services.dye.1'] },
-  { key:'repairs',  ico:'hammer', img:'',                        tag:'placeholder.beforeafter', shots:[], items:['services.repairs.1','services.repairs.2'] },
-  { key:'cobbler',  ico:'needle', img:'service-cordonnerie.jpg', tag:'placeholder.craft',       shots:[], items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
+  { key:'cleaning', ico:'sparkle', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', shots:['service-reparation.jpg','real/real-02.jpg','real/real-03.jpg'], items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
+  { key:'dye',      ico:'brush', img:'service-peinture.jpg',    tag:'placeholder.beforeafter', shots:['real/real-11.jpg','real/real-10.jpg','real/real-04.jpg'], items:['services.dye.1'] },
+  { key:'repairs',  ico:'hammer', img:'',                        tag:'placeholder.beforeafter', shots:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'], items:['services.repairs.1','services.repairs.2'] },
+  { key:'cobbler',  ico:'needle', img:'service-cordonnerie.jpg', tag:'placeholder.craft',       shots:['real/cobbler-02.jpg','real/cobbler-01.jpg','real/cobbler-03.jpg','real/cobbler-04.jpg'], items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
 ];
 const SPA = [
   { title:'pricing.spa.inout.title', feats:['pricing.spa.inout.f1','pricing.spa.inout.f2','pricing.spa.inout.f3','pricing.spa.inout.f4','pricing.spa.inout.f5','pricing.spa.inout.f6','pricing.spa.inout.f7'], prices:[['pricing.audience.kids','30 $'],['pricing.audience.adult','40 $'],['pricing.audience.boots','50 $']], featured:false },
@@ -718,6 +718,8 @@ const ADD_I18N_2 = {
     'form.hint':"Votre demande s'ouvre dans WhatsApp — envoyez-la, on s'occupe du reste.",
     'form.waIntro':'Bonjour ! Je souhaite planifier un ramassage.',
     'a11y.ba':'Avant / Après', 'a11y.menu':'Menu', 'a11y.tabs':'Catégories', 'a11y.social':'Réseaux sociaux', 'a11y.lang':'Langue',
+    'bubble.price':'Prix',
+    'corporate.a1':'Collection de chaussures pour femmes disposées en cercle', 'corporate.a2':'Souliers habillés pour hommes disposés en cercle',
     'meta.title':'Spapoursouliers — Nettoyage, restauration & cordonnerie de chaussures à Montréal',
     'meta.desc':'Spa pour chaussures dans le Grand Montréal : nettoyage en profondeur, restauration, teinture et cordonnerie. Ramassage et livraison inclus. 438-449-9422.',
     'hero.alt':'Paire de souliers vernis impeccables',
@@ -731,6 +733,8 @@ const ADD_I18N_2 = {
     'form.hint':'Your request opens in WhatsApp — hit send and we handle the rest.',
     'form.waIntro':'Hello! I would like to schedule a pickup.',
     'a11y.ba':'Before / After', 'a11y.menu':'Menu', 'a11y.tabs':'Categories', 'a11y.social':'Social media', 'a11y.lang':'Language',
+    'bubble.price':'Price',
+    'corporate.a1':'Collection of women\'s shoes arranged in a circle', 'corporate.a2':'Men\'s dress shoes arranged in a circle',
     'meta.title':'Spapoursouliers — Shoe cleaning, restoration & cobbling in Montreal',
     'meta.desc':'Shoe spa serving Greater Montreal: deep cleaning, restoration, dyeing and cobbling. Pickup and delivery included. 438-449-9422.',
     'hero.alt':'Spotless pair of patent leather shoes',
@@ -744,6 +748,8 @@ const ADD_I18N_2 = {
     'form.hint':'Cererea ta se deschide în WhatsApp — trimite-o și ne ocupăm noi de rest.',
     'form.waIntro':'Bună ziua! Aș dori să programez o preluare.',
     'a11y.ba':'Înainte / După', 'a11y.menu':'Meniu', 'a11y.tabs':'Categorii', 'a11y.social':'Rețele sociale', 'a11y.lang':'Limbă',
+    'bubble.price':'Preț',
+    'corporate.a1':'Colecție de pantofi de damă așezați în cerc', 'corporate.a2':'Pantofi eleganți pentru bărbați așezați în cerc',
     'meta.title':'Spapoursouliers — Curățare, restaurare și cizmărie de încălțăminte în Montreal',
     'meta.desc':'Spa pentru încălțăminte în Montreal: curățare profundă, restaurare, vopsire și cizmărie. Preluare și livrare incluse. 438-449-9422.',
     'hero.alt':'Pereche de pantofi de lac impecabili',
@@ -757,6 +763,8 @@ const ADD_I18N_2 = {
     'form.hint':'La tua richiesta si apre su WhatsApp — inviala e pensiamo a tutto noi.',
     'form.waIntro':'Salve! Vorrei programmare un ritiro.',
     'a11y.ba':'Prima / Dopo', 'a11y.menu':'Menu', 'a11y.tabs':'Categorie', 'a11y.social':'Social', 'a11y.lang':'Lingua',
+    'bubble.price':'Prezzo',
+    'corporate.a1':'Collezione di scarpe da donna disposte in cerchio', 'corporate.a2':'Scarpe eleganti da uomo disposte in cerchio',
     'meta.title':'Spapoursouliers — Pulizia, restauro e calzoleria di scarpe a Montreal',
     'meta.desc':'Spa per scarpe nella Grande Montreal: pulizia profonda, restauro, tintura e calzoleria. Ritiro e consegna inclusi. 438-449-9422.',
     'hero.alt':'Paio di scarpe di vernice impeccabili',
@@ -774,7 +782,8 @@ const ADD_I18N = {
   fr: {
     'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Charité', 'nav.reviews':'Avis', 'nav.about':'À propos',
     'hero.callLabel':'Appel & WhatsApp', 'hero.wa':'WhatsApp',
-    'services.quote':'« Chaque paire mérite une seconde vie — nous lui rendons tout son éclat. »', 'services.quoteBy':'— Spapoursouliers',
+    'services.quote':'« Les chaussures transforment ton langage corporel et ton attitude. Elles te soulèvent physiquement et émotionnellement. »', 'services.quoteBy':'— Jayden Hayes',
+    'services.quoteBrand':"Nous faisons en sorte que vos chaussures brillent à nouveau, afin que vous puissiez parcourir ensemble encore une autre étape de la vie.",
     'form.addressTitle':'Adresse de ramassage', 'form.street':'Adresse (n° et rue)', 'form.city':'Ville', 'form.province':'Province', 'form.postal':'Code postal', 'form.provincePick':'Choisir…',
     'blog.eyebrow':'Le journal de l’atelier', 'blog.title':'Réalisations & vidéos', 'blog.intro':'Nos transformations en images et en vidéo, ajoutées régulièrement par l’atelier.', 'blog.video':'Voir la vidéo', 'blog.soon':'Vidéo bientôt en ligne',
     'blog.p1.title':'Restauration cuir', 'blog.p1.text':'Une paire de derbies redonnée à neuf.',
@@ -793,7 +802,8 @@ const ADD_I18N = {
   en: {
     'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Charity', 'nav.reviews':'Reviews', 'nav.about':'About',
     'hero.callLabel':'Call & WhatsApp', 'hero.wa':'WhatsApp',
-    'services.quote':'“Every pair deserves a second life — we bring back all its shine.”', 'services.quoteBy':'— Spapoursouliers',
+    'services.quote':'“Shoes transform your body language and attitude. They lift you physically and emotionally.”', 'services.quoteBy':'— Jayden Hayes',
+    'services.quoteBrand':'We make your shoes shine again, so that together you can walk through yet another stage of life.',
     'form.addressTitle':'Pickup address', 'form.street':'Street address', 'form.city':'City', 'form.province':'Province', 'form.postal':'Postal code', 'form.provincePick':'Choose…',
     'blog.eyebrow':'From the workshop', 'blog.title':'Work & videos', 'blog.intro':'Our transformations in photos and video, added regularly by the workshop.', 'blog.video':'Watch the video', 'blog.soon':'Video coming soon',
     'blog.p1.title':'Leather restoration', 'blog.p1.text':'A pair of derbies brought back to life.',
@@ -812,7 +822,8 @@ const ADD_I18N = {
   ro: {
     'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Caritate', 'nav.reviews':'Recenzii', 'nav.about':'Despre',
     'hero.callLabel':'Apel & WhatsApp', 'hero.wa':'WhatsApp',
-    'services.quote':'„Fiecare pereche merită o a doua viață — îi redăm toată strălucirea.”', 'services.quoteBy':'— Spapoursouliers',
+    'services.quote':'„Pantofii îți transformă limbajul corporal și atitudinea. Te ridică fizic și emoțional.”', 'services.quoteBy':'— Jayden Hayes',
+    'services.quoteBrand':'Facem ca pantofii tăi să strălucească din nou, pentru ca împreună să mai parcurgeți încă o etapă a vieții.',
     'form.addressTitle':'Adresă de ridicare', 'form.street':'Adresă (stradă)', 'form.city':'Oraș', 'form.province':'Provincie', 'form.postal':'Cod poștal', 'form.provincePick':'Alege…',
     'blog.eyebrow':'Jurnalul atelierului', 'blog.title':'Realizări & video', 'blog.intro':'Transformările noastre în imagini și video, adăugate regulat de atelier.', 'blog.video':'Vezi videoclipul', 'blog.soon':'Video în curând',
     'blog.p1.title':'Restaurare piele', 'blog.p1.text':'O pereche de derby ca nouă.',
@@ -831,7 +842,8 @@ const ADD_I18N = {
   it: {
     'nav.blog':'Blog', 'nav.corporate':'Corporate', 'nav.charity':'Beneficenza', 'nav.reviews':'Recensioni', 'nav.about':'Chi siamo',
     'hero.callLabel':'Chiamata & WhatsApp', 'hero.wa':'WhatsApp',
-    'services.quote':'«Ogni paio merita una seconda vita — gli ridiamo tutto il suo splendore.»', 'services.quoteBy':'— Spapoursouliers',
+    'services.quote':'«Le scarpe trasformano il tuo linguaggio del corpo e il tuo atteggiamento. Ti sollevano fisicamente ed emotivamente.»', 'services.quoteBy':'— Jayden Hayes',
+    'services.quoteBrand':'Facciamo brillare di nuovo le tue scarpe, così che possiate percorrere insieme un\'altra tappa della vita.',
     'form.addressTitle':'Indirizzo di ritiro', 'form.street':'Indirizzo (via)', 'form.city':'Città', 'form.province':'Provincia', 'form.postal':'CAP', 'form.provincePick':'Scegli…',
     'blog.eyebrow':'Dal laboratorio', 'blog.title':'Lavori & video', 'blog.intro':'Le nostre trasformazioni in foto e video, aggiunte regolarmente dal laboratorio.', 'blog.video':'Guarda il video', 'blog.soon':'Video in arrivo',
     'blog.p1.title':'Restauro pelle', 'blog.p1.text':'Un paio di derby tornati come nuovi.',
@@ -864,7 +876,7 @@ function renderServices(lang){
     const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
     const n = Math.min(shots.length, 4);
     const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=31" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=32" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
       : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
     return `
     <div class="service-cell reveal-card">
