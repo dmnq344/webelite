@@ -674,6 +674,98 @@ const WORKS_PROMISE = {
 for (const l in WORKS_PROMISE) Object.assign(translations[l], WORKS_PROMISE[l]);
 const REAL_TAG = { fr:{'real.tag':'Avant · Après'}, en:{'real.tag':'Before · After'}, ro:{'real.tag':'Înainte · După'}, it:{'real.tag':'Prima · Dopo'} };
 for (const l in REAL_TAG) Object.assign(translations[l], REAL_TAG[l]);
+// Légendes + textes alternatifs des vraies réalisations (grille « Réalisations »)
+const REAL_TILES = {
+  fr: {
+    'real.t1':'Sneakers enfant · nettoyage', 'real.a1':"Avant/après : sneakers d'enfant très sales puis d'un blanc impeccable",
+    'real.t2':'Nike TN · nettoyage profond', 'real.a2':'Avant/après : Nike TN encrassées puis nettoyées en profondeur',
+    'real.t3':'Ballerines cuir · ravivées', 'real.a3':'Avant/après : ballerines en cuir noir usées puis ravivées',
+    'real.t4':'Brogues · restauration', 'real.a4':'Avant/après : brogues bourgogne rayées puis restaurées et lustrées',
+    'real.t5':'Bottines · détachage peinture', 'real.a5':'Avant/après : bottines cloutées tachées de peinture puis nettoyées',
+    'real.t6':'Daim · taches éliminées', 'real.a6':'Avant/après : derbies en daim beige tachées puis détachées'
+  },
+  en: {
+    'real.t1':'Kids sneakers · deep clean', 'real.a1':'Before/after: filthy kids sneakers restored to spotless white',
+    'real.t2':'Nike TN · deep clean', 'real.a2':'Before/after: grimy Nike TN sneakers deep cleaned',
+    'real.t3':'Leather flats · revived', 'real.a3':'Before/after: worn black leather flats brought back to life',
+    'real.t4':'Brogues · restoration', 'real.a4':'Before/after: scratched burgundy brogues restored and polished',
+    'real.t5':'Boots · paint removal', 'real.a5':'Before/after: studded boots splattered with paint, then cleaned',
+    'real.t6':'Suede · stain removal', 'real.a6':'Before/after: stained beige suede derbies, stains removed'
+  },
+  ro: {
+    'real.t1':'Adidași copii · curățare', 'real.a1':'Înainte/după: adidași de copii foarte murdari, redeveniți albi impecabil',
+    'real.t2':'Nike TN · curățare profundă', 'real.a2':'Înainte/după: Nike TN murdari, curățați în profunzime',
+    'real.t3':'Balerini piele · reînviați', 'real.a3':'Înainte/după: balerini din piele neagră uzați, reînviați',
+    'real.t4':'Pantofi brogue · restaurare', 'real.a4':'Înainte/după: pantofi brogue bordo zgâriați, restaurați și lustruiți',
+    'real.t5':'Ghete · vopsea îndepărtată', 'real.a5':'Înainte/după: ghete cu ținte pătate de vopsea, apoi curățate',
+    'real.t6':'Piele întoarsă · fără pete', 'real.a6':'Înainte/după: pantofi derby din piele întoarsă bej, pete eliminate'
+  },
+  it: {
+    'real.t1':'Sneakers bimbo · pulizia', 'real.a1':'Prima/dopo: sneakers da bambino sporchissime, tornate di un bianco impeccabile',
+    'real.t2':'Nike TN · pulizia profonda', 'real.a2':'Prima/dopo: Nike TN incrostate, pulite in profondità',
+    'real.t3':'Ballerine pelle · ravvivate', 'real.a3':'Prima/dopo: ballerine in pelle nera usurate, ravvivate',
+    'real.t4':'Stringate · restauro', 'real.a4':'Prima/dopo: stringate bordeaux graffiate, restaurate e lucidate',
+    'real.t5':'Stivaletti · vernice rimossa', 'real.a5':'Prima/dopo: stivaletti borchiati macchiati di vernice, poi puliti',
+    'real.t6':'Camoscio · smacchiato', 'real.a6':'Prima/dopo: derby in camoscio beige macchiate, macchie eliminate'
+  }
+};
+for (const l in REAL_TILES) Object.assign(translations[l], REAL_TILES[l]);
+/* === i18n complémentaire : formulaire (services/provinces), ARIA, titre d'onglet, alts === */
+const ADD_I18N_2 = {
+  fr: {
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Nettoyage', 'form.svc.repairs':'Réparations', 'form.svc.cobbler':'Cordonnerie',
+    'form.prov.nb':'Nouveau-Brunswick', 'form.prov.ns':'Nouvelle-Écosse', 'form.prov.bc':'Colombie-Britannique', 'form.prov.pe':'Île-du-Prince-Édouard', 'form.prov.nl':'Terre-Neuve-et-Labrador',
+    'form.hint':"Votre demande s'ouvre dans WhatsApp — envoyez-la, on s'occupe du reste.",
+    'form.waIntro':'Bonjour ! Je souhaite planifier un ramassage.',
+    'a11y.ba':'Avant / Après', 'a11y.menu':'Menu', 'a11y.tabs':'Catégories', 'a11y.social':'Réseaux sociaux', 'a11y.lang':'Langue',
+    'meta.title':'Spapoursouliers — Nettoyage, restauration & cordonnerie de chaussures à Montréal',
+    'meta.desc':'Spa pour chaussures dans le Grand Montréal : nettoyage en profondeur, restauration, teinture et cordonnerie. Ramassage et livraison inclus. 438-449-9422.',
+    'hero.alt':'Paire de souliers vernis impeccables',
+    'works.featAlt':"Avant et après — restauration d'une paire de souliers",
+    'about.craftAlt':'Travail du cuir au marteau', 'about.presseAlt':'Article de presse sur Cristian Rotaru', 'about.attestAlt':'Attestation professionnelle — Québec, 2025',
+    'blog.a1':'Derbies patinés avant/après restauration', 'blog.a2':'Converse redevenues blanches après nettoyage', 'blog.a3':'Bottes western teintées du fauve au noir'
+  },
+  en: {
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Cleaning', 'form.svc.repairs':'Repairs', 'form.svc.cobbler':'Cobbling',
+    'form.prov.nb':'New Brunswick', 'form.prov.ns':'Nova Scotia', 'form.prov.bc':'British Columbia', 'form.prov.pe':'Prince Edward Island', 'form.prov.nl':'Newfoundland and Labrador',
+    'form.hint':'Your request opens in WhatsApp — hit send and we handle the rest.',
+    'form.waIntro':'Hello! I would like to schedule a pickup.',
+    'a11y.ba':'Before / After', 'a11y.menu':'Menu', 'a11y.tabs':'Categories', 'a11y.social':'Social media', 'a11y.lang':'Language',
+    'meta.title':'Spapoursouliers — Shoe cleaning, restoration & cobbling in Montreal',
+    'meta.desc':'Shoe spa serving Greater Montreal: deep cleaning, restoration, dyeing and cobbling. Pickup and delivery included. 438-449-9422.',
+    'hero.alt':'Spotless pair of patent leather shoes',
+    'works.featAlt':'Before and after — restoration of a pair of shoes',
+    'about.craftAlt':'Leather craftsmanship with a hammer', 'about.presseAlt':'Press article about Cristian Rotaru', 'about.attestAlt':'Professional certification — Quebec, 2025',
+    'blog.a1':'Patinated derbies before/after restoration', 'blog.a2':'Converse white again after cleaning', 'blog.a3':'Western boots dyed from tan to black'
+  },
+  ro: {
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Curățare', 'form.svc.repairs':'Reparații', 'form.svc.cobbler':'Cizmărie',
+    'form.prov.nb':'New Brunswick', 'form.prov.ns':'Noua Scoție', 'form.prov.bc':'Columbia Britanică', 'form.prov.pe':'Insula Prințul Eduard', 'form.prov.nl':'Terranova și Labrador',
+    'form.hint':'Cererea ta se deschide în WhatsApp — trimite-o și ne ocupăm noi de rest.',
+    'form.waIntro':'Bună ziua! Aș dori să programez o preluare.',
+    'a11y.ba':'Înainte / După', 'a11y.menu':'Meniu', 'a11y.tabs':'Categorii', 'a11y.social':'Rețele sociale', 'a11y.lang':'Limbă',
+    'meta.title':'Spapoursouliers — Curățare, restaurare și cizmărie de încălțăminte în Montreal',
+    'meta.desc':'Spa pentru încălțăminte în Montreal: curățare profundă, restaurare, vopsire și cizmărie. Preluare și livrare incluse. 438-449-9422.',
+    'hero.alt':'Pereche de pantofi de lac impecabili',
+    'works.featAlt':'Înainte și după — restaurarea unei perechi de pantofi',
+    'about.craftAlt':'Prelucrarea pielii cu ciocanul', 'about.presseAlt':'Articol de presă despre Cristian Rotaru', 'about.attestAlt':'Atestat profesional — Québec, 2025',
+    'blog.a1':'Pantofi derby patinați înainte/după restaurare', 'blog.a2':'Converse albe din nou după curățare', 'blog.a3':'Cizme western vopsite din maro în negru'
+  },
+  it: {
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Pulizia', 'form.svc.repairs':'Riparazioni', 'form.svc.cobbler':'Calzoleria',
+    'form.prov.nb':'Nuovo Brunswick', 'form.prov.ns':'Nuova Scozia', 'form.prov.bc':'Columbia Britannica', 'form.prov.pe':'Isola del Principe Edoardo', 'form.prov.nl':'Terranova e Labrador',
+    'form.hint':'La tua richiesta si apre su WhatsApp — inviala e pensiamo a tutto noi.',
+    'form.waIntro':'Salve! Vorrei programmare un ritiro.',
+    'a11y.ba':'Prima / Dopo', 'a11y.menu':'Menu', 'a11y.tabs':'Categorie', 'a11y.social':'Social', 'a11y.lang':'Lingua',
+    'meta.title':'Spapoursouliers — Pulizia, restauro e calzoleria di scarpe a Montreal',
+    'meta.desc':'Spa per scarpe nella Grande Montreal: pulizia profonda, restauro, tintura e calzoleria. Ritiro e consegna inclusi. 438-449-9422.',
+    'hero.alt':'Paio di scarpe di vernice impeccabili',
+    'works.featAlt':'Prima e dopo — restauro di un paio di scarpe',
+    'about.craftAlt':'Lavorazione del cuoio con il martello', 'about.presseAlt':'Articolo di stampa su Cristian Rotaru', 'about.attestAlt':'Attestato professionale — Québec, 2025',
+    'blog.a1':'Derby patinate prima/dopo il restauro', 'blog.a2':'Converse di nuovo bianche dopo la pulizia', 'blog.a3':'Stivali western tinti dal marrone al nero'
+  }
+};
+for (const l in ADD_I18N_2) Object.assign(translations[l], ADD_I18N_2[l]);
 const SVC_SOON = { fr:{'services.soon':'Talon & semelle — exemples à venir'}, en:{'services.soon':'Heel & sole — examples coming soon'}, ro:{'services.soon':'Toc & talpă — exemple în curând'}, it:{'services.soon':'Tacco & suola — esempi in arrivo'} };
 for (const l in SVC_SOON) Object.assign(translations[l], SVC_SOON[l]);
 
@@ -772,7 +864,7 @@ function renderServices(lang){
     const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
     const n = Math.min(shots.length, 4);
     const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=30" alt="" loading="lazy"></figure>`).join('')}</div>`
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=31" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
       : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
     return `
     <div class="service-cell reveal-card">
@@ -809,7 +901,7 @@ const PT_ICONS = {
 };
 function renderPriceTabs(lang){
   const tabs = document.getElementById('price-tabs'); if(!tabs) return;
-  tabs.innerHTML = PRICE_CATS.map(([lbl,cat])=>`<button class="price-tab${cat===activeCat?' is-active':''}" data-cat="${cat}" role="tab" aria-selected="${cat===activeCat}"><span class="pt-ico">${PT_ICONS[cat]||''}</span>${t(lbl,lang)}</button>`).join('');
+  tabs.innerHTML = PRICE_CATS.map(([lbl,cat])=>`<button class="price-tab${cat===activeCat?' is-active':''}" data-cat="${cat}" role="tab" aria-selected="${cat===activeCat}" tabindex="${cat===activeCat?'0':'-1'}"><span class="pt-ico">${PT_ICONS[cat]||''}</span>${t(lbl,lang)}</button>`).join('');
   renderPricePanel(lang);
 }
 function renderPricePanel(lang){
@@ -836,17 +928,22 @@ function batchReveal(){
 function applyLanguage(lang){
   if(!translations[lang]) return; currentLang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = t(el.getAttribute('data-i18n'), lang); });
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>{ el.setAttribute('alt', t(el.getAttribute('data-i18n-alt'), lang)); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{ el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'), lang)); });
+  document.title = t('meta.title', lang);
+  const mdesc = document.querySelector('meta[name="description"]'); if (mdesc) mdesc.setAttribute('content', t('meta.desc', lang));
   document.documentElement.setAttribute('lang', lang);
   renderServices(lang); renderSpa(lang); renderPriceTabs(lang); renderGallery(lang); buildMarquee(lang);
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('is-active', b.dataset.lang===lang));
+  document.querySelectorAll('.lang-btn').forEach(b=>{ const on=b.dataset.lang===lang; b.classList.toggle('is-active', on); b.setAttribute('aria-pressed', String(on)); });
   batchReveal();
   try{ localStorage.setItem('sps2-lang', lang); }catch(e){}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* langue initiale */
+  /* langue initiale : FR par défaut (le site est indexé en français — pas d'auto-détection
+     navigateur, sinon Googlebot, qui se présente en en-US, indexerait la version anglaise) */
   let initial='fr';
-  try{ const s=localStorage.getItem('sps2-lang'); if(s&&translations[s])initial=s; else{const n=(navigator.language||'fr').slice(0,2).toLowerCase(); if(translations[n])initial=n;} }catch(e){}
+  try{ const s=localStorage.getItem('sps2-lang'); if(s&&translations[s])initial=s; }catch(e){}
   applyLanguage(initial);
 
   /* logo : clone l'emblème cordonnier dans chaque [data-logo] */
@@ -863,6 +960,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.lang)));
+
+  /* formulaire de commande → message WhatsApp pré-rempli (aucun serveur requis) */
+  const cform=document.getElementById('contact-form');
+  if(cform) cform.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(typeof cform.reportValidity==='function' && !cform.reportValidity()) return;
+    const v=id=>{const el=document.getElementById(id); return el?el.value.trim():'';};
+    const optText=id=>{const el=document.getElementById(id); return (el&&el.selectedIndex>-1&&el.value!=='')?el.options[el.selectedIndex].text.trim():'';};
+    const L=currentLang;
+    const addr=[v('cf-street'), v('cf-city'), optText('cf-prov'), v('cf-postal')].filter(Boolean).join(', ');
+    const lines=[t('form.waIntro',L),
+      `${t('form.name',L)}: ${v('cf-name')}`,
+      `${t('form.phone',L)}: ${v('cf-phone')}`,
+      `${t('form.service',L)}: ${optText('cf-service')||v('cf-service')}`];
+    if(addr) lines.push(`${t('form.addressTitle',L)}: ${addr}`);
+    if(v('cf-msg')) lines.push(`${t('form.details',L)}: ${v('cf-msg')}`);
+    window.open('https://wa.me/14384499422?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener');
+  });
+
+  /* eau profonde : image lourde téléchargée seulement après le chargement de la page */
+  const sd=document.getElementById('sea-deep');
+  if(sd){ const ready=()=>sd.classList.add('is-ready');
+    if(document.readyState==='complete') setTimeout(ready,300);
+    else window.addEventListener('load',()=>setTimeout(ready,300),{once:true}); }
 
   /* menu mobile */
   const nt=document.getElementById('nav-toggle'), mn=document.getElementById('main-nav');
@@ -900,13 +1021,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if('IntersectionObserver' in window){ const o=new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){run(); ob.unobserve(e.target);} }),{threshold:.6}); o.observe(el);} else run();
   });
 
-  /* onglets de prix */
+  /* onglets de prix (souris + clavier : flèches, Début/Fin) */
   const tabs=document.getElementById('price-tabs');
-  if(tabs) tabs.addEventListener('click',e=>{ const b=e.target.closest('.price-tab'); if(!b)return; activeCat=b.dataset.cat;
-    tabs.querySelectorAll('.price-tab').forEach(x=>{x.classList.remove('is-active'); x.setAttribute('aria-selected','false');});
-    b.classList.add('is-active'); b.setAttribute('aria-selected','true'); renderPricePanel(currentLang);
+  const activateTab=b=>{ if(!b)return; activeCat=b.dataset.cat;
+    tabs.querySelectorAll('.price-tab').forEach(x=>{const on=x===b; x.classList.toggle('is-active',on); x.setAttribute('aria-selected',String(on)); x.setAttribute('tabindex',on?'0':'-1');});
+    renderPricePanel(currentLang);
     if(window.gsap&&!reduceMotion) gsap.fromTo('#price-panel .price-row',{opacity:0,y:10},{opacity:1,y:0,duration:.4,stagger:.025,ease:'power2.out'});
-  });
+  };
+  if(tabs){
+    tabs.addEventListener('click',e=>activateTab(e.target.closest('.price-tab')));
+    tabs.addEventListener('keydown',e=>{
+      const list=[...tabs.querySelectorAll('.price-tab')]; if(!list.length)return;
+      const i=list.indexOf(document.activeElement); let to=-1;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown') to=(i+1+list.length)%list.length;
+      else if(e.key==='ArrowLeft'||e.key==='ArrowUp') to=(i-1+list.length)%list.length;
+      else if(e.key==='Home') to=0; else if(e.key==='End') to=list.length-1;
+      if(to<0) return; e.preventDefault(); list[to].focus(); activateTab(list[to]);
+    });
+  }
 
   /* comparateur avant/après */
   initBA();

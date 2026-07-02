@@ -90,6 +90,9 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* ---------- Plongée sous la surface : eau profonde qui monte au défilement ---------- */
 .sea-deep { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; will-change: opacity;
+  background: linear-gradient(180deg, rgba(8,46,74,.42) 0%, rgba(4,28,52,.66) 50%, rgba(2,14,28,.9) 100%); }
+/* l'image d'eau profonde n'est téléchargée qu'une fois la page chargée (classe posée par app.js) */
+.sea-deep.is-ready {
   background:
     linear-gradient(180deg, rgba(8,46,74,.42) 0%, rgba(4,28,52,.66) 50%, rgba(2,14,28,.9) 100%),
     url("https://d8j0ntlcm91z4.cloudfront.net/user_3FZRPw3o8jUiBnk6Q8WThDdlXSm/hf_20260624_191706_67923f7b-994a-44f2-ba37-66e575683191.jpeg") center 45% / cover no-repeat; }
@@ -174,7 +177,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 
 /* ---- CTA « Passer la commande » de l'en-tête : plus grand, encadré, or qui attire ---- */
 .header-actions .btn-sm {
-  padding: 14px 28px 14px 26px; font-size: 0.92rem; font-weight: 700; letter-spacing: .015em;
+  padding: 14px 28px 14px 26px; font-size: 0.92rem; font-weight: 700; letter-spacing: .015em; white-space: nowrap;
   color: #0c2740;
   background: linear-gradient(118deg, #fbeecb 0%, #f3dca6 46%, #e7c179 100%);
   border: 1.5px solid rgba(255, 248, 228, 0.78);
@@ -346,8 +349,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=28") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=28") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=31") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=31") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -397,7 +400,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .marquee-item { font-family: var(--serif); font-style: italic; font-size: 1.1rem; padding: 15px 0; white-space: nowrap; color: var(--muted-2); }
 .marquee-item::after { content: "✦"; color: var(--gold); margin: 0 1.4rem; font-size: .78rem; vertical-align: middle; }
 @keyframes marquee { to { transform: translateX(-50%); } }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+@media (hover: hover) { .marquee:hover .marquee-track { animation-play-state: paused; } }
 
 /* ---------- Cartes génériques : verre dépoli premium (cohérent au-dessus de la mer) ---------- */
 .service-card, .spa-card, .work-tile, .step, .contact-form, .price-panel, .about-mission {
@@ -431,12 +434,10 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .rf-after { right: 16px; color: var(--sky); }
 
 .real-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 44px; }
-.real-tile { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 5 / 4; box-shadow: var(--sh-sm); isolation: isolate; }
+.real-tile { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 8 / 5; box-shadow: var(--sh-sm); isolation: isolate; }
 .real-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-lux); }
 .real-tile:hover img { transform: scale(1.06); }
 .real-tile::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(7,21,37,.5)); }
-.real-tile::after { content: ""; position: absolute; top: 9%; bottom: 9%; left: 50%; width: 1px; z-index: 1; pointer-events: none;
-  background: linear-gradient(rgba(244,249,252,0), rgba(244,249,252,.55), rgba(244,249,252,0)); }
 .real-tile figcaption { position: absolute; left: 12px; bottom: 12px; z-index: 2; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text); background: rgba(7,21,37,.55); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
 
 /* ---------- Services (grille 2×2 compacte, encadrés rayonnants) ---------- */
@@ -576,7 +577,7 @@ html.js .service-grid .reveal-card.is-in { transform: none; filter: none; }
 .field { margin-bottom: 16px; display: flex; flex-direction: column; gap: 7px; }
 .field label { font-size: 0.78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .field input, .field select, .field textarea { width: 100%; font-family: inherit; font-size: 0.96rem; color: var(--text); background: rgba(8,26,44,.4); border: 1px solid var(--line-2); border-radius: 12px; padding: 13px 15px; resize: vertical; transition: border-color 200ms ease, box-shadow 200ms ease; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--sky-2); box-shadow: 0 0 0 3px rgba(143,200,234,.16); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(236,209,153,.35), 0 0 18px rgba(236,209,153,.18); }
 .field option { color: #11314c; }
 .form-hint { margin-top: 12px; font-size: 0.78rem; color: var(--muted); text-align: center; }
 
@@ -612,9 +613,6 @@ html.js [data-anim="hero-visual"] { transform: translateY(30px) scale(.96); }
 /* Cartes générées : révélées par lot (app.js) */
 html.js .reveal-card { opacity: 0; transform: translateY(28px); filter: blur(7px); transition: opacity .75s var(--ease-lux), transform .75s var(--ease-lux), filter .75s var(--ease-lux); }
 html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
-.service-grid .reveal-card.is-in:nth-child(2) { transition-delay: .06s; }
-.service-grid .reveal-card.is-in:nth-child(3) { transition-delay: .12s; }
-.service-grid .reveal-card.is-in:nth-child(4) { transition-delay: .18s; }
 
 /* ---------- Responsive ---------- */
 @media (min-width: 640px) {
@@ -639,6 +637,8 @@ html.js .reveal-card.is-in { opacity: 1; transform: none; filter: none; }
 @media (max-width: 899px) {
   /* souliers remontés dans l'espace vide en haut du hero, plus au-dessus du titre */
   .hero-shoes { top: 34%; width: min(300px, 54vw); }
+  /* le flou de fond coûte cher au défilement sur mobile — le voile teinté suffit */
+  .section--alt { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 @media (max-width: 600px) {
   /* le médaillon devient la marque ; on libère la place pour les 4 langues + le burger */
