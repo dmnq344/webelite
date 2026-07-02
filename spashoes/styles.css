@@ -349,8 +349,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=32") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=32") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=33") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=33") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -441,30 +441,31 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .real-tile figcaption { position: absolute; left: 12px; bottom: 12px; z-index: 2; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text); background: rgba(7,21,37,.55); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
 
 /* ---------- Bulles de prix : les deux forfaits Spa en tête des services ---------- */
-.spa-bubbles { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1020px; margin: 6px auto 60px; }
-.spa-bubble { position: relative; padding: 32px 32px 28px; border-radius: 30px;
-  background: linear-gradient(165deg, rgba(23,60,93,.62), rgba(12,36,60,.52)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border: 1.5px solid rgba(236,209,153,.42);
-  box-shadow: 0 24px 60px rgba(5,18,32,.45), inset 0 1px 0 rgba(255,255,255,.08);
-  transition: transform .5s var(--ease-lux), box-shadow .5s var(--ease-lux), border-color .5s ease; }
-/* queue de bulle de dialogue */
-.spa-bubble::after { content: ""; position: absolute; bottom: -14px; width: 28px; height: 28px; transform: rotate(45deg); border-radius: 5px;
-  background: #0e2c4a; border-right: 1.5px solid rgba(236,209,153,.42); border-bottom: 1.5px solid rgba(236,209,153,.42); }
-.spa-bubble--left::after { left: 54px; }
-.spa-bubble--right::after { right: 54px; }
-.spa-bubble:hover { transform: translateY(-6px) rotate(0); border-color: rgba(236,209,153,.7);
-  box-shadow: 0 32px 72px rgba(5,18,32,.55), 0 0 0 4px rgba(236,209,153,.12); }
-.spa-bubble h3 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 1.55rem; text-align: center; margin-bottom: 20px;
-  color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; }
-.sb-badge { position: absolute; top: -13px; right: 26px; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  color: #11314c; background: var(--grad); padding: 6px 13px; border-radius: 999px; box-shadow: 0 8px 20px rgba(236,209,153,.35); }
+/* Bulles de dialogue fidèles au visuel fourni : dalle d'ombre navy décalée
+   (silhouette complète, queue comprise) + surface ivoire, palette du site */
+.spa-bubbles { display: grid; grid-template-columns: 1fr; gap: 42px; max-width: 1020px; margin: 6px auto 66px; }
+.spa-bubble { position: relative; padding: 34px 34px 30px; border-radius: 34px;
+  background: linear-gradient(168deg, #fdf8ec 0%, #f7ecd2 58%, #f1e2bd 100%);
+  border: 2px solid #17395e;
+  filter: drop-shadow(11px 13px 0 rgba(13, 38, 62, .94));
+  transition: transform .5s var(--ease-lux), filter .5s var(--ease-lux); }
+/* queue pointue de bulle (incluse dans la silhouette de l'ombre) */
+.spa-bubble::after { content: ""; position: absolute; bottom: -30px; width: 52px; height: 32px;
+  background: #f2e3c0; clip-path: polygon(12% 0, 88% 0, 42% 100%); }
+.spa-bubble--left::after { left: 60px; transform: skewX(-12deg); }
+.spa-bubble--right::after { right: 74px; transform: skewX(12deg); }
+.spa-bubble:hover { transform: translateY(-6px) rotate(0); filter: drop-shadow(15px 18px 0 rgba(13, 38, 62, .94)); }
+.spa-bubble h3 { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 1.6rem; text-align: center; margin-bottom: 20px; color: #14375c; }
+.spa-bubble h3::after { content: ""; display: block; width: 64px; height: 2px; margin: 12px auto 0; background: linear-gradient(90deg, #c99b3f, #e6c887); border-radius: 2px; }
+.sb-badge { position: absolute; top: -15px; right: 30px; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: #f5e8c8; background: #14375c; padding: 7px 14px; border-radius: 999px; border: 1px solid #c99b3f; }
 .spa-bubble ul { display: grid; gap: 8px; margin-bottom: 22px; }
-.spa-bubble li { position: relative; padding-left: 24px; font-size: .92rem; line-height: 1.45; color: var(--muted); }
-.spa-bubble li::before { content: "✓"; position: absolute; left: 0; top: -1px; color: var(--gold); font-weight: 700; }
-.sb-prices { border-top: 1px dashed rgba(236,209,153,.4); padding-top: 16px; display: grid; gap: 7px; }
-.sb-price-label { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
-.sb-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; font-size: .93rem; color: var(--muted-2); }
-.sb-row b { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; color: var(--gold-br); white-space: nowrap; }
+.spa-bubble li { position: relative; padding-left: 25px; font-size: .93rem; line-height: 1.45; color: #33475c; }
+.spa-bubble li::before { content: "✓"; position: absolute; left: 0; top: -1px; color: #b8892d; font-weight: 700; }
+.sb-prices { border-top: 1.5px dashed rgba(20, 55, 92, .4); padding-top: 16px; display: grid; gap: 7px; }
+.sb-price-label { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #b8892d; margin-bottom: 3px; }
+.sb-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; font-size: .95rem; font-weight: 500; color: #2c3f55; }
+.sb-row b { font-family: var(--serif); font-weight: 600; font-size: 1.28rem; color: #14375c; white-space: nowrap; }
 @media (min-width: 860px) {
   .spa-bubbles { grid-template-columns: 1fr 1fr; align-items: start; }
   .spa-bubble--left { transform: rotate(-1.1deg); }
