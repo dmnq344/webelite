@@ -651,10 +651,18 @@ const SICONS = {
   needle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21L21 3"/><circle cx="6" cy="18" r="2"/><path d="M14 6l4 4"/></svg>'
 };
 const SERVICES = [
-  { key:'cleaning', ico:'sparkle', img:'service-nettoyage.jpg',  tag:'placeholder.beforeafter', shots:['service-reparation.jpg','real/real-02.jpg','real/real-03.jpg'], items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
-  { key:'dye',      ico:'brush', img:'service-peinture.jpg',    tag:'placeholder.beforeafter', shots:['real/real-11.jpg','real/real-10.jpg','real/real-04.jpg'], items:['services.dye.1'] },
-  { key:'repairs',  ico:'hammer', img:'',                        tag:'placeholder.beforeafter', shots:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'], items:['services.repairs.1','services.repairs.2'] },
-  { key:'cobbler',  ico:'needle', img:'service-cordonnerie.jpg', tag:'placeholder.craft',       shots:['real/cobbler-02.jpg','real/cobbler-01.jpg','real/cobbler-03.jpg','real/cobbler-04.jpg'], items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
+  { key:'cleaning', ico:'sparkle', cover:'real/cover-cleaning.jpg', ba:'real/ba-cleaning.jpg',
+    gallery:['real/real-02c.jpg','real/real-08.jpg','real/real-09.jpg','real/real-01c.jpg'],
+    items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
+  { key:'dye', ico:'brush', cover:'real/cover-dye.jpg', ba:'real/ba-dye.jpg',
+    gallery:['real/real-11.jpg','real/real-06.jpg','real/real-10.jpg','real/real-04.jpg'],
+    items:['services.dye.1'] },
+  { key:'repairs', ico:'hammer', cover:'real/cover-repairs.jpg', ba:'real/ba-repairs.jpg',
+    gallery:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'],
+    items:['services.repairs.1','services.repairs.2'] },
+  { key:'cobbler', ico:'needle', cover:'real/cover-cobbler.jpg', ba:'real/ba-cobbler.jpg',
+    gallery:['real/cobbler-02.jpg','real/cobbler-01.jpg','real/cobbler-03.jpg','real/cobbler-04.jpg'],
+    items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
 ];
 const SPA = [
   { title:'pricing.spa.inout.title', feats:['pricing.spa.inout.f1','pricing.spa.inout.f2','pricing.spa.inout.f3','pricing.spa.inout.f4','pricing.spa.inout.f5','pricing.spa.inout.f6','pricing.spa.inout.f7'], prices:[['pricing.audience.kids','30 $'],['pricing.audience.adult','40 $'],['pricing.audience.boots','50 $']], featured:false },
@@ -774,6 +782,14 @@ const ADD_I18N_2 = {
   }
 };
 for (const l in ADD_I18N_2) Object.assign(translations[l], ADD_I18N_2[l]);
+/* Services v2 : carte cliquable + modale */
+const SVC_V2 = {
+  fr: { 'services.see':'Voir les exemples', 'services.egphotos':'exemples', 'a11y.close':'Fermer' },
+  en: { 'services.see':'See examples', 'services.egphotos':'examples', 'a11y.close':'Close' },
+  ro: { 'services.see':'Vezi exemple', 'services.egphotos':'exemple', 'a11y.close':'Închide' },
+  it: { 'services.see':'Vedi esempi', 'services.egphotos':'esempi', 'a11y.close':'Chiudi' }
+};
+for (const l in SVC_V2) Object.assign(translations[l], SVC_V2[l]);
 const SVC_SOON = { fr:{'services.soon':'Talon & semelle — exemples à venir'}, en:{'services.soon':'Heel & sole — examples coming soon'}, ro:{'services.soon':'Toc & talpă — exemple în curând'}, it:{'services.soon':'Tacco & suola — esempi in arrivo'} };
 for (const l in SVC_SOON) Object.assign(translations[l], SVC_SOON[l]);
 
@@ -872,29 +888,86 @@ function priceFor(item, lang){ return typeof item.price === 'string' ? item.pric
 
 function renderServices(lang){
   const el = document.getElementById('service-grid'); if(!el) return;
+  const seeTxt = t('services.see', lang);
   el.innerHTML = SERVICES.map((s,i)=>{
-    const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
-    const n = Math.min(shots.length, 4);
-    const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=38" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
-      : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
+    const n = (s.gallery?s.gallery.length:0) + 1; /* + l'avant/après vedette */
+    const title = t('services.'+s.key+'.title', lang);
     return `
     <div class="service-cell reveal-card">
       <span class="service-aura" aria-hidden="true"></span>
-      <article class="service-card">
-        <div class="service-media${n>1?' is-gallery':''}">
-          ${media}
-          <span class="service-scrim"></span>
-          <span class="service-ico">${SICONS[s.ico]||''}</span>
-          <span class="service-num">0${i+1}</span>
+      <article class="service-card" data-service="${s.key}" role="button" tabindex="0" aria-haspopup="dialog" aria-label="${title} — ${seeTxt}">
+        <div class="sc-media">
+          <img class="sc-cover" src="assets/img/${s.cover}?v=39" alt="${title}" loading="lazy">
+          <span class="sc-scrim"></span>
+          <span class="sc-ico">${SICONS[s.ico]||''}</span>
+          <span class="sc-num">0${i+1}</span>
+          <span class="sc-badge">${n} <span>${t('services.egphotos',lang)}</span></span>
+          <span class="sc-reveal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          </span>
         </div>
-        <div class="service-body">
-          <h3>${t('services.'+s.key+'.title',lang)}</h3>
-          <ul>${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
+        <div class="sc-body">
+          <h3>${title}</h3>
+          <span class="sc-cta">${seeTxt} <span class="sc-arrow" aria-hidden="true">→</span></span>
         </div>
       </article>
     </div>`;
   }).join('');
+  bindServiceCards();
+}
+
+/* ---- Cartes services : ouverture de la modale « déploiement » avant/après ---- */
+let _svmLast=null;
+function bindServiceCards(){
+  document.querySelectorAll('.service-card[data-service]').forEach(card=>{
+    if(card._bound) return; card._bound=true;
+    const open=()=>openServiceModal(card.dataset.service, card);
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
+    /* léger tilt 3D cinématique au survol (souris fine seulement) */
+    if(window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion){
+      const m=card.querySelector('.sc-media');
+      card.addEventListener('pointermove',e=>{ const r=card.getBoundingClientRect();
+        const px=(e.clientX-r.left)/r.width-0.5, py=(e.clientY-r.top)/r.height-0.5;
+        card.style.transform=`perspective(900px) rotateY(${px*6}deg) rotateX(${-py*6}deg) translateY(-4px)`;
+        if(m) m.style.transform=`translateZ(30px)`; });
+      card.addEventListener('pointerleave',()=>{ card.style.transform=''; if(m) m.style.transform=''; });
+    }
+  });
+}
+
+function openServiceModal(key, sourceCard){
+  const s=SERVICES.find(x=>x.key===key); if(!s) return;
+  const modal=document.getElementById('svc-modal'); if(!modal) return;
+  const lang=currentLang;
+  _svmLast=sourceCard||document.activeElement;
+  modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
+  modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
+  modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=39';
+  modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
+  modal.querySelector('.svm-before').textContent=t('works.before',lang);
+  modal.querySelector('.svm-after').textContent=t('works.after',lang);
+  const gal=modal.querySelector('.svm-gallery');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=39" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  modal.hidden=false; document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>modal.classList.add('is-open'));
+  /* animation de déploiement 3D */
+  if(window.gsap && !reduceMotion){
+    gsap.fromTo(modal.querySelector('.svc-modal-panel'),{y:26,scale:.97,opacity:0},{y:0,scale:1,opacity:1,duration:.5,ease:'power3.out'});
+    gsap.fromTo(modal.querySelector('.svm-ba'),{opacity:0,scale:1.04},{opacity:1,scale:1,duration:.6,delay:.08,ease:'power2.out'});
+    gsap.fromTo(modal.querySelector('.svm-ba-line'),{scaleY:0},{scaleY:1,duration:.6,delay:.35,ease:'power3.inOut'});
+    gsap.fromTo(modal.querySelectorAll('.svm-ba-label'),{opacity:0,y:8},{opacity:1,y:0,duration:.5,delay:.5,stagger:.12,ease:'power2.out'});
+    gsap.fromTo(gal.querySelectorAll('.svm-tile'),{opacity:0,y:40,rotationY:-38,z:-180,transformOrigin:'left center'},
+      {opacity:1,y:0,rotationY:0,z:0,duration:.7,delay:.3,stagger:.09,ease:'power3.out'});
+  }
+  const closeBtn=modal.querySelector('.svc-modal-close'); if(closeBtn) closeBtn.focus();
+}
+function closeServiceModal(){
+  const modal=document.getElementById('svc-modal'); if(!modal||modal.hidden) return;
+  modal.classList.remove('is-open');
+  document.body.style.overflow='';
+  setTimeout(()=>{ modal.hidden=true; if(_svmLast&&_svmLast.focus) _svmLast.focus(); }, 260);
 }
 function renderSpa(lang){
   const el = document.getElementById('spa-grid'); if(!el) return;
@@ -1011,6 +1084,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if(sd){ const ready=()=>sd.classList.add('is-ready');
     if(document.readyState==='complete') setTimeout(ready,300);
     else window.addEventListener('load',()=>setTimeout(ready,300),{once:true}); }
+
+  /* modale des services : fermeture (X, fond, Échap) */
+  const svm=document.getElementById('svc-modal');
+  if(svm){
+    svm.querySelector('.svc-modal-close')?.addEventListener('click', closeServiceModal);
+    svm.querySelector('.svc-modal-backdrop')?.addEventListener('click', closeServiceModal);
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !svm.hidden) closeServiceModal(); });
+  }
 
   /* menu mobile */
   const nt=document.getElementById('nav-toggle'), mn=document.getElementById('main-nav');
