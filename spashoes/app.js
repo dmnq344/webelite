@@ -719,7 +719,7 @@ const ADD_I18N_2 = {
     'form.waIntro':'Bonjour ! Je souhaite planifier un ramassage.',
     'a11y.ba':'Avant / Après', 'a11y.menu':'Menu', 'a11y.tabs':'Catégories', 'a11y.social':'Réseaux sociaux', 'a11y.lang':'Langue',
     'bubble.price':'Prix',
-    'corporate.a1':'Collection de chaussures pour femmes disposées en cercle', 'corporate.a2':'Souliers habillés pour hommes disposés en cercle',
+    'corporate.a1':'Collection de chaussures pour femmes disposées en cercle', 'charity.artAlt':'Illustration : une main dépose une paire de chaussures dans une boîte de dons', 'corporate.a2':'Souliers habillés pour hommes disposés en cercle',
     'meta.title':'Spapoursouliers — Nettoyage, restauration & cordonnerie de chaussures à Montréal',
     'meta.desc':'Spa pour chaussures dans le Grand Montréal : nettoyage en profondeur, restauration, teinture et cordonnerie. Ramassage et livraison inclus. 438-449-9422.',
     'hero.alt':'Paire de souliers vernis impeccables',
@@ -734,7 +734,7 @@ const ADD_I18N_2 = {
     'form.waIntro':'Hello! I would like to schedule a pickup.',
     'a11y.ba':'Before / After', 'a11y.menu':'Menu', 'a11y.tabs':'Categories', 'a11y.social':'Social media', 'a11y.lang':'Language',
     'bubble.price':'Price',
-    'corporate.a1':'Collection of women\'s shoes arranged in a circle', 'corporate.a2':'Men\'s dress shoes arranged in a circle',
+    'corporate.a1':'Collection of women\'s shoes arranged in a circle', 'charity.artAlt':'Illustration: a hand drops a pair of shoes into a donation box', 'corporate.a2':'Men\'s dress shoes arranged in a circle',
     'meta.title':'Spapoursouliers — Shoe cleaning, restoration & cobbling in Montreal',
     'meta.desc':'Shoe spa serving Greater Montreal: deep cleaning, restoration, dyeing and cobbling. Pickup and delivery included. 438-449-9422.',
     'hero.alt':'Spotless pair of patent leather shoes',
@@ -749,7 +749,7 @@ const ADD_I18N_2 = {
     'form.waIntro':'Bună ziua! Aș dori să programez o preluare.',
     'a11y.ba':'Înainte / După', 'a11y.menu':'Meniu', 'a11y.tabs':'Categorii', 'a11y.social':'Rețele sociale', 'a11y.lang':'Limbă',
     'bubble.price':'Preț',
-    'corporate.a1':'Colecție de pantofi de damă așezați în cerc', 'corporate.a2':'Pantofi eleganți pentru bărbați așezați în cerc',
+    'corporate.a1':'Colecție de pantofi de damă așezați în cerc', 'charity.artAlt':'Ilustrație: o mână așază o pereche de pantofi într-o cutie de donații', 'corporate.a2':'Pantofi eleganți pentru bărbați așezați în cerc',
     'meta.title':'Spapoursouliers — Curățare, restaurare și cizmărie de încălțăminte în Montreal',
     'meta.desc':'Spa pentru încălțăminte în Montreal: curățare profundă, restaurare, vopsire și cizmărie. Preluare și livrare incluse. 438-449-9422.',
     'hero.alt':'Pereche de pantofi de lac impecabili',
@@ -764,7 +764,7 @@ const ADD_I18N_2 = {
     'form.waIntro':'Salve! Vorrei programmare un ritiro.',
     'a11y.ba':'Prima / Dopo', 'a11y.menu':'Menu', 'a11y.tabs':'Categorie', 'a11y.social':'Social', 'a11y.lang':'Lingua',
     'bubble.price':'Prezzo',
-    'corporate.a1':'Collezione di scarpe da donna disposte in cerchio', 'corporate.a2':'Scarpe eleganti da uomo disposte in cerchio',
+    'corporate.a1':'Collezione di scarpe da donna disposte in cerchio', 'charity.artAlt':'Illustrazione: una mano depone un paio di scarpe in una scatola per donazioni', 'corporate.a2':'Scarpe eleganti da uomo disposte in cerchio',
     'meta.title':'Spapoursouliers — Pulizia, restauro e calzoleria di scarpe a Montreal',
     'meta.desc':'Spa per scarpe nella Grande Montreal: pulizia profonda, restauro, tintura e calzoleria. Ritiro e consegna inclusi. 438-449-9422.',
     'hero.alt':'Paio di scarpe di vernice impeccabili',
@@ -876,7 +876,7 @@ function renderServices(lang){
     const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
     const n = Math.min(shots.length, 4);
     const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=33" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=34" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
       : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
     return `
     <div class="service-cell reveal-card">

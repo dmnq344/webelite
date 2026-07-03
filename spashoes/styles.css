@@ -349,8 +349,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=33") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=33") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=34") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=34") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -471,6 +471,28 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   .spa-bubble--left { transform: rotate(-1.1deg); }
   .spa-bubble--right { transform: rotate(1.1deg); margin-top: 26px; }
 }
+
+/* ---------- Charité : illustration don + engagements empilés ---------- */
+.charity-inner { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: center; max-width: 1040px; margin: 10px auto 0; }
+.charity-art { position: relative; margin: 0; display: grid; place-items: center; }
+/* halo doré doux derrière l'illustration */
+.charity-art::before { content: ""; position: absolute; width: 84%; height: 84%; border-radius: 50%; z-index: 0;
+  background: radial-gradient(circle, rgba(236,209,153,.24), rgba(143,200,234,.10) 55%, transparent 72%); filter: blur(18px);
+  animation: charityGlow 5.4s ease-in-out infinite; }
+@keyframes charityGlow { 0%,100% { opacity: .6; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.05); } }
+.charity-art img { position: relative; z-index: 1; width: min(460px, 100%);
+  filter: drop-shadow(0 26px 44px rgba(5,18,32,.5));
+  animation: charityFloat 7s ease-in-out infinite; }
+@keyframes charityFloat { 0%,100% { transform: translateY(0) rotate(-.6deg); } 50% { transform: translateY(-12px) rotate(.6deg); } }
+/* engagements empilés en rangées (icône à gauche) */
+.charity-inner .feature { display: flex; align-items: center; gap: 16px; text-align: left; }
+.charity-cta { margin-top: 30px; }
+@media (min-width: 900px) {
+  .charity-inner { grid-template-columns: 1fr 1fr; gap: 56px; }
+  .charity-inner .feature-row { grid-template-columns: 1fr; gap: 16px; }
+  .charity-cta { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { .charity-art img, .charity-art::before { animation: none !important; } }
 
 /* ---------- Corporate : duo de photos (dames / messieurs) ---------- */
 .corp-gallery { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 900px; margin: 44px auto 40px; }
