@@ -713,7 +713,7 @@ for (const l in REAL_TILES) Object.assign(translations[l], REAL_TILES[l]);
 /* === i18n complémentaire : formulaire (services/provinces), ARIA, titre d'onglet, alts === */
 const ADD_I18N_2 = {
   fr: {
-    'form.svc.spa':'Spa', 'form.svc.cleaning':'Nettoyage', 'form.svc.repairs':'Réparations', 'form.svc.cobbler':'Cordonnerie',
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Nettoyage', 'form.svc.repairs':'Réparations', 'form.svc.cobbler':'Cordonnerie', 'form.svc.donation':'Don de chaussures (charité)', 'form.photos':'Photos (facultatif)', 'form.photosBtn':'Ajouter des photos', 'form.photosHint':"Montrez-nous vos chaussures — joignez ces photos dans WhatsApp après l'envoi.",
     'form.prov.nb':'Nouveau-Brunswick', 'form.prov.ns':'Nouvelle-Écosse', 'form.prov.bc':'Colombie-Britannique', 'form.prov.pe':'Île-du-Prince-Édouard', 'form.prov.nl':'Terre-Neuve-et-Labrador',
     'form.hint':"Votre demande s'ouvre dans WhatsApp — envoyez-la, on s'occupe du reste.",
     'form.waIntro':'Bonjour ! Je souhaite planifier un ramassage.',
@@ -728,7 +728,7 @@ const ADD_I18N_2 = {
     'blog.a1':'Derbies patinés avant/après restauration', 'blog.a2':'Converse redevenues blanches après nettoyage', 'blog.a3':'Bottes western teintées du fauve au noir'
   },
   en: {
-    'form.svc.spa':'Spa', 'form.svc.cleaning':'Cleaning', 'form.svc.repairs':'Repairs', 'form.svc.cobbler':'Cobbling',
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Cleaning', 'form.svc.repairs':'Repairs', 'form.svc.cobbler':'Cobbling', 'form.svc.donation':'Shoe donation (charity)', 'form.photos':'Photos (optional)', 'form.photosBtn':'Add photos', 'form.photosHint':'Show us your shoes — attach these photos in WhatsApp after sending.',
     'form.prov.nb':'New Brunswick', 'form.prov.ns':'Nova Scotia', 'form.prov.bc':'British Columbia', 'form.prov.pe':'Prince Edward Island', 'form.prov.nl':'Newfoundland and Labrador',
     'form.hint':'Your request opens in WhatsApp — hit send and we handle the rest.',
     'form.waIntro':'Hello! I would like to schedule a pickup.',
@@ -743,7 +743,7 @@ const ADD_I18N_2 = {
     'blog.a1':'Patinated derbies before/after restoration', 'blog.a2':'Converse white again after cleaning', 'blog.a3':'Western boots dyed from tan to black'
   },
   ro: {
-    'form.svc.spa':'Spa', 'form.svc.cleaning':'Curățare', 'form.svc.repairs':'Reparații', 'form.svc.cobbler':'Cizmărie',
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Curățare', 'form.svc.repairs':'Reparații', 'form.svc.cobbler':'Cizmărie', 'form.svc.donation':'Donație de încălțăminte (caritate)', 'form.photos':'Fotografii (opțional)', 'form.photosBtn':'Adaugă fotografii', 'form.photosHint':'Arată-ne pantofii — atașează aceste fotografii în WhatsApp după trimitere.',
     'form.prov.nb':'New Brunswick', 'form.prov.ns':'Noua Scoție', 'form.prov.bc':'Columbia Britanică', 'form.prov.pe':'Insula Prințul Eduard', 'form.prov.nl':'Terranova și Labrador',
     'form.hint':'Cererea ta se deschide în WhatsApp — trimite-o și ne ocupăm noi de rest.',
     'form.waIntro':'Bună ziua! Aș dori să programez o preluare.',
@@ -758,7 +758,7 @@ const ADD_I18N_2 = {
     'blog.a1':'Pantofi derby patinați înainte/după restaurare', 'blog.a2':'Converse albe din nou după curățare', 'blog.a3':'Cizme western vopsite din maro în negru'
   },
   it: {
-    'form.svc.spa':'Spa', 'form.svc.cleaning':'Pulizia', 'form.svc.repairs':'Riparazioni', 'form.svc.cobbler':'Calzoleria',
+    'form.svc.spa':'Spa', 'form.svc.cleaning':'Pulizia', 'form.svc.repairs':'Riparazioni', 'form.svc.cobbler':'Calzoleria', 'form.svc.donation':'Donazione di scarpe (beneficenza)', 'form.photos':'Foto (facoltativo)', 'form.photosBtn':'Aggiungi foto', 'form.photosHint':"Mostraci le tue scarpe — allega queste foto su WhatsApp dopo l'invio.",
     'form.prov.nb':'Nuovo Brunswick', 'form.prov.ns':'Nuova Scozia', 'form.prov.bc':'Columbia Britannica', 'form.prov.pe':'Isola del Principe Edoardo', 'form.prov.nl':'Terranova e Labrador',
     'form.hint':'La tua richiesta si apre su WhatsApp — inviala e pensiamo a tutto noi.',
     'form.waIntro':'Salve! Vorrei programmare un ritiro.',
@@ -876,7 +876,7 @@ function renderServices(lang){
     const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
     const n = Math.min(shots.length, 4);
     const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=34" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=35" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
       : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
     return `
     <div class="service-cell reveal-card">
@@ -981,14 +981,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const v=id=>{const el=document.getElementById(id); return el?el.value.trim():'';};
     const optText=id=>{const el=document.getElementById(id); return (el&&el.selectedIndex>-1&&el.value!=='')?el.options[el.selectedIndex].text.trim():'';};
     const L=currentLang;
-    const addr=[v('cf-street'), v('cf-city'), optText('cf-prov'), v('cf-postal')].filter(Boolean).join(', ');
+    const addrCore=[v('cf-street'), v('cf-city')].filter(Boolean);
+    const addr=addrCore.length ? [...addrCore, optText('cf-prov'), v('cf-postal')].filter(Boolean).join(', ') : '';
     const lines=[t('form.waIntro',L),
       `${t('form.name',L)}: ${v('cf-name')}`,
       `${t('form.phone',L)}: ${v('cf-phone')}`,
       `${t('form.service',L)}: ${optText('cf-service')||v('cf-service')}`];
     if(addr) lines.push(`${t('form.addressTitle',L)}: ${addr}`);
     if(v('cf-msg')) lines.push(`${t('form.details',L)}: ${v('cf-msg')}`);
+    const ph=document.getElementById('cf-photos');
+    if(ph&&ph.files&&ph.files.length) lines.push(`${t('form.photos',L).replace(/\s*\(.*\)$/,'')}: ${ph.files.length} 📷`);
     window.open('https://wa.me/14384499422?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener');
+  });
+
+  /* sélecteur de photos : aperçu miniatures (jointes ensuite dans WhatsApp) */
+  const phIn=document.getElementById('cf-photos'), phPrev=document.getElementById('cf-photo-preview');
+  if(phIn&&phPrev) phIn.addEventListener('change',()=>{
+    phPrev.querySelectorAll('img').forEach(img=>URL.revokeObjectURL(img.src));
+    phPrev.innerHTML='';
+    [...phIn.files].slice(0,8).forEach(f=>{
+      const img=document.createElement('img');
+      img.src=URL.createObjectURL(f); img.alt=f.name;
+      phPrev.appendChild(img);
+    });
   });
 
   /* eau profonde : image lourde téléchargée seulement après le chargement de la page */
