@@ -888,32 +888,29 @@ function priceFor(item, lang){ return typeof item.price === 'string' ? item.pric
 
 function renderServices(lang){
   const el = document.getElementById('service-grid'); if(!el) return;
-  const seeTxt = t('services.see', lang);
+  const before = t('works.before', lang), after = t('works.after', lang);
   el.innerHTML = SERVICES.map((s,i)=>{
-    const n = (s.gallery?s.gallery.length:0) + 1; /* + l'avant/après vedette */
     const title = t('services.'+s.key+'.title', lang);
     return `
     <div class="service-cell reveal-card">
       <span class="service-aura" aria-hidden="true"></span>
-      <article class="service-card" data-service="${s.key}" role="button" tabindex="0" aria-haspopup="dialog" aria-label="${title} — ${seeTxt}">
-        <div class="sc-media">
-          <img class="sc-cover" src="assets/img/${s.cover}?v=40" alt="${title}" loading="lazy">
-          <span class="sc-scrim"></span>
+      <article class="service-card">
+        <figure class="sc-ba">
+          <img class="sc-ba-img" src="assets/img/${s.ba}?v=41" alt="${title} — ${before} / ${after}" loading="lazy">
+          <span class="sc-scrim2" aria-hidden="true"></span>
+          <span class="sc-ba-line" aria-hidden="true"></span>
           <span class="sc-ico">${SICONS[s.ico]||''}</span>
           <span class="sc-num">0${i+1}</span>
-          <span class="sc-badge">${n} <span>${t('services.egphotos',lang)}</span></span>
-          <span class="sc-reveal" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          </span>
-        </div>
-        <div class="sc-body">
+          <span class="sc-ba-tag sc-ba-before">${before}</span>
+          <span class="sc-ba-tag sc-ba-after">${after}</span>
+        </figure>
+        <div class="sc-body2">
           <h3>${title}</h3>
-          <span class="sc-cta">${seeTxt} <span class="sc-arrow" aria-hidden="true">→</span></span>
+          <ul class="sc-tags">${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
         </div>
       </article>
     </div>`;
   }).join('');
-  bindServiceCards();
 }
 
 /* ---- Cartes services : ouverture de la modale « déploiement » avant/après ---- */
@@ -944,12 +941,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=40';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=41';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=40" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=41" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */

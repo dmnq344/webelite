@@ -375,8 +375,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=40") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=40") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=41") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=41") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -1294,3 +1294,23 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   transition: transform .4s var(--ease-lux), border-color .4s ease, box-shadow .4s ease; transform-style: preserve-3d; }
 .svm-tile img { width: 100%; height: 100%; object-fit: contain; padding: 3px; }
 @media (hover: hover) { .svm-tile:hover { transform: translateY(-4px) scale(1.02); border-color: rgba(236,209,153,.55); box-shadow: 0 14px 30px rgba(4,14,26,.6); } }
+
+/* ==================================================================
+   SERVICES v3 — avant/après HD directement dans chaque carte
+   ================================================================== */
+.service-card { cursor: default; }
+.sc-ba { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r-lg) var(--r-lg) 0 0; }
+.sc-ba-img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-lux); }
+.service-card:hover .sc-ba-img { transform: scale(1.045); }
+.sc-scrim2 { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(6,18,32,.22) 0%, transparent 22%, transparent 66%, rgba(5,16,30,.62) 100%); }
+.sc-ba-line { position: absolute; top: 8%; bottom: 8%; left: 50%; width: 2px; transform: translateX(-50%); z-index: 2;
+  background: linear-gradient(rgba(245,227,182,0), rgba(245,227,182,.8), rgba(245,227,182,0)); box-shadow: 0 0 12px rgba(236,209,153,.55); }
+.sc-ba-tag { position: absolute; bottom: 12px; z-index: 3; font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px; background: rgba(7,21,37,.6); border: 1px solid var(--line-2); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+.sc-ba-before { left: 12px; color: var(--muted-2); }
+.sc-ba-after { right: 12px; color: var(--sky); }
+.sc-body2 { padding: 20px 24px 22px; }
+.sc-body2 h3 { font-family: var(--serif); font-weight: 500; font-size: 1.34rem; letter-spacing: -0.01em; margin-bottom: 13px; }
+.sc-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.sc-tags li { font-size: .74rem; font-weight: 600; color: var(--muted-2); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(236,209,153,.26); background: rgba(236,209,153,.06); }
