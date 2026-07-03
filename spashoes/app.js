@@ -655,7 +655,7 @@ const SERVICES = [
     gallery:['real/real-02c.jpg','real/real-08.jpg','real/real-09.jpg','real/real-01c.jpg'],
     items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
   { key:'dye', ico:'brush', cover:'real/cover-dye.jpg', ba:'real/ba-dye.jpg',
-    gallery:['real/real-11.jpg','real/real-06.jpg','real/real-10.jpg','real/real-04.jpg'],
+    gallery:['real/real-11c.jpg','real/real-06.jpg','real/real-10c.jpg','real/real-04.jpg'],
     items:['services.dye.1'] },
   { key:'repairs', ico:'hammer', cover:'real/cover-repairs.jpg', ba:'real/ba-repairs.jpg',
     gallery:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'],
@@ -897,7 +897,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card" data-service="${s.key}" role="button" tabindex="0" aria-haspopup="dialog" aria-label="${title} — ${seeTxt}">
         <div class="sc-media">
-          <img class="sc-cover" src="assets/img/${s.cover}?v=39" alt="${title}" loading="lazy">
+          <img class="sc-cover" src="assets/img/${s.cover}?v=40" alt="${title}" loading="lazy">
           <span class="sc-scrim"></span>
           <span class="sc-ico">${SICONS[s.ico]||''}</span>
           <span class="sc-num">0${i+1}</span>
@@ -944,12 +944,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=39';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=40';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=39" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=40" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */
