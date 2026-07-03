@@ -876,7 +876,7 @@ function renderServices(lang){
     const shots = (s.shots && s.shots.length) ? s.shots : (s.img ? [s.img] : []);
     const n = Math.min(shots.length, 4);
     const media = shots.length
-      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=37" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
+      ? `<div class="service-shots n${n}">${shots.slice(0,4).map(p=>`<figure class="shot"><img src="assets/img/${p}?v=38" alt="${t('services.'+s.key+'.title',lang)} — ${t('real.tag',lang)}" loading="lazy"></figure>`).join('')}</div>`
       : `<div class="service-shots empty"><span>${t('services.soon',lang)}</span></div>`;
     return `
     <div class="service-cell reveal-card">
@@ -1019,9 +1019,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* en-tête + progression */
   const hd=document.querySelector('.site-header'), pr=document.getElementById('scroll-progress'), veil=document.getElementById('sea-veil');
-  function onScroll(){ hd.classList.toggle('is-scrolled', window.scrollY>8); const h=document.documentElement, m=h.scrollHeight-h.clientHeight; const f=m>0?h.scrollTop/m:0;
-    if(pr) pr.style.width=(f*100)+'%';
-    if(veil) veil.style.opacity=Math.min(0.55, f*0.62).toFixed(3); /* crépuscule → nuit */ }
+  let sTick=false;
+  function onScroll(){ if(sTick) return; sTick=true;
+    requestAnimationFrame(()=>{ sTick=false;
+      hd.classList.toggle('is-scrolled', window.scrollY>8);
+      const h=document.documentElement, m=h.scrollHeight-h.clientHeight; const f=m>0?h.scrollTop/m:0;
+      if(pr){ pr.style.width=(f*100)+'%'; pr.style.opacity=f>0.003?'1':'0'; }
+      if(veil) veil.style.opacity=Math.min(0.55, f*0.62).toFixed(3); /* crépuscule → nuit */
+    });
+  }
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
   /* révélations [data-anim] (éléments statiques) */
@@ -1038,6 +1044,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if('IntersectionObserver' in window && secs.length){
     const spy=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){const id='#'+e.target.id; links.forEach(a=>a.classList.toggle('is-active',a.getAttribute('href')===id));} }),{rootMargin:'-45% 0px -50% 0px'});
     secs.forEach(s=>spy.observe(s));
+    /* efface l'état actif quand on est dans le hero (aucune section de nav visible) */
+    const heroSec=document.getElementById('hero');
+    if(heroSec){
+      const spyClear=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) links.forEach(a=>a.classList.remove('is-active')); }),{rootMargin:'-45% 0px -50% 0px'});
+      spyClear.observe(heroSec);
+    }
   }
 
   /* compteurs */
@@ -1106,6 +1118,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if(window.gsap&&!reduceMotion){
     if(window.ScrollTrigger){ gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray('.aurora-blob').forEach((b,i)=>gsap.to(b,{yPercent:i%2?-16:18,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}}));
+      /* parallaxe éditoriale : le portrait de l'atelier glisse doucement dans son cadre */
+      gsap.utils.toArray('.about-media img').forEach(img=>{
+        gsap.fromTo(img,{yPercent:-7,scale:1.15},{yPercent:7,scale:1.15,ease:'none',
+          scrollTrigger:{trigger:img.closest('figure'),start:'top bottom',end:'bottom top',scrub:.6}});
+      });
 
       /* Hero « plongée dans la mer » : en défilant, les souliers zooment et tournent
          légèrement pendant que le décor descend SOUS la surface (le soleil sort du
@@ -1183,6 +1200,18 @@ document.addEventListener('DOMContentLoaded', () => {
           ScrollTrigger.create({ trigger:_sig, start:'top 82%', once:true, onEnter:()=>{
             gsap.to(_sig.querySelectorAll('.sig-draw'), { strokeDashoffset:0, duration:1.5, ease:'power2.out', stagger:.25 });
             gsap.fromTo(_sig.querySelectorAll('.sig-rule'), { scaleX:0 }, { scaleX:1, duration:1.1, ease:'power3.out' });
+          }});
+        }
+      } catch(e){}
+
+      /* démonstration du comparateur au premier passage — invite au geste */
+      try {
+        const _b=document.getElementById('ba'), _bf=document.getElementById('ba-before'), _bh=document.getElementById('ba-handle');
+        if(_b&&_bf&&_bh){
+          ScrollTrigger.create({ trigger:_b, start:'top 72%', once:true, onEnter:()=>{
+            const o={p:50};
+            gsap.to(o,{ keyframes:[{p:68,duration:.7,ease:'power2.inOut'},{p:38,duration:.85,ease:'power2.inOut'},{p:50,duration:.6,ease:'power3.out'}], delay:.35,
+              onUpdate:()=>{ _bf.style.clipPath=`inset(0 ${100-o.p}% 0 0)`; _bh.style.left=o.p+'%'; _bh.setAttribute('aria-valuenow',Math.round(o.p)); } });
           }});
         }
       } catch(e){}
