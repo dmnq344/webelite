@@ -375,8 +375,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=43") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=43") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=44") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=44") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
