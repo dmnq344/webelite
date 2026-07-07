@@ -375,8 +375,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=41") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=41") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=42") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=42") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -1314,3 +1314,19 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
 .sc-body2 h3 { font-family: var(--serif); font-weight: 500; font-size: 1.34rem; letter-spacing: -0.01em; margin-bottom: 13px; }
 .sc-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .sc-tags li { font-size: .74rem; font-weight: 600; color: var(--muted-2); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(236,209,153,.26); background: rgba(236,209,153,.06); }
+
+/* ==================================================================
+   BANDEAU INTRO — bulle signature « Make shoes great again »
+   ================================================================== */
+.intro-band { position: relative; z-index: 2; padding: clamp(38px, 6vw, 74px) 0 clamp(30px, 4vw, 54px); text-align: center; }
+.intro-inner { display: grid; place-items: center; gap: clamp(16px, 3vw, 28px); }
+.intro-emblem { position: relative; margin: 0; width: min(360px, 76vw); }
+.intro-emblem::before { content: ""; position: absolute; inset: -10% -8%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(236,209,153,.24), rgba(143,200,234,.10) 55%, transparent 72%); filter: blur(22px);
+  animation: charityGlow 5.6s ease-in-out infinite; }
+.intro-emblem img { width: 100%; height: auto; filter: drop-shadow(0 16px 34px rgba(5,18,32,.5)); animation: charityFloat 7.5s ease-in-out infinite; }
+.intro-tagline { display: grid; gap: 5px; }
+.intro-l1 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 1rem + 1.6vw, 2rem); letter-spacing: .005em;
+  color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; }
+.intro-l2 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.05rem, .9rem + .9vw, 1.45rem); color: var(--gold-br); opacity: .92; }
+@media (prefers-reduced-motion: reduce) { .intro-emblem img, .intro-emblem::before { animation: none; } }

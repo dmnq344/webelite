@@ -790,6 +790,13 @@ const SVC_V2 = {
   it: { 'services.see':'Vedi esempi', 'services.egphotos':'esempi', 'a11y.close':'Chiudi' }
 };
 for (const l in SVC_V2) Object.assign(translations[l], SVC_V2[l]);
+const INTRO_I18N = {
+  fr: { 'intro.line1':'Donnez une nouvelle vie à vos souliers' },
+  en: { 'intro.line1':'Give your shoes a second life' },
+  ro: { 'intro.line1':'Dați o nouă viață pantofilor voștri' },
+  it: { 'intro.line1':'Date una nuova vita alle vostre scarpe' }
+};
+for (const l in INTRO_I18N) Object.assign(translations[l], INTRO_I18N[l]);
 const SVC_SOON = { fr:{'services.soon':'Talon & semelle — exemples à venir'}, en:{'services.soon':'Heel & sole — examples coming soon'}, ro:{'services.soon':'Toc & talpă — exemple în curând'}, it:{'services.soon':'Tacco & suola — esempi in arrivo'} };
 for (const l in SVC_SOON) Object.assign(translations[l], SVC_SOON[l]);
 
@@ -896,7 +903,7 @@ function renderServices(lang){
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
         <figure class="sc-ba">
-          <img class="sc-ba-img" src="assets/img/${s.ba}?v=41" alt="${title} — ${before} / ${after}" loading="lazy">
+          <img class="sc-ba-img" src="assets/img/${s.ba}?v=42" alt="${title} — ${before} / ${after}" loading="lazy">
           <span class="sc-scrim2" aria-hidden="true"></span>
           <span class="sc-ba-line" aria-hidden="true"></span>
           <span class="sc-ico">${SICONS[s.ico]||''}</span>
@@ -941,12 +948,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=41';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=42';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=41" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=42" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */
