@@ -651,17 +651,13 @@ const SICONS = {
   needle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21L21 3"/><circle cx="6" cy="18" r="2"/><path d="M14 6l4 4"/></svg>'
 };
 const SERVICES = [
-  { key:'cleaning', ico:'sparkle', cover:'real/cover-cleaning.jpg', ba:'real/ba-cleaning.jpg',
-    gallery:['real/real-02c.jpg','real/real-08.jpg','real/real-09.jpg','real/real-01c.jpg'],
+  { key:'cleaning', ico:'sparkle', ba:true, photos:['real/real-02c.jpg','real/real-03c.jpg','real/real-01c.jpg'],
     items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
-  { key:'dye', ico:'brush', cover:'real/cover-dye.jpg', ba:'real/ba-dye.jpg',
-    gallery:['real/real-11c.jpg','real/real-06.jpg','real/real-10c.jpg','real/real-04.jpg'],
+  { key:'dye', ico:'brush', ba:true, photos:['real/dye-beige.jpg','real/dye-brun.jpg'],
     items:['services.dye.1'] },
-  { key:'repairs', ico:'hammer', cover:'real/cover-repairs.jpg', ba:'real/ba-repairs.jpg',
-    gallery:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'],
+  { key:'repairs', ico:'hammer', ba:false, photos:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'],
     items:['services.repairs.1','services.repairs.2'] },
-  { key:'cobbler', ico:'needle', cover:'real/cover-cobbler.jpg', ba:'real/ba-cobbler.jpg',
-    gallery:['real/cobbler-02.jpg','real/cobbler-01.jpg','real/cobbler-03.jpg','real/cobbler-04.jpg'],
+  { key:'cobbler', ico:'needle', ba:false, photos:['real/cobbler-02.jpg','real/cobbler-01.jpg','real/cobbler-03.jpg','real/cobbler-04.jpg'],
     items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
 ];
 const SPA = [
@@ -898,19 +894,16 @@ function renderServices(lang){
   const before = t('works.before', lang), after = t('works.after', lang);
   el.innerHTML = SERVICES.map((s,i)=>{
     const title = t('services.'+s.key+'.title', lang);
+    const shots = s.photos.map(p=>`<figure class="sc-shot${s.ba?' is-ba':''}"><img src="assets/img/${p}?v=43" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`).join('');
     return `
     <div class="service-cell reveal-card">
       <span class="service-aura" aria-hidden="true"></span>
       <article class="service-card">
-        <figure class="sc-ba">
-          <img class="sc-ba-img" src="assets/img/${s.ba}?v=42" alt="${title} — ${before} / ${after}" loading="lazy">
-          <span class="sc-scrim2" aria-hidden="true"></span>
-          <span class="sc-ba-line" aria-hidden="true"></span>
+        <div class="sc-grid n${s.photos.length}">
           <span class="sc-ico">${SICONS[s.ico]||''}</span>
           <span class="sc-num">0${i+1}</span>
-          <span class="sc-ba-tag sc-ba-before">${before}</span>
-          <span class="sc-ba-tag sc-ba-after">${after}</span>
-        </figure>
+          ${shots}
+        </div>
         <div class="sc-body2">
           <h3>${title}</h3>
           <ul class="sc-tags">${s.items.map(k=>`<li>${t(k,lang)}</li>`).join('')}</ul>
@@ -948,12 +941,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=42';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=43';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=42" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=43" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */

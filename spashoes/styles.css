@@ -375,8 +375,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=42") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=42") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=43") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=43") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -573,7 +573,7 @@ html.js .real-grid.is-in .real-tile { opacity: 1; transform: none; }
 @media (min-width: 640px) { .corp-gallery { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- Services (grille 2×2 compacte, encadrés rayonnants) ---------- */
-.service-grid { display: grid; grid-template-columns: 1fr; gap: var(--gutter); max-width: 1180px; margin-inline: auto; }
+.service-grid { display: grid; grid-template-columns: 1fr; gap: var(--gutter); max-width: 1180px; margin-inline: auto; align-items: start; }
 /* cellule + halo rayonnant animé autour de chaque encadré */
 .service-cell { position: relative; display: flex; }
 .service-aura { position: absolute; inset: -9px; z-index: 0; pointer-events: none; border-radius: calc(var(--r-lg) + 9px);
@@ -1330,3 +1330,22 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; }
 .intro-l2 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.05rem, .9rem + .9vw, 1.45rem); color: var(--gold-br); opacity: .92; }
 @media (prefers-reduced-motion: reduce) { .intro-emblem img, .intro-emblem::before { animation: none; } }
+
+/* ==================================================================
+   SERVICES v4 — grille uniforme de photos curées par service
+   ================================================================== */
+.sc-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; padding: 10px;
+  border-radius: var(--r-lg) var(--r-lg) 0 0; background: linear-gradient(180deg, rgba(10,30,52,.5), rgba(7,20,36,.6)); }
+.sc-grid.n1 { grid-template-columns: 1fr; }
+.sc-grid.n3 .sc-shot:first-of-type { grid-column: 1 / 3; }
+.sc-shot { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 12px;
+  border: 1px solid rgba(236,209,153,.24); background: radial-gradient(130% 130% at 50% 20%, #143550, #0a2036 70%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 4px 12px rgba(4,14,26,.4); transition: border-color .35s ease, transform .4s var(--ease-lux); }
+.sc-grid.n3 .sc-shot:first-of-type { aspect-ratio: 16 / 8; }
+.sc-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease-lux); }
+.service-card:hover .sc-shot { border-color: rgba(236,209,153,.45); }
+.service-card:hover .sc-shot img { transform: scale(1.04); }
+.sc-mini-tag { position: absolute; left: 8px; bottom: 8px; z-index: 2; font-size: .54rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text); background: rgba(7,21,37,.62); border: 1px solid var(--line-2); padding: 4px 9px; border-radius: 999px; backdrop-filter: blur(4px); }
+.sc-grid .sc-ico { position: absolute; top: 16px; left: 16px; z-index: 4; }
+.sc-grid .sc-num { position: absolute; top: 16px; right: 20px; z-index: 4; }
