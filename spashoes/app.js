@@ -894,7 +894,7 @@ function renderServices(lang){
   const before = t('works.before', lang), after = t('works.after', lang);
   el.innerHTML = SERVICES.map((s,i)=>{
     const title = t('services.'+s.key+'.title', lang);
-    const shots = s.photos.map(p=>`<figure class="sc-shot${s.ba?' is-ba':''}"><img src="assets/img/${p}?v=44" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`).join('');
+    const shots = s.photos.map(p=>`<figure class="sc-shot${s.ba?' is-ba':''}"><img src="assets/img/${p}?v=45" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`).join('');
     return `
     <div class="service-cell reveal-card">
       <span class="service-aura" aria-hidden="true"></span>
@@ -941,12 +941,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=44';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=45';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=44" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=45" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */
