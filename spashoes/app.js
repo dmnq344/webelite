@@ -897,7 +897,7 @@ function renderServices(lang){
     const shots = s.photos.map((p,pi)=>{
       const ar = (s.ars && s.ars[pi]) ? ` style="aspect-ratio:${s.ars[pi]}"` : '';
       const fill = s.stack ? ' sc-shot--fill' : '';
-      return `<figure class="sc-shot${s.ba?' is-ba':''}${fill}"${ar}><img src="assets/img/${p}?v=46" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`;
+      return `<figure class="sc-shot${s.ba?' is-ba':''}${fill}"${ar}><img src="assets/img/${p}?v=47" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`;
     }).join('');
     return `
     <div class="service-cell reveal-card">
@@ -945,12 +945,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=46';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=47';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=46" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=47" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */

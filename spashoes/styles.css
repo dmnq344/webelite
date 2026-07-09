@@ -90,8 +90,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .section-head--center .section-intro { margin-inline: auto; }
 /* Composition éditoriale : équilibre des titres, veuves maîtrisées */
 .hero-title, .section-title, .block-title, .service-body h3, .spa-card h3, .spa-bubble h3, .blog-body h3, .step h3, .feature h3, .about-mission h3, .footer-col h4, .svc-quote p, .about-lede { text-wrap: balance; }
-.section-intro, .hero-sub, .service-body li, .spa-feats li, .step p, .blog-body p, .about-copy > p, .contact-copy > p, .review-card blockquote, .works-cap, .price-note, .svc-quote-brand { text-wrap: pretty; }
-.about-copy > p { max-width: 62ch; }
+.section-intro, .hero-sub, .service-body li, .spa-feats li, .step p, .blog-body p, .about-text > p, .contact-copy > p, .review-card blockquote, .works-cap, .price-note, .svc-quote-brand { text-wrap: pretty; }
+.about-text > p { max-width: 60ch; }
 .works-cap { max-width: 58ch; margin-inline: auto; }
 
 /* ---------- Décor : vraie mer photoréaliste, dynamique, continue au scroll ---------- */
@@ -382,8 +382,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=46") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=46") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=47") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=47") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -712,20 +712,27 @@ html.js .service-grid .reveal-card.is-in { transform: none; filter: none; }
 .price-note { text-align: center; margin-top: 28px; font-size: 0.85rem; color: var(--muted); font-style: italic; }
 
 /* ---------- À propos ---------- */
-.about-inner { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: start; }
-.about-media { margin: 0; aspect-ratio: 4 / 5; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--sh-md); }
-.about-media img { width: 100%; height: 100%; object-fit: cover; }
-.about-lede { font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--sky); margin-bottom: 18px; }
-.about-copy > p { color: var(--muted); margin-bottom: 18px; }
+/* ---- À propos : mise en page éditoriale alternée (texte + document de chaque côté) ---- */
+.about-head { margin-bottom: var(--flow-lg); }
+.about-lede { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 1rem + .8vw, 1.5rem); color: var(--sky); margin-top: 6px; }
+.about-row { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+.about-row + .about-row { margin-top: var(--flow-lg); }
+.about-text > p { color: var(--muted); margin-bottom: 18px; }
 .about-sign { font-family: var(--serif); font-style: italic; font-size: 1.12rem; color: var(--text) !important; }
-.about-mission { margin-top: 28px; padding: 26px 28px; border-radius: var(--r); }
-.about-mission h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; margin-bottom: 10px; }
-.about-mission p { margin: 0; color: var(--muted); font-size: 0.96rem; }
-.about-heritage-title { font-size: 0.72rem !important; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold) !important; margin: 30px 0 14px !important; }
-.heritage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.heritage figure { margin: 0; }
-.heritage img { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: cover; object-position: center top; border-radius: var(--r); border: 1px solid var(--line-2); }
-.heritage figcaption { margin-top: 9px; font-size: 0.78rem; color: var(--muted); line-height: 1.35; }
+.about-mission { padding: 28px 30px; border-radius: var(--r); }
+.about-mission h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; margin-bottom: 12px; }
+.about-mission p { margin: 0; color: var(--muted); font-size: 1rem; }
+/* Le document authentique (presse / attestation) — cadre premium, entièrement visible */
+.about-doc { margin: 0; position: relative; }
+.about-doc img { display: block; width: 100%; height: auto; border-radius: var(--r);
+  border: 1px solid rgba(236,209,153,.5); box-shadow: var(--sh-md), inset 0 1px 0 rgba(255,255,255,.4);
+  background: #f4f1ea; transition: transform .5s var(--ease-lux), box-shadow .4s ease; }
+.about-doc:hover img { transform: translateY(-4px) scale(1.01); box-shadow: var(--sh-lg), 0 0 26px rgba(236,209,153,.22); }
+.about-doc figcaption { margin-top: 11px; text-align: center; font-family: var(--serif); font-style: italic; font-size: .92rem; color: var(--muted-2); }
+@media (min-width: 860px) {
+  .about-row { grid-template-columns: 1.02fr .98fr; gap: 56px; }
+  .about-row--imgleft .about-doc { order: -1; }
+}
 
 /* ---------- Contact ---------- */
 .contact-inner { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: start; }
