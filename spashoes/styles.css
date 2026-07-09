@@ -245,8 +245,15 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   background: linear-gradient(rgba(10,32,54,.70), rgba(8,26,46,.66)) padding-box,
               linear-gradient(120deg, rgba(255,255,255,.26) 0%, rgba(236,209,153,.22) 28%, rgba(244,249,252,.08) 55%, rgba(143,200,234,.20) 100%) border-box;
   box-shadow: 0 16px 44px rgba(5, 18, 32, .52), inset 0 1px 0 rgba(255, 255, 255, .10); }
-.brand { display: inline-flex; align-items: center; gap: 11px; position: relative; z-index: 3; margin-left: -42px; }
-@media (max-width: 640px) { .brand { margin-left: -28px; } }
+.brand { display: inline-flex; align-items: center; gap: 11px; position: relative; z-index: 3; }
+/* Logo officiel « spa POUR SOULIERS » — cadre premium qui s'accorde au décor navy/or */
+.brand-logo { display: block; height: 64px; width: auto; border-radius: 13px;
+  border: 1px solid rgba(236,209,153,.55);
+  box-shadow: 0 10px 26px rgba(5,18,32,.5), inset 0 1px 0 rgba(255,255,255,.65), 0 0 0 4px rgba(10,32,54,.35);
+  transition: transform .45s var(--ease-lux), box-shadow .4s ease; }
+.brand:hover .brand-logo { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 36px rgba(5,18,32,.55), 0 0 24px rgba(236,209,153,.28), inset 0 1px 0 rgba(255,255,255,.65); }
+.site-header.is-scrolled .brand-logo { height: 54px; }
+@media (max-width: 640px) { .brand-logo { height: 48px; } .site-header.is-scrolled .brand-logo { height: 44px; } }
 .brand-mark { display: grid; place-items: center; }
 .brand-mark svg { width: 100%; height: 100%; }
 .bm-shoe { fill: var(--text); } .bm-sole { fill: var(--gold); } .bm-spark { fill: var(--sky); }
@@ -375,8 +382,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=45") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=45") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=46") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=46") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -1343,6 +1350,9 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 4px 12px rgba(4,14,26,.4); transition: border-color .35s ease, transform .4s var(--ease-lux); }
 .sc-grid.n3 .sc-shot:first-of-type { aspect-ratio: 16 / 8; }
 .sc-shot img { width: 100%; height: 100%; object-fit: contain; padding: 7px; transition: transform .7s var(--ease-lux); }
+/* Peinture / teinture : avant-après empilés, chaque photo remplit exactement son cadre (aucune bande vide) */
+.sc-grid.stack { grid-template-columns: 1fr; }
+.sc-shot--fill img { object-fit: cover; padding: 0; }
 .service-card:hover .sc-shot { border-color: rgba(236,209,153,.45); }
 .service-card:hover .sc-shot img { transform: scale(1.04); }
 .sc-mini-tag { position: absolute; left: 8px; bottom: 8px; z-index: 2; font-size: .54rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
