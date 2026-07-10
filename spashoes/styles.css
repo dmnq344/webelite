@@ -382,8 +382,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=49") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=49") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=50") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=50") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -835,8 +835,8 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   .section--alt { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 @media (max-width: 600px) {
-  /* le médaillon devient la marque ; on libère la place pour les 4 langues + le burger */
-  .brand-text { display: none; }
+  /* la marque texte reste visible (plus d'emblème) — compacte pour laisser la place aux langues + burger */
+  .brand-text { font-size: 1.12rem; }
   .header-actions { gap: 7px; }
   .lang-btn { padding: 8px 7px; min-height: 38px; font-size: 0.74rem; }
   .hero-shoes { top: 28%; width: min(250px, 60vw); }

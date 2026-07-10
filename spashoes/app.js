@@ -554,7 +554,7 @@ const EXTRA = {
     "nav.contact": "Contact",
     "works.eyebrow": "Réalisations",
     "works.title": "Transformations avant / après",
-    "works.intro": "Faites glisser le curseur pour voir la différence.",
+    "works.intro": "De vraies paires, transformées à la main — avant et après.",
     "works.before": "Avant",
     "works.after": "Après",
     "works.gallery": "Quelques-unes de nos réalisations",
@@ -577,7 +577,7 @@ const EXTRA = {
     "nav.contact": "Contact",
     "works.eyebrow": "Our work",
     "works.title": "Before / after transformations",
-    "works.intro": "Drag the slider to see the difference.",
+    "works.intro": "Real pairs, transformed by hand — before and after.",
     "works.before": "Before",
     "works.after": "After",
     "works.gallery": "A few of our realizations",
@@ -600,7 +600,7 @@ const EXTRA = {
     "nav.contact": "Contact",
     "works.eyebrow": "Realizări",
     "works.title": "Transformări înainte / după",
-    "works.intro": "Trage de cursor pentru a vedea diferența.",
+    "works.intro": "Perechi reale, transformate manual — înainte și după.",
     "works.before": "Înainte",
     "works.after": "După",
     "works.gallery": "Câteva dintre realizările noastre",
@@ -623,7 +623,7 @@ const EXTRA = {
     "nav.contact": "Contatti",
     "works.eyebrow": "I nostri lavori",
     "works.title": "Trasformazioni prima / dopo",
-    "works.intro": "Trascina il cursore per vedere la differenza.",
+    "works.intro": "Coppie vere, trasformate a mano — prima e dopo.",
     "works.before": "Prima",
     "works.after": "Dopo",
     "works.gallery": "Alcune delle nostre realizzazioni",
@@ -681,36 +681,32 @@ for (const l in REAL_TAG) Object.assign(translations[l], REAL_TAG[l]);
 // Légendes + textes alternatifs des vraies réalisations (grille « Réalisations »)
 const REAL_TILES = {
   fr: {
-    'real.t1':'Sneakers enfant · nettoyage', 'real.a1':"Avant/après : sneakers d'enfant très sales puis d'un blanc impeccable",
-    'real.t2':'Nike TN · nettoyage profond', 'real.a2':'Avant/après : Nike TN encrassées puis nettoyées en profondeur',
-    'real.t3':'Ballerines cuir · ravivées', 'real.a3':'Avant/après : ballerines en cuir noir usées puis ravivées',
-    'real.t4':'Brogues · restauration', 'real.a4':'Avant/après : brogues bourgogne rayées puis restaurées et lustrées',
-    'real.t5':'Bottines · détachage peinture', 'real.a5':'Avant/après : bottines cloutées tachées de peinture puis nettoyées',
-    'real.t6':'Daim · taches éliminées', 'real.a6':'Avant/après : derbies en daim beige tachées puis détachées'
+    'real.t1':'Bottines cloutées · ravivées', 'real.a1':'Avant/après : bottines cloutées noires marquées puis ravivées et lustrées',
+    'real.t2':'Nike blanches · nettoyage', 'real.a2':'Baskets Nike blanches encrassées, prêtes pour un nettoyage en profondeur',
+    'real.t3':'Salomon trail · nettoyage profond', 'real.a3':'Avant/après : Salomon trail couvertes de boue puis nettoyées en profondeur',
+    'real.t4':'Derby daim · ravivé', 'real.a4':'Avant/après : derby en daim bleu usé puis ravivé',
+    'real.t5':'Bottines cuir · lustrées', 'real.a5':'Avant/après : bottines Chelsea bordeaux ternies puis restaurées et lustrées'
   },
   en: {
-    'real.t1':'Kids sneakers · deep clean', 'real.a1':'Before/after: filthy kids sneakers restored to spotless white',
-    'real.t2':'Nike TN · deep clean', 'real.a2':'Before/after: grimy Nike TN sneakers deep cleaned',
-    'real.t3':'Leather flats · revived', 'real.a3':'Before/after: worn black leather flats brought back to life',
-    'real.t4':'Brogues · restoration', 'real.a4':'Before/after: scratched burgundy brogues restored and polished',
-    'real.t5':'Boots · paint removal', 'real.a5':'Before/after: studded boots splattered with paint, then cleaned',
-    'real.t6':'Suede · stain removal', 'real.a6':'Before/after: stained beige suede derbies, stains removed'
+    'real.t1':'Studded boots · revived', 'real.a1':'Before/after: scuffed black studded boots brought back to life and polished',
+    'real.t2':'White Nike · deep clean', 'real.a2':'Grimy white Nike sneakers, ready for a deep clean',
+    'real.t3':'Salomon trail · deep clean', 'real.a3':'Before/after: mud-caked Salomon trail shoes deep cleaned',
+    'real.t4':'Suede derby · revived', 'real.a4':'Before/after: worn blue suede derby brought back to life',
+    'real.t5':'Leather boots · polished', 'real.a5':'Before/after: dull burgundy Chelsea boots restored and polished'
   },
   ro: {
-    'real.t1':'Adidași copii · curățare', 'real.a1':'Înainte/după: adidași de copii foarte murdari, redeveniți albi impecabil',
-    'real.t2':'Nike TN · curățare profundă', 'real.a2':'Înainte/după: Nike TN murdari, curățați în profunzime',
-    'real.t3':'Balerini piele · reînviați', 'real.a3':'Înainte/după: balerini din piele neagră uzați, reînviați',
-    'real.t4':'Pantofi brogue · restaurare', 'real.a4':'Înainte/după: pantofi brogue bordo zgâriați, restaurați și lustruiți',
-    'real.t5':'Ghete · vopsea îndepărtată', 'real.a5':'Înainte/după: ghete cu ținte pătate de vopsea, apoi curățate',
-    'real.t6':'Piele întoarsă · fără pete', 'real.a6':'Înainte/după: pantofi derby din piele întoarsă bej, pete eliminate'
+    'real.t1':'Ghete cu ținte · reînviate', 'real.a1':'Înainte/după: ghete negre cu ținte, marcate, apoi reînviate și lustruite',
+    'real.t2':'Nike albi · curățare', 'real.a2':'Adidași Nike albi murdari, pregătiți pentru o curățare profundă',
+    'real.t3':'Salomon trail · curățare profundă', 'real.a3':'Înainte/după: Salomon trail plini de noroi, curățați în profunzime',
+    'real.t4':'Derby velur · reînviat', 'real.a4':'Înainte/după: derby din velur albastru uzat, apoi reînviat',
+    'real.t5':'Ghete piele · lustruite', 'real.a5':'Înainte/după: ghete Chelsea bordo mate, restaurate și lustruite'
   },
   it: {
-    'real.t1':'Sneakers bimbo · pulizia', 'real.a1':'Prima/dopo: sneakers da bambino sporchissime, tornate di un bianco impeccabile',
-    'real.t2':'Nike TN · pulizia profonda', 'real.a2':'Prima/dopo: Nike TN incrostate, pulite in profondità',
-    'real.t3':'Ballerine pelle · ravvivate', 'real.a3':'Prima/dopo: ballerine in pelle nera usurate, ravvivate',
-    'real.t4':'Stringate · restauro', 'real.a4':'Prima/dopo: stringate bordeaux graffiate, restaurate e lucidate',
-    'real.t5':'Stivaletti · vernice rimossa', 'real.a5':'Prima/dopo: stivaletti borchiati macchiati di vernice, poi puliti',
-    'real.t6':'Camoscio · smacchiato', 'real.a6':'Prima/dopo: derby in camoscio beige macchiate, macchie eliminate'
+    'real.t1':'Stivaletti borchiati · ravvivati', 'real.a1':'Prima/dopo: stivaletti neri borchiati segnati, poi ravvivati e lucidati',
+    'real.t2':'Nike bianche · pulizia', 'real.a2':'Sneakers Nike bianche incrostate, pronte per una pulizia profonda',
+    'real.t3':'Salomon trail · pulizia profonda', 'real.a3':'Prima/dopo: Salomon trail piene di fango, pulite in profondità',
+    'real.t4':'Derby camoscio · ravvivato', 'real.a4':'Prima/dopo: derby in camoscio blu usurato, poi ravvivato',
+    'real.t5':'Stivaletti pelle · lucidati', 'real.a5':'Prima/dopo: stivaletti Chelsea bordeaux opachi, restaurati e lucidati'
   }
 };
 for (const l in REAL_TILES) Object.assign(translations[l], REAL_TILES[l]);
@@ -897,7 +893,7 @@ function renderServices(lang){
     const shots = s.photos.map((p,pi)=>{
       const ar = (s.ars && s.ars[pi]) ? ` style="aspect-ratio:${s.ars[pi]}"` : '';
       const fill = s.stack ? ' sc-shot--fill' : '';
-      return `<figure class="sc-shot${s.ba?' is-ba':''}${fill}"${ar}><img src="assets/img/${p}?v=49" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`;
+      return `<figure class="sc-shot${s.ba?' is-ba':''}${fill}"${ar}><img src="assets/img/${p}?v=50" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`;
     }).join('');
     return `
     <div class="service-cell reveal-card">
@@ -945,12 +941,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=49';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=50';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=49" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=50" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */
