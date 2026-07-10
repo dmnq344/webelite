@@ -653,11 +653,11 @@ const SICONS = {
 const SERVICES = [
   { key:'cleaning', ico:'sparkle', ba:true, photos:['real/real-02c.jpg','real/real-03c.jpg','real/real-01c.jpg'],
     items:['services.cleaning.1','services.cleaning.2','services.cleaning.3','services.cleaning.4'] },
-  { key:'dye', ico:'brush', ba:true, stack:true, photos:['real/dye-beige.jpg','real/dye-brun.jpg'], ars:['518/474','1337/272'],
+  { key:'dye', ico:'brush', ba:true, photos:['real/dye-beige.jpg','real/dye-brun.jpg'],
     items:['services.dye.1'] },
-  { key:'repairs', ico:'hammer', ba:false, photos:['real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'],
+  { key:'repairs', ico:'hammer', ba:false, photos:['real/repair-04.jpg','real/repair-03.jpg','real/repair-01.jpg','real/repair-02.jpg'],
     items:['services.repairs.1','services.repairs.2'] },
-  { key:'cobbler', ico:'needle', ba:false, photos:['real/cobbler-02.jpg','real/cobbler-01.jpg','real/cobbler-03.jpg','real/cobbler-04.jpg'],
+  { key:'cobbler', ico:'needle', ba:false, photos:['real/cobbler-02.jpg','real/cobbler-03.jpg','real/cobbler-05.jpg'],
     items:['services.cobbler.1','services.cobbler.2','services.cobbler.3'] }
 ];
 const SPA = [
@@ -893,7 +893,7 @@ function renderServices(lang){
     const shots = s.photos.map((p,pi)=>{
       const ar = (s.ars && s.ars[pi]) ? ` style="aspect-ratio:${s.ars[pi]}"` : '';
       const fill = s.stack ? ' sc-shot--fill' : '';
-      return `<figure class="sc-shot${s.ba?' is-ba':''}${fill}"${ar}><img src="assets/img/${p}?v=50" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`;
+      return `<figure class="sc-shot${s.ba?' is-ba':''}${fill}"${ar}><img src="assets/img/${p}?v=52" alt="${title}" loading="lazy">${s.ba?`<span class="sc-mini-tag">${before} · ${after}</span>`:''}</figure>`;
     }).join('');
     return `
     <div class="service-cell reveal-card">
@@ -941,12 +941,12 @@ function openServiceModal(key, sourceCard){
   modal.querySelector('.svm-ico').innerHTML=SICONS[s.ico]||'';
   modal.querySelector('.svm-title').textContent=t('services.'+s.key+'.title',lang);
   modal.querySelector('.svm-chips').innerHTML=s.items.map(k=>`<li>${t(k,lang)}</li>`).join('');
-  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=50';
+  modal.querySelector('.svm-ba-img').src='assets/img/'+s.ba+'?v=52';
   modal.querySelector('.svm-ba-img').alt=t('services.'+s.key+'.title',lang)+' — '+t('real.tag',lang);
   modal.querySelector('.svm-before').textContent=t('works.before',lang);
   modal.querySelector('.svm-after').textContent=t('works.after',lang);
   const gal=modal.querySelector('.svm-gallery');
-  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=50" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
+  gal.innerHTML=(s.gallery||[]).map(p=>`<figure class="svm-tile"><img src="assets/img/${p}?v=52" alt="${t('real.tag',lang)}" loading="lazy"></figure>`).join('');
   modal.hidden=false; document.body.style.overflow='hidden';
   requestAnimationFrame(()=>modal.classList.add('is-open'));
   /* animation de déploiement 3D */
