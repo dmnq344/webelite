@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nos services — Isolation, toiture, ventilation &amp; calfeutrage | Expert Isolation</title>
+  <meta name="description" content="Uréthane giclé, cellulose soufflée, bardeaux architecturaux, membrane élastomère, ventilation d'entretoit et calfeutrage : découvrez les services d'Expert Isolation dans le Grand Montréal. Soumission gratuite en 24 h.">
+  <meta property="og:title" content="Nos services — Expert Isolation">
+  <meta property="og:description" content="Quatre expertises pour toute l'enveloppe de votre bâtiment : isolation, toiture, ventilation et calfeutrage. Soumission gratuite.">
+  <meta name="theme-color" content="#060a13">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/services.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ===== Neige 2D (fond des sous-pages) ===== -->
+  <canvas id="snow2d" aria-hidden="true"></canvas>
+
+  <!-- ===== Sprite d'icônes ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-1z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 11.5l2 2 4-4.5"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5C13.5 6 11 7.5 9.5 9.5 8.2 11.2 7.5 12.8 7.5 14.5a4.5 4.5 0 0 0 9 0c0-2-.9-3.6-2-5.2C13.2 7.4 12.3 5.2 12 2.5z"/><path d="M12 12.5c-1 1-1.6 1.9-1.6 2.9a1.6 1.6 0 0 0 3.2 0c0-1-.6-1.9-1.6-2.9z"/></symbol>
+      <symbol id="i-roof" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 12 4l10 8"/><path d="M4.5 10.2V19.5h15V10.2"/><path d="M7.5 13.5h9M7.5 16.5h9"/></symbol>
+      <symbol id="i-home-heat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.8V20h13V9.8"/><path d="M12 10.5c.9 1.7-.5 2.4-1.2 3.3-.6.8-.9 1.5-.9 2.2a2.1 2.1 0 0 0 4.2 0c0-1-.5-1.9-1.1-2.8-.5-.8-.9-1.7-1-2.7z"/></symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2"/><path d="M12.59 19.41A2 2 0 1 0 14 16H2"/><path d="M17.73 7.73A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6.5 7 6.5 11.3a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.7 12 2.7z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6L22 7"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></symbol>
+      <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.7 7 22l5-3 5 3-1.8-8.3"/></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 11v5M12 8h.01"/></symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-13h-8l1-7z"/></symbol>
+      <symbol id="i-thermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9-1 12-5 16-9 16z"/><path d="M4 21c4-6 8-9 12-11"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Preloader ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="preloader__flame">
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#plg)"/>
+          </g>
+          <defs>
+            <linearGradient id="plg" x1="32" y1="28" x2="32" y2="52">
+              <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="preloader__name">Expert Isolation</div>
+      <div class="preloader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+        <span class="brand__mark">
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#blg)"/>
+            <defs>
+              <linearGradient id="blg" x1="32" y1="28" x2="32" y2="52">
+                <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Expert <em>Isolation</em></span><br>
+          <span class="brand__tag">Isolation · Toiture</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="services.html" class="is-active">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+15145550134">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+        <a class="btn btn--primary btn--sm" href="contact.html#soumission">Soumission gratuite</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Menu mobile ===== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div>
+      <nav aria-label="Navigation mobile">
+        <a href="index.html">Accueil</a>
+        <a href="services.html" class="is-active">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <a class="btn btn--primary" href="contact.html#soumission">Soumission gratuite</a>
+        <a class="header-phone" href="tel:+15145550134" style="display:flex">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ===== Héros de sous-page ===== -->
+    <section class="page-hero" id="haut">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane" data-reveal>
+          <a href="index.html">Accueil</a>
+          <span class="sep">›</span>
+          <span class="current">Nos services</span>
+        </nav>
+        <div class="eyebrow" data-reveal>Nos services</div>
+        <h1 class="hero__title" data-reveal>
+          Une seule équipe pour <span class="accent">toute l'enveloppe</span> de votre bâtiment.
+        </h1>
+        <p class="lead" data-reveal>
+          Uréthane giclé, cellulose soufflée, bardeaux architecturaux, membrane élastomère,
+          ventilation d'entretoit et calfeutrage&nbsp;: quatre expertises qui travaillent ensemble
+          pour garder la chaleur en dedans — et l'hiver dehors.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Ancres rapides ===== -->
+    <nav class="anchor-band" aria-label="Accès rapide aux services">
+      <div class="container">
+        <div class="anchor-band__inner" data-reveal>
+          <a class="anchor-pill" href="#isolation"><svg><use href="#i-home-heat"/></svg> Isolation</a>
+          <a class="anchor-pill" href="#toiture"><svg><use href="#i-roof"/></svg> Toiture</a>
+          <a class="anchor-pill" href="#ventilation"><svg><use href="#i-wind"/></svg> Ventilation</a>
+          <a class="anchor-pill" href="#calfeutrage"><svg><use href="#i-drop"/></svg> Calfeutrage</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== ISOLATION ===== -->
+    <section class="section svc-section" id="isolation">
+      <div class="container">
+        <div class="svc-split">
+          <div>
+            <div class="section-head">
+              <div class="eyebrow" data-reveal>Isolation</div>
+              <h2 class="title" data-reveal>Une barrière thermique <span class="accent">sans faille</span></h2>
+              <p class="lead" data-reveal>
+                L'isolation, c'est notre métier premier. On choisit le bon matériau pour la bonne
+                surface — jamais l'inverse — afin que chaque dollar investi vous revienne en
+                confort et en économies de chauffage.
+              </p>
+            </div>
+            <div class="svc-subs">
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-flame"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Uréthane giclé</h3>
+                    <span class="spec">R-6 par pouce</span>
+                  </div>
+                  <p>
+                    La mousse de polyuréthane scelle et isole en une seule application&nbsp;: elle
+                    épouse chaque recoin et forme un pare-air continu. Le choix par excellence
+                    pour les solages, les murs, les rives de plancher et les vides sanitaires.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-leaf"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Cellulose soufflée</h3>
+                    <span class="spec">Entretoit · écologique</span>
+                  </div>
+                  <p>
+                    Fabriquée de fibres recyclées, la cellulose couvre uniformément votre entretoit
+                    en une demi-journée. C'est le meilleur rapport qualité-prix pour passer de
+                    R-12 à R-60 — et l'option la plus verte du marché.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-shield"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Laine minérale</h3>
+                    <span class="spec">Murs · insonorisation</span>
+                  </div>
+                  <p>
+                    Incombustible, stable et insonorisante, la laine minérale est idéale pour les
+                    murs de division, les plafonds de sous-sol et partout où la résistance au feu
+                    et le confort acoustique comptent.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="signs" data-reveal>
+              <h4><svg><use href="#i-snow"/></svg> Signes qu'il est temps d'agir</h4>
+              <ul>
+                <li><svg><use href="#i-chev"/></svg> Planchers froids et pièces impossibles à chauffer uniformément</li>
+                <li><svg><use href="#i-chev"/></svg> Glaçons et barrages de glace en bordure de toit chaque hiver</li>
+                <li><svg><use href="#i-chev"/></svg> Factures de chauffage qui grimpent d'année en année</li>
+                <li><svg><use href="#i-chev"/></svg> Murs froids au toucher, courants d'air près des plinthes</li>
+                <li><svg><use href="#i-chev"/></svg> Neige qui fond en plaques inégales sur la toiture</li>
+              </ul>
+            </div>
+          </div>
+          <div class="svc-media" data-reveal>
+            <div class="thermo-panel">
+              <div class="thermo-panel__title">Pouvoir isolant par pouce d'épaisseur</div>
+              <div class="gauge">
+                <div class="gauge__row">
+                  <div class="gauge__head">
+                    <span class="gauge__label">Uréthane giclé</span>
+                    <span class="gauge__value">R-6</span>
+                  </div>
+                  <div class="gauge__bar"><span class="gauge__fill" data-gauge="100"></span></div>
+                </div>
+                <div class="gauge__row">
+                  <div class="gauge__head">
+                    <span class="gauge__label">Cellulose soufflée</span>
+                    <span class="gauge__value">R-3,8</span>
+                  </div>
+                  <div class="gauge__bar"><span class="gauge__fill gauge__fill--cold" data-gauge="63"></span></div>
+                </div>
+                <div class="gauge__row">
+                  <div class="gauge__head">
+                    <span class="gauge__label">Laine minérale</span>
+                    <span class="gauge__value">R-3,7</span>
+                  </div>
+                  <div class="gauge__bar"><span class="gauge__fill gauge__fill--cold" data-gauge="62"></span></div>
+                </div>
+              </div>
+              <div class="thermo-panel__note">
+                <svg><use href="#i-info"/></svg>
+                <span>La valeur R par pouce n'est pas tout&nbsp;: l'étanchéité à l'air, l'épaisseur totale et la qualité de la pose font la vraie différence. On combine souvent deux matériaux pour un résultat optimal.</span>
+              </div>
+              <ul class="panel-list">
+                <li><svg><use href="#i-shield"/></svg> <span><strong>Produits certifiés</strong> ULC et conformes au Code de construction du Québec</span></li>
+                <li><svg><use href="#i-zap"/></svg> <span><strong>Pare-air et isolant</strong> en une seule étape avec l'uréthane giclé</span></li>
+                <li><svg><use href="#i-leaf"/></svg> <span><strong>Travaux admissibles</strong> aux programmes LogisVert et Rénoclimat</span></li>
+                <li><svg><use href="#i-medal"/></svg> <span><strong>Garantie écrite</strong> jusqu'à 10 ans sur la main-d'œuvre</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOITURE ===== -->
+    <section class="section svc-section" id="toiture">
+      <div class="container">
+        <div class="svc-split svc-split--flip">
+          <div class="svc-media" data-reveal>
+            <div class="svc-visual">
+              <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Maison au toit de bardeaux sous un ciel d'hiver étoilé">
+                <defs>
+                  <linearGradient id="srvt-sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0a1222"/><stop offset=".55" stop-color="#14203c"/><stop offset="1" stop-color="#37294a"/>
+                  </linearGradient>
+                  <linearGradient id="srvt-glow" x1="0" y1="0" x2="1" y2="0">
+                    <stop stop-color="#ff6b2c"/><stop offset="1" stop-color="#ffc46b"/>
+                  </linearGradient>
+                </defs>
+                <rect width="640" height="440" fill="url(#srvt-sky)"/>
+                <!-- Lune et étoiles -->
+                <circle cx="545" cy="75" r="24" fill="#e6f2ff" opacity=".92"/>
+                <circle cx="545" cy="75" r="44" fill="#b8e2ff" opacity=".14"/>
+                <circle cx="80" cy="60" r="2" fill="#cfe0ff"/><circle cx="150" cy="112" r="1.5" fill="#cfe0ff"/>
+                <circle cx="245" cy="52" r="2" fill="#cfe0ff"/><circle cx="335" cy="96" r="1.6" fill="#cfe0ff"/>
+                <circle cx="430" cy="44" r="1.6" fill="#cfe0ff"/><circle cx="58" cy="165" r="1.4" fill="#cfe0ff"/>
+                <circle cx="480" cy="140" r="1.4" fill="#cfe0ff"/>
+                <!-- Maison voisine -->
+                <path d="M-10 356 70 292l82 64z" fill="#0b1120"/>
+                <path d="M-18 296 70 284l86 66" fill="none" stroke="#22314f" stroke-width="5" stroke-linecap="round"/>
+                <rect x="42" y="326" width="16" height="22" fill="#ffc069" opacity=".4"/>
+                <!-- Maison principale : pignon -->
+                <path d="M110 356 250 225l140 131z" fill="#0f1930"/>
+                <!-- Pan de toit visible -->
+                <path d="M250 225l140 131h95L330 185z" fill="#1d2c4e"/>
+                <!-- Rangs de bardeaux -->
+                <path d="M266 217l142 132M282 209l150 140M298 201l158 148M314 193l164 156" stroke="#ff9a3c" stroke-width="2.2" opacity=".6"/>
+                <!-- Arêtes lumineuses -->
+                <path d="M104 358 250 222l146 136" fill="none" stroke="#ff9a3c" stroke-width="6" stroke-linecap="round" opacity=".9"/>
+                <path d="M250 225 330 185" stroke="url(#srvt-glow)" stroke-width="5" stroke-linecap="round"/>
+                <!-- Cheminée -->
+                <rect x="344" y="176" width="30" height="70" fill="#0b1120"/>
+                <rect x="338" y="168" width="42" height="10" rx="3" fill="#22314f"/>
+                <path d="M358 156q-10-16 2-30t0-28" stroke="#8a97b5" stroke-width="4" opacity=".35" fill="none" stroke-linecap="round"/>
+                <!-- Fenêtres chaudes -->
+                <circle cx="250" cy="278" r="13" fill="#ffc069" opacity=".85"/>
+                <rect x="188" y="306" width="27" height="38" fill="#ffc069" opacity=".85"/>
+                <rect x="286" y="306" width="27" height="38" fill="#ffc069" opacity=".55"/>
+                <!-- Sapins -->
+                <path d="M556 356l-30 0 15-46zM585 356l-26 0 13-38z" fill="#0c1626"/>
+                <path d="M541 330l15-14 15 14" fill="none" stroke="#c9d8f0" stroke-width="3" opacity=".5"/>
+                <!-- Sol enneigé -->
+                <rect y="352" width="640" height="88" fill="#c9d8f0"/>
+                <ellipse cx="150" cy="366" rx="110" ry="12" fill="#dbe7f8"/>
+                <ellipse cx="465" cy="372" rx="95" ry="10" fill="#dbe7f8" opacity=".8"/>
+                <!-- Flocons -->
+                <circle cx="120" cy="200" r="2" fill="#e6f2ff" opacity=".7"/><circle cx="470" cy="230" r="2.2" fill="#e6f2ff" opacity=".6"/>
+                <circle cx="530" cy="180" r="1.8" fill="#e6f2ff" opacity=".7"/><circle cx="70" cy="250" r="1.6" fill="#e6f2ff" opacity=".5"/>
+                <circle cx="600" cy="260" r="1.8" fill="#e6f2ff" opacity=".6"/><circle cx="380" cy="120" r="1.6" fill="#e6f2ff" opacity=".5"/>
+              </svg>
+              <span class="project-card__tag">Toiture</span>
+            </div>
+            <div class="svc-visual__caption">
+              <svg><use href="#i-info"/></svg>
+              <span>Chaque réfection comprend l'inspection du pontage, les membranes autocollantes aux points critiques et des solins neufs — pas juste des bardeaux.</span>
+            </div>
+            <div class="signs signs--inclus" data-reveal>
+              <h4><svg><use href="#i-check"/></svg> Ce qui est inclus dans une réfection</h4>
+              <ul>
+                <li><svg><use href="#i-check"/></svg> Protection du terrain, des végétaux et du revêtement pendant les travaux</li>
+                <li><svg><use href="#i-check"/></svg> Inspection du pontage et remplacement du bois endommagé</li>
+                <li><svg><use href="#i-check"/></svg> Membrane autocollante aux noues, rives et pourtours de cheminée</li>
+                <li><svg><use href="#i-check"/></svg> Disposition des débris et recyclage des vieux bardeaux</li>
+                <li><svg><use href="#i-check"/></svg> Nettoyage complet du terrain, aimant à clous inclus</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="section-head">
+              <div class="eyebrow" data-reveal>Toiture</div>
+              <h2 class="title" data-reveal>Des toits qui affrontent <span class="accent">nos quatre saisons</span></h2>
+              <p class="lead" data-reveal>
+                Gel, dégel, verglas, canicule&nbsp;: le climat québécois ne pardonne pas les toitures
+                mal posées. Nos couvreurs certifiés installent des systèmes complets, pensés pour
+                durer des décennies — et on le garantit par écrit.
+              </p>
+            </div>
+            <div class="svc-subs">
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-roof"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Bardeaux d'asphalte architecturaux</h3>
+                    <span class="spec">Garantie fabricant</span>
+                  </div>
+                  <p>
+                    Des bardeaux laminés haut de gamme, offerts dans un vaste choix de couleurs et
+                    de textures, couverts par la garantie limitée du fabricant. Pose certifiée qui
+                    protège votre garantie — clouage, ventilation et solins conformes.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-drop"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Membrane élastomère 2 couches</h3>
+                    <span class="spec">Toits plats</span>
+                  </div>
+                  <p>
+                    La référence pour les toits plats et à faible pente&nbsp;: une couche de base et
+                    une couche de finition soudées au chalumeau, pour une étanchéité totale qui
+                    résiste 25 à 30 ans aux cycles de gel-dégel.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-zap"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Réparation &amp; urgence 24/7</h3>
+                    <span class="spec">Intervention rapide</span>
+                  </div>
+                  <p>
+                    Infiltration d'eau, bardeaux arrachés par le vent, solin décollé&nbsp;? On se
+                    déplace rapidement, on colmate d'abord, puis on vous propose une réparation
+                    durable — pas de vente sous pression.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-snow"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Déneigement de toiture</h3>
+                    <span class="spec">Hiver</span>
+                  </div>
+                  <p>
+                    Après une bordée, la surcharge de neige et de glace menace la structure et
+                    provoque des infiltrations. Déneigement sécuritaire, harnais et méthodes qui
+                    n'abîment ni bardeaux ni membrane.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="signs" data-reveal>
+              <h4><svg><use href="#i-snow"/></svg> Signes qu'il est temps d'agir</h4>
+              <ul>
+                <li><svg><use href="#i-chev"/></svg> Bardeaux gondolés, fissurés ou granules dans les gouttières</li>
+                <li><svg><use href="#i-chev"/></svg> Cernes d'eau au plafond ou traces d'humidité dans l'entretoit</li>
+                <li><svg><use href="#i-chev"/></svg> Toiture de plus de 20 ans jamais inspectée</li>
+                <li><svg><use href="#i-chev"/></svg> Cloques ou joints ouverts sur une membrane de toit plat</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VENTILATION ===== -->
+    <section class="section svc-section svc-section--cold" id="ventilation">
+      <div class="container">
+        <div class="svc-split">
+          <div>
+            <div class="section-head">
+              <div class="eyebrow" data-reveal>Ventilation d'entretoit</div>
+              <h2 class="title" data-reveal>Un entretoit qui <span class="accent--cold accent">respire</span>, une toiture qui dure</h2>
+              <p class="lead" data-reveal>
+                L'ennemi numéro un d'une toiture, ce n'est pas la neige&nbsp;: c'est l'humidité
+                emprisonnée. Une ventilation équilibrée garde l'entretoit sec et froid l'hiver,
+                plus frais l'été — et double la vie utile de vos bardeaux.
+              </p>
+            </div>
+            <div class="vent-points">
+              <div class="thermal-point" data-reveal>
+                <div class="thermal-point__icon"><svg><use href="#i-wind"/></svg></div>
+                <div>
+                  <h4>Aérateurs de toit Maximum</h4>
+                  <p>Fabriqués au Québec pour nos hivers&nbsp;: ils évacuent l'air humide sans laisser entrer la neige poudreuse, même en pleine poudrerie.</p>
+                </div>
+              </div>
+              <div class="thermal-point" data-reveal>
+                <div class="thermal-point__icon"><svg><use href="#i-home-heat"/></svg></div>
+                <div>
+                  <h4>Soffites et entrées d'air dégagées</h4>
+                  <p>On installe ou libère les soffites ventilés et on pose des déflecteurs pour que l'isolant ne bloque jamais la circulation d'air.</p>
+                </div>
+              </div>
+              <div class="thermal-point" data-reveal>
+                <div class="thermal-point__icon"><svg><use href="#i-snow"/></svg></div>
+                <div>
+                  <h4>Prévention des barrages de glace</h4>
+                  <p>Un entretoit froid et sec empêche la neige de fondre puis de regeler en bordure de toit — fini les glaçons et les infiltrations printanières.</p>
+                </div>
+              </div>
+              <div class="thermal-point" data-reveal>
+                <div class="thermal-point__icon"><svg><use href="#i-check"/></svg></div>
+                <div>
+                  <h4>Équilibre entrée / sortie calculé</h4>
+                  <p>On calcule le ratio d'admission et d'évacuation selon la surface de votre entretoit&nbsp;: trop ou pas assez, les deux causent des problèmes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="svc-media" data-reveal>
+            <div class="svc-visual">
+              <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Coupe d'un entretoit ventilé : l'air entre par les soffites et sort par l'aérateur de toit">
+                <defs>
+                  <linearGradient id="srvv-sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0c1322"/><stop offset="1" stop-color="#12203a"/>
+                  </linearGradient>
+                  <marker id="srvv-ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                    <path d="M0 0 10 5 0 10z" fill="#7fc8ff"/>
+                  </marker>
+                  <marker id="srvv-aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                    <path d="M0 0 10 5 0 10z" fill="#ff9a3c"/>
+                  </marker>
+                </defs>
+                <rect width="640" height="440" fill="url(#srvv-sky)"/>
+                <circle cx="70" cy="56" r="2" fill="#cfe0ff"/><circle cx="580" cy="70" r="1.8" fill="#cfe0ff"/>
+                <circle cx="510" cy="40" r="1.5" fill="#cfe0ff"/><circle cx="130" cy="96" r="1.5" fill="#cfe0ff"/>
+                <!-- Pontage du toit -->
+                <path d="M78 338 320 142l242 196" fill="#101b32" opacity=".55"/>
+                <path d="M78 338 320 142l242 196" fill="none" stroke="#d9a05a" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+                <!-- Murs -->
+                <path d="M112 340v52M528 340v52" stroke="#22314f" stroke-width="7" stroke-linecap="round"/>
+                <!-- Plafond -->
+                <path d="M104 340h432" stroke="#22314f" stroke-width="6" stroke-linecap="round"/>
+                <!-- Isolant soufflé -->
+                <g opacity=".6">
+                  <circle cx="145" cy="324" r="15" fill="#cfc0a4"/><circle cx="185" cy="320" r="18" fill="#c2b49a"/>
+                  <circle cx="228" cy="323" r="16" fill="#d8caae"/><circle cx="270" cy="318" r="19" fill="#cfc0a4"/>
+                  <circle cx="315" cy="322" r="17" fill="#c2b49a"/><circle cx="358" cy="318" r="19" fill="#d8caae"/>
+                  <circle cx="400" cy="323" r="16" fill="#cfc0a4"/><circle cx="442" cy="320" r="18" fill="#c2b49a"/>
+                  <circle cx="486" cy="324" r="15" fill="#d8caae"/>
+                </g>
+                <!-- Flux d'air froid entrant (soffites) -->
+                <path d="M42 384q40-6 74-40" fill="none" stroke="#7fc8ff" stroke-width="3.5" stroke-linecap="round" marker-end="url(#srvv-ac)"/>
+                <path d="M598 384q-40-6-74-40" fill="none" stroke="#7fc8ff" stroke-width="3.5" stroke-linecap="round" marker-end="url(#srvv-ac)"/>
+                <!-- Flux intérieur montant -->
+                <path d="M128 316Q212 244 296 176" fill="none" stroke="#7fc8ff" stroke-width="3" stroke-dasharray="7 9" stroke-linecap="round" opacity=".65" marker-end="url(#srvv-ac)"/>
+                <path d="M512 316Q428 244 344 176" fill="none" stroke="#7fc8ff" stroke-width="3" stroke-dasharray="7 9" stroke-linecap="round" opacity=".65" marker-end="url(#srvv-ac)"/>
+                <!-- Aérateur Maximum -->
+                <rect x="306" y="136" width="28" height="12" fill="#16233f"/>
+                <rect x="292" y="106" width="56" height="32" rx="8" fill="#1a2745" stroke="#ff9a3c" stroke-width="2.5"/>
+                <!-- Air chaud sortant -->
+                <path d="M320 98q-6-16 0-32" fill="none" stroke="#ff9a3c" stroke-width="3.5" stroke-linecap="round" marker-end="url(#srvv-aw)"/>
+                <path d="M302 100q-9-13-5-25" fill="none" stroke="#ff9a3c" stroke-width="2.5" stroke-linecap="round" opacity=".55" marker-end="url(#srvv-aw)"/>
+                <path d="M338 100q9-13 5-25" fill="none" stroke="#ff9a3c" stroke-width="2.5" stroke-linecap="round" opacity=".55" marker-end="url(#srvv-aw)"/>
+                <!-- Libellés -->
+                <text x="320" y="46" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" letter-spacing="2" fill="#ffc46b">AÉRATEUR MAXIMUM</text>
+                <text x="46" y="414" font-family="Inter, system-ui, sans-serif" font-size="13" letter-spacing="1.5" fill="#8fd0ff">ENTRÉE — SOFFITES</text>
+                <text x="594" y="414" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="13" letter-spacing="1.5" fill="#8fd0ff">ENTRÉE — SOFFITES</text>
+                <text x="320" y="378" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" letter-spacing="1.5" fill="#a3b0ca">ISOLANT SOUFFLÉ</text>
+              </svg>
+              <span class="project-card__tag">Ventilation</span>
+            </div>
+            <div class="svc-visual__caption">
+              <svg><use href="#i-info"/></svg>
+              <span>L'air frais entre par les soffites, longe le pontage et ressort par l'aérateur&nbsp;: un entretoit sec, hiver comme été.</span>
+            </div>
+            <div class="signs" data-reveal>
+              <h4><svg><use href="#i-snow"/></svg> Signes qu'il est temps d'agir</h4>
+              <ul>
+                <li><svg><use href="#i-chev"/></svg> Givre ou condensation sous le pontage en hiver</li>
+                <li><svg><use href="#i-chev"/></svg> Glaçons imposants aux gouttières après chaque redoux</li>
+                <li><svg><use href="#i-chev"/></svg> Chaleur écrasante à l'étage dès les premières canicules</li>
+                <li><svg><use href="#i-chev"/></svg> Odeur d'humidité ou taches noires sur la charpente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CALFEUTRAGE ===== -->
+    <section class="section svc-section" id="calfeutrage">
+      <div class="container">
+        <div class="svc-split svc-split--flip">
+          <div class="svc-media" data-reveal>
+            <div class="svc-visual">
+              <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Fenêtre calfeutrée : un cordon de scellant bloque l'air froid">
+                <defs>
+                  <linearGradient id="srvc-sky" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0d1626"/><stop offset="1" stop-color="#1a2c48"/>
+                  </linearGradient>
+                  <radialGradient id="srvc-halo" cx=".5" cy=".5" r=".5">
+                    <stop offset="0" stop-color="#ff9a3c" stop-opacity=".28"/><stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/>
+                  </radialGradient>
+                  <marker id="srvc-ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                    <path d="M0 0 10 5 0 10z" fill="#7fc8ff"/>
+                  </marker>
+                </defs>
+                <rect width="640" height="440" fill="url(#srvc-sky)"/>
+                <!-- Halo chaleureux derrière la fenêtre -->
+                <ellipse cx="330" cy="215" rx="240" ry="200" fill="url(#srvc-halo)"/>
+                <!-- Cordon de scellant (lueur) -->
+                <rect x="196" y="76" width="268" height="288" rx="14" fill="none" stroke="#ff9a3c" stroke-width="12" opacity=".18"/>
+                <rect x="196" y="76" width="268" height="288" rx="14" fill="none" stroke="#ffc46b" stroke-width="3.5"/>
+                <!-- Cadre de fenêtre -->
+                <rect x="208" y="88" width="244" height="264" rx="8" fill="#0a1220" stroke="#2a3b5e" stroke-width="8"/>
+                <!-- Carreaux -->
+                <rect x="224" y="104" width="102" height="112" fill="#7fc8ff" opacity=".2"/>
+                <rect x="334" y="104" width="102" height="112" fill="#7fc8ff" opacity=".13"/>
+                <rect x="224" y="224" width="102" height="112" fill="#ffc069" opacity=".8"/>
+                <rect x="334" y="224" width="102" height="112" fill="#ffc069" opacity=".45"/>
+                <path d="M330 104v232M224 220h212" stroke="#0a1220" stroke-width="9"/>
+                <!-- Reflet de lune dans le carreau -->
+                <circle cx="290" cy="136" r="12" fill="#e6f2ff" opacity=".5"/>
+                <!-- Courants d'air froids bloqués -->
+                <path d="M52 130q66 8 118 38" fill="none" stroke="#7fc8ff" stroke-width="3.5" stroke-linecap="round" marker-end="url(#srvc-ac)"/>
+                <path d="M40 226q66-2 130 6" fill="none" stroke="#7fc8ff" stroke-width="3.5" stroke-linecap="round" marker-end="url(#srvc-ac)"/>
+                <path d="M56 322q62-10 116-32" fill="none" stroke="#7fc8ff" stroke-width="3.5" stroke-linecap="round" marker-end="url(#srvc-ac)"/>
+                <!-- Déflexions le long du cordon -->
+                <path d="M182 176q16 14 4 32M180 238q14 12 2 30M182 282q14-14 2-30" fill="none" stroke="#7fc8ff" stroke-width="2.5" stroke-linecap="round" opacity=".45"/>
+                <!-- Flocons -->
+                <path d="M84 82v18M75 91h18M78 85l12 12M90 85 78 97" stroke="#b8e2ff" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+                <path d="M110 366v14M103 373h14M105 368l10 10M115 368l-10 10" stroke="#b8e2ff" stroke-width="1.8" stroke-linecap="round" opacity=".55"/>
+                <circle cx="140" cy="60" r="2" fill="#cfe0ff" opacity=".8"/><circle cx="60" cy="180" r="1.8" fill="#cfe0ff" opacity=".6"/>
+                <circle cx="120" cy="270" r="1.6" fill="#cfe0ff" opacity=".6"/>
+                <!-- Pistolet à calfeutrer -->
+                <g transform="rotate(-34 505 350)">
+                  <path d="M475 344l-40 8 40 8z" fill="#4a6491"/>
+                  <rect x="475" y="334" width="112" height="36" rx="13" fill="#24365a" stroke="#4a6491" stroke-width="3"/>
+                  <rect x="586" y="346" width="26" height="7" rx="3" fill="#4a6491"/>
+                  <path d="M560 370l-8 42h24l6-42z" fill="#24365a" stroke="#4a6491" stroke-width="3"/>
+                  <path d="M492 352h64" stroke="#ff9a3c" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+                </g>
+                <circle cx="466" cy="332" r="6" fill="#ffc46b"/>
+                <circle cx="466" cy="332" r="14" fill="#ff9a3c" opacity=".25"/>
+              </svg>
+              <span class="project-card__tag">Étanchéité</span>
+            </div>
+            <div class="svc-visual__caption">
+              <svg><use href="#i-info"/></svg>
+              <span>Un cordon de scellant continu autour des cadres bloque l'air froid avant même qu'il n'atteigne l'isolant.</span>
+            </div>
+          </div>
+          <div>
+            <div class="section-head">
+              <div class="eyebrow" data-reveal>Calfeutrage &amp; étanchéité</div>
+              <h2 class="title" data-reveal>Coupez les courants d'air <span class="accent">à la source</span></h2>
+              <p class="lead" data-reveal>
+                Jusqu'à 25&nbsp;% des pertes de chaleur d'une maison passent par les fuites d'air.
+                Le calfeutrage est le geste le plus rentable en efficacité énergétique&nbsp;: petit
+                investissement, résultats immédiats.
+              </p>
+            </div>
+            <div class="svc-subs">
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-tool"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Portes, fenêtres et solins</h3>
+                    <span class="spec">Pourtour complet</span>
+                  </div>
+                  <p>
+                    Retrait de l'ancien scellant, préparation minutieuse des surfaces et pose d'un
+                    cordon uniforme autour des cadres, des solins et des jonctions de matériaux.
+                    Un travail propre qui rehausse même l'apparence de la façade.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-drop"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Scellants haute performance</h3>
+                    <span class="spec">−40 °C à +90 °C</span>
+                  </div>
+                  <p>
+                    Des scellants hybrides et polyuréthanes de qualité commerciale qui restent
+                    flexibles au grand froid et adhèrent au bois, à la brique, à l'aluminium et au
+                    PVC. Durée de vie de 15 à 20 ans, choix de couleurs agencées.
+                  </p>
+                </div>
+              </article>
+              <article class="svc-sub" data-reveal>
+                <div class="svc-sub__icon"><svg><use href="#i-search"/></svg></div>
+                <div>
+                  <div class="svc-sub__head">
+                    <h3>Test d'infiltrométrie</h3>
+                    <span class="spec">Porte soufflante</span>
+                  </div>
+                  <p>
+                    On dépressurise la maison avec une porte soufflante pour localiser précisément
+                    chaque fuite d'air — avant et après les travaux. Vous voyez le gain
+                    d'étanchéité noir sur blanc.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="signs" data-reveal>
+              <h4><svg><use href="#i-snow"/></svg> Signes qu'il est temps d'agir</h4>
+              <ul>
+                <li><svg><use href="#i-chev"/></svg> Courants d'air perceptibles près des cadres de portes et fenêtres</li>
+                <li><svg><use href="#i-chev"/></svg> Scellant fissuré, durci ou décollé sur la façade</li>
+                <li><svg><use href="#i-chev"/></svg> Sifflements par grands vents, poussière qui s'infiltre</li>
+                <li><svg><use href="#i-chev"/></svg> Givre ou buée aux coins des fenêtres dès les grands froids</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Résidentiel & commercial ===== -->
+    <section class="section svc-section" id="clienteles">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Pour qui&nbsp;?</div>
+          <h2 class="title" data-reveal>Résidentiel <span class="accent">&amp;</span> commercial</h2>
+          <p class="lead" data-reveal>
+            De la maison unifamiliale au bloc de logements, la même rigueur, la même équipe,
+            le même souci du travail bien fait.
+          </p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card" data-reveal>
+            <div class="service-card__icon"><svg><use href="#i-home-heat"/></svg></div>
+            <h3>Résidentiel</h3>
+            <p>Votre maison mérite une enveloppe qui travaille pour vous, pièce par pièce, saison après saison.</p>
+            <ul class="service-card__list">
+              <li>Maisons unifamiliales, jumelés et cottages</li>
+              <li>Agrandissements et pièces au-dessus du garage</li>
+              <li>Accompagnement subventions LogisVert &amp; Rénoclimat</li>
+            </ul>
+            <a class="service-card__link" href="contact.html#soumission">Planifier une visite <svg><use href="#i-arrow"/></svg></a>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="service-card__icon"><svg><use href="#i-users"/></svg></div>
+            <h3>Commercial &amp; multilogements</h3>
+            <p>Des solutions durables pour gestionnaires et propriétaires, avec un calendrier qui respecte vos opérations et vos locataires.</p>
+            <ul class="service-card__list">
+              <li>Toits plats et membranes élastomères</li>
+              <li>Blocs de logements, condos et petits commerces</li>
+              <li>Entretien préventif et rapports d'inspection détaillés</li>
+            </ul>
+            <a class="service-card__link" href="contact.html#soumission">Discuter de votre immeuble <svg><use href="#i-arrow"/></svg></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA finale ===== -->
+    <section class="cta-band" id="cta">
+      <div class="container">
+        <div class="cta-card" data-reveal>
+          <div class="cta-card__solo">
+            <div class="eyebrow">Passez à l'action</div>
+            <h2 class="title">Pas certain par où commencer&nbsp;? <span class="accent">On regarde ça ensemble.</span></h2>
+            <p class="lead">
+              Une inspection honnête, des recommandations claires et un prix ferme&nbsp;:
+              c'est gratuit, sans engagement, et ça prend deux minutes à demander.
+            </p>
+            <ul class="cta-list">
+              <li><svg><use href="#i-check"/></svg> Réponse en 24 h ouvrables</li>
+              <li><svg><use href="#i-check"/></svg> Visite et inspection sans frais</li>
+              <li><svg><use href="#i-check"/></svg> Prix ferme, détaillé, sans surprise</li>
+              <li><svg><use href="#i-check"/></svg> Licence RBQ 5678-1234-01 et assurance 2 M$</li>
+            </ul>
+            <div class="cta-actions">
+              <a class="btn btn--primary btn--lg" href="contact.html#soumission">
+                Soumission gratuite
+                <svg><use href="#i-arrow"/></svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="tel:+15145550134">
+                <svg><use href="#i-phone"/></svg>
+                (514) 555-0134
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+            <span class="brand__mark">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#flg)"/>
+                <defs>
+                  <linearGradient id="flg" x1="32" y1="28" x2="32" y2="52">
+                    <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name">Expert <em>Isolation</em></span><br>
+              <span class="brand__tag">Isolation · Toiture</span>
+            </span>
+          </a>
+          <p>Spécialistes de l'enveloppe du bâtiment : isolation, toiture, ventilation et étanchéité. Résidentiel et commercial, partout dans le Grand Montréal.</p>
+          <span class="footer-rbq"><svg><use href="#i-shield"/></svg> RBQ&nbsp;: 5678-1234-01</span>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#isolation">Uréthane giclé</a></li>
+            <li><a href="services.html#isolation">Cellulose soufflée</a></li>
+            <li><a href="services.html#toiture">Toiture bardeaux</a></li>
+            <li><a href="services.html#toiture">Membrane élastomère</a></li>
+            <li><a href="services.html#calfeutrage">Calfeutrage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><svg><use href="#i-pin"/></svg> 4820, boul. Industriel<br>Montréal (QC) H1H 2Y8</li>
+            <li><svg><use href="#i-phone"/></svg> <a href="tel:+15145550134">(514) 555-0134</a></li>
+            <li><svg><use href="#i-mail"/></svg> <a href="mailto:info@expertisolation.ca">info@expertisolation.ca</a></li>
+            <li><svg><use href="#i-clock"/></svg> Lun–Ven : 7 h à 17 h<br>Urgences toiture : 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom__inner">
+        <span>© <span id="year">2026</span> Expert Isolation. Tous droits réservés. — Site démo</span>
+        <span><a href="#">Politique de confidentialité</a> · <a href="#">Conditions d'utilisation</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

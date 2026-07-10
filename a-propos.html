@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos — Expert Isolation | Une équipe d'ici depuis 2009</title>
+  <meta name="description" content="Fondée en 2009 par deux couvreurs, Expert Isolation compte aujourd'hui 55 employés et plus de 2 500 projets livrés. Découvrez notre histoire, nos valeurs, notre équipe et nos certifications — RBQ, CNESST, APCHQ, Maître Couvreur.">
+  <meta property="og:title" content="À propos — Expert Isolation">
+  <meta property="og:description" content="Deux couvreurs, un camion, une conviction : le confort n'est pas un luxe. L'histoire d'Expert Isolation depuis 2009.">
+  <meta name="theme-color" content="#060a13">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/a-propos.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ===== Neige 2D (fond des sous-pages) ===== -->
+  <canvas id="snow2d" aria-hidden="true"></canvas>
+
+  <!-- ===== Sprite d'icônes ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-1z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 11.5l2 2 4-4.5"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5C13.5 6 11 7.5 9.5 9.5 8.2 11.2 7.5 12.8 7.5 14.5a4.5 4.5 0 0 0 9 0c0-2-.9-3.6-2-5.2C13.2 7.4 12.3 5.2 12 2.5z"/><path d="M12 12.5c-1 1-1.6 1.9-1.6 2.9a1.6 1.6 0 0 0 3.2 0c0-1-.6-1.9-1.6-2.9z"/></symbol>
+      <symbol id="i-roof" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 12 4l10 8"/><path d="M4.5 10.2V19.5h15V10.2"/><path d="M7.5 13.5h9M7.5 16.5h9"/></symbol>
+      <symbol id="i-home-heat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.8V20h13V9.8"/><path d="M12 10.5c.9 1.7-.5 2.4-1.2 3.3-.6.8-.9 1.5-.9 2.2a2.1 2.1 0 0 0 4.2 0c0-1-.5-1.9-1.1-2.8-.5-.8-.9-1.7-1-2.7z"/></symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2"/><path d="M12.59 19.41A2 2 0 1 0 14 16H2"/><path d="M17.73 7.73A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6.5 7 6.5 11.3a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.7 12 2.7z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6L22 7"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></symbol>
+      <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.7 7 22l5-3 5 3-1.8-8.3"/></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 11v5M12 8h.01"/></symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-13h-8l1-7z"/></symbol>
+      <symbol id="i-thermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9-1 12-5 16-9 16z"/><path d="M4 21c4-6 8-9 12-11"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Preloader ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="preloader__flame">
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#plg)"/>
+          </g>
+          <defs>
+            <linearGradient id="plg" x1="32" y1="28" x2="32" y2="52">
+              <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="preloader__name">Expert Isolation</div>
+      <div class="preloader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+        <span class="brand__mark">
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#blg)"/>
+            <defs>
+              <linearGradient id="blg" x1="32" y1="28" x2="32" y2="52">
+                <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Expert <em>Isolation</em></span><br>
+          <span class="brand__tag">Isolation · Toiture</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html" class="is-active">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+15145550134">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+        <a class="btn btn--primary btn--sm" href="contact.html#soumission">Soumission gratuite</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Menu mobile ===== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div>
+      <nav aria-label="Navigation mobile">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html" class="is-active">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <a class="btn btn--primary" href="contact.html#soumission">Soumission gratuite</a>
+        <a class="header-phone" href="tel:+15145550134" style="display:flex">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ===== Héros de sous-page ===== -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane" data-reveal>
+          <a href="index.html">Accueil</a>
+          <span class="sep">›</span>
+          <span class="current">À propos</span>
+        </nav>
+        <div class="eyebrow" data-reveal>Notre histoire</div>
+        <h1 class="hero__title" data-reveal>
+          Une entreprise d'ici qui garde le Québec <span class="accent">bien au chaud</span>.
+        </h1>
+        <p class="lead" data-reveal>
+          Fondée en 2009 par deux couvreurs, Expert Isolation est devenue une référence
+          de l'enveloppe du bâtiment dans le Grand Montréal. Notre conviction n'a jamais
+          changé&nbsp;: le confort n'est pas un luxe.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Histoire ===== -->
+    <section class="section" id="histoire">
+      <div class="container">
+        <div class="story__grid">
+          <div class="story__copy">
+            <div class="eyebrow" data-reveal>Nos racines</div>
+            <h2 class="title" data-reveal>Fondée sur un toit, <span class="accent">en plein hiver</span></h2>
+            <div data-reveal style="margin-top:24px">
+              <p>
+                <strong>Janvier 2009, –22&nbsp;°C.</strong> Martin Lavoie et Sébastien Roy, deux couvreurs
+                avec une dizaine d'hivers de toitures dans le corps, réparent une couverture dans
+                Rosemont. À l'intérieur, la propriétaire chauffe au maximum… et grelotte quand même.
+                Ce jour-là, une évidence s'impose&nbsp;: le problème ne s'arrête pas au toit — c'est
+                toute l'enveloppe de la maison qui laisse fuir la chaleur.
+              </p>
+              <p>
+                Ils fondent Expert Isolation avec un camion usagé, deux échelles et une promesse&nbsp;:
+                traiter chaque maison comme la leur. Le bouche-à-oreille fait le reste. En 2013,
+                l'entreprise ajoute l'uréthane giclé et la cellulose soufflée à son offre&nbsp;;
+                en 2017, elle passe le cap des 50 employés. Aujourd'hui, nos équipes protègent
+                des maisons du grenier aux fondations, de Saint-Jérôme à Brossard.
+              </p>
+            </div>
+            <blockquote class="story-mission" data-reveal>
+              <p>«&nbsp;Le confort n'est pas un luxe. C'est ce qu'on doit à chaque famille
+              qui nous ouvre sa porte.&nbsp;»</p>
+              <cite>— La phrase écrite sur la porte du premier atelier, en 2009. On la lit encore à l'entrée de nos bureaux.</cite>
+            </blockquote>
+            <div class="story-facts" data-reveal>
+              <div class="story-fact">
+                <strong><span data-count="55">0</span>+</strong>
+                <span>employés passionnés</span>
+              </div>
+              <div class="story-fact">
+                <strong><span data-count="2500">0</span>+</strong>
+                <span>projets livrés</span>
+              </div>
+              <div class="story-fact">
+                <strong><span data-count="17">0</span></strong>
+                <span>hivers d'expérience</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-panel" data-reveal>
+            <svg viewBox="0 0 640 460" role="img" aria-label="Illustration nocturne : deux fondateurs devant leur premier chantier, une maison au toit fraîchement refait sous la neige">
+              <defs>
+                <linearGradient id="ap-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0c1426"/>
+                  <stop offset=".5" stop-color="#16223c"/>
+                  <stop offset=".8" stop-color="#43304e"/>
+                  <stop offset="1" stop-color="#7a4636"/>
+                </linearGradient>
+                <linearGradient id="ap-win" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffd9a0"/>
+                  <stop offset="1" stop-color="#ffb050"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Ciel -->
+              <rect width="640" height="460" fill="url(#ap-sky)"/>
+
+              <!-- Étoiles -->
+              <circle cx="60" cy="50" r="2" fill="#cfe0ff"/>
+              <circle cx="140" cy="92" r="1.5" fill="#cfe0ff" opacity=".8"/>
+              <circle cx="238" cy="42" r="1.8" fill="#cfe0ff"/>
+              <circle cx="330" cy="78" r="1.4" fill="#cfe0ff" opacity=".7"/>
+              <circle cx="428" cy="36" r="2" fill="#cfe0ff"/>
+              <circle cx="472" cy="120" r="1.4" fill="#cfe0ff" opacity=".7"/>
+              <circle cx="612" cy="180" r="1.5" fill="#cfe0ff" opacity=".8"/>
+              <circle cx="72" cy="150" r="1.3" fill="#cfe0ff" opacity=".6"/>
+              <circle cx="180" cy="126" r="1.4" fill="#cfe0ff" opacity=".6"/>
+
+              <!-- Lune -->
+              <circle cx="553" cy="84" r="44" fill="#b8e2ff" opacity=".12"/>
+              <circle cx="553" cy="84" r="24" fill="#e9f3ff" opacity=".95"/>
+
+              <!-- Maisons voisines (arrière-plan) -->
+              <path d="M0 400V330l60-48 68 48v70z" fill="#0b1120"/>
+              <path d="M96 400v-56l54-38 54 38v56z" fill="#0d1424"/>
+              <rect x="42" y="342" width="12" height="16" fill="#ffc069" opacity=".35"/>
+              <rect x="138" y="356" width="11" height="14" fill="#ffc069" opacity=".25"/>
+
+              <!-- Sol enneigé -->
+              <rect y="390" width="640" height="70" fill="#c9d8f0"/>
+              <ellipse cx="120" cy="396" rx="100" ry="11" fill="#dbe7f8"/>
+              <ellipse cx="430" cy="402" rx="130" ry="13" fill="#d6e2f5"/>
+              <ellipse cx="610" cy="394" rx="80" ry="10" fill="#dbe7f8"/>
+
+              <!-- Maison principale -->
+              <path d="M140 262 300 138l160 124z" fill="#0e1728"/>
+              <rect x="170" y="262" width="260" height="128" fill="#111d36"/>
+              <rect x="372" y="166" width="26" height="62" fill="#0e1728"/>
+              <rect x="367" y="158" width="36" height="9" rx="2" fill="#131f3a"/>
+              <path d="M385 150c-5-9 5-15-1-26" stroke="#a3b0ca" stroke-width="4" fill="none" stroke-linecap="round" opacity=".3"/>
+              <path d="M128 268 300 130l172 138" fill="none" stroke="#ff9a3c" stroke-width="6" stroke-linecap="round"/>
+              <path d="M310 160l124 96M322 186l90 70" stroke="#ff9a3c" stroke-width="2" opacity=".25"/>
+
+              <!-- Fenêtre de pignon -->
+              <circle cx="300" cy="205" r="14" fill="#ffc069" opacity=".85"/>
+              <path d="M300 191v28M286 205h28" stroke="#0e1728" stroke-width="3"/>
+
+              <!-- Fenêtres et porte -->
+              <rect x="196" y="290" width="44" height="54" rx="3" fill="url(#ap-win)" opacity=".92"/>
+              <path d="M218 290v54M196 317h44" stroke="#111d36" stroke-width="3"/>
+              <rect x="258" y="290" width="44" height="54" rx="3" fill="url(#ap-win)" opacity=".5"/>
+              <path d="M280 290v54M258 317h44" stroke="#111d36" stroke-width="3"/>
+              <rect x="324" y="304" width="42" height="86" rx="3" fill="#0a1120"/>
+              <circle cx="357" cy="350" r="2.5" fill="#ffc46b"/>
+              <rect x="382" y="294" width="36" height="44" rx="3" fill="url(#ap-win)" opacity=".7"/>
+              <path d="M400 294v44" stroke="#111d36" stroke-width="3"/>
+
+              <!-- Échelle -->
+              <g stroke="#d9a05a" stroke-linecap="round">
+                <path d="M146 396 188 266M164 400 206 270" stroke-width="4"/>
+                <path d="M152 378l18 4M159 357l18 4M165 336l18 4M172 315l18 4M179 295l18 4M185 276l18 4" stroke-width="3.5" opacity=".9"/>
+              </g>
+
+              <!-- Lampe de chantier -->
+              <circle cx="462" cy="353" r="34" fill="#ffc46b" opacity=".1"/>
+              <circle cx="462" cy="353" r="18" fill="#ffc46b" opacity=".22"/>
+              <path d="M462 402v-42" stroke="#0a1120" stroke-width="4" stroke-linecap="round"/>
+              <path d="M462 380l-12 28M462 380l12 28" stroke="#0a1120" stroke-width="3" stroke-linecap="round"/>
+              <rect x="452" y="346" width="20" height="14" rx="3" fill="#0c1526"/>
+              <circle cx="462" cy="353" r="6" fill="#ffd9a0" opacity=".95"/>
+
+              <!-- Les deux fondateurs -->
+              <g fill="none" stroke="#070c16" stroke-linecap="round">
+                <circle cx="490" cy="330" r="8" fill="#070c16" stroke="none"/>
+                <path d="M490 340v28" stroke-width="7"/>
+                <path d="M490 346l-15-10" stroke-width="5"/>
+                <path d="M490 349l11 14" stroke-width="5"/>
+                <path d="M490 368l-7 32M490 368l7 32" stroke-width="6"/>
+              </g>
+              <g fill="none" stroke="#070c16" stroke-linecap="round">
+                <circle cx="521" cy="333" r="8" fill="#070c16" stroke="none"/>
+                <path d="M521 343v27" stroke-width="7"/>
+                <path d="M521 350l-10 11M521 350l10 11" stroke-width="5"/>
+                <path d="M521 370l-6 32M521 370l6 32" stroke-width="6"/>
+              </g>
+
+              <!-- Le premier camion -->
+              <polygon points="535,364 500,378 535,372" fill="#ffc46b" opacity=".12"/>
+              <rect x="540" y="352" width="30" height="26" rx="4" fill="#0c1526"/>
+              <rect x="545" y="356" width="12" height="11" rx="2" fill="#7fc8ff" opacity=".35"/>
+              <rect x="566" y="340" width="84" height="38" rx="5" fill="#0c1526"/>
+              <path d="M572 358h68" stroke="#ff9a3c" stroke-width="3" opacity=".8" stroke-linecap="round"/>
+              <circle cx="560" cy="382" r="9" fill="#060a13" stroke="#24314f" stroke-width="3"/>
+              <circle cx="622" cy="382" r="9" fill="#060a13" stroke="#24314f" stroke-width="3"/>
+              <circle cx="538" cy="368" r="3" fill="#ffc46b"/>
+
+              <!-- Traces de pas -->
+              <ellipse cx="548" cy="404" rx="4" ry="2" fill="#aebfdc"/>
+              <ellipse cx="540" cy="409" rx="4" ry="2" fill="#aebfdc"/>
+              <ellipse cx="532" cy="405" rx="4" ry="2" fill="#aebfdc"/>
+              <ellipse cx="524" cy="410" rx="4" ry="2" fill="#aebfdc"/>
+
+              <!-- Flocons -->
+              <circle cx="100" cy="120" r="2" fill="#e6f0ff" opacity=".8"/>
+              <circle cx="210" cy="82" r="1.6" fill="#e6f0ff" opacity=".7"/>
+              <circle cx="390" cy="62" r="2" fill="#e6f0ff" opacity=".8"/>
+              <circle cx="480" cy="150" r="1.7" fill="#e6f0ff" opacity=".7"/>
+              <circle cx="300" cy="92" r="1.4" fill="#e6f0ff" opacity=".6"/>
+              <circle cx="560" cy="230" r="1.6" fill="#e6f0ff" opacity=".7"/>
+              <circle cx="184" cy="204" r="1.5" fill="#e6f0ff" opacity=".6"/>
+              <circle cx="622" cy="120" r="2" fill="#e6f0ff" opacity=".8"/>
+            </svg>
+            <div class="story-panel__caption">
+              <svg><use href="#i-flame"/></svg>
+              <span>Montréal, janvier 2009 — deux couvreurs, un camion, une conviction.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Chronologie ===== -->
+    <section class="section" id="parcours">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Notre parcours</div>
+          <h2 class="title" data-reveal>Quinze ans à monter, <span class="accent">un échelon à la fois</span></h2>
+          <p class="lead" data-reveal>
+            De deux gars sur un toit à une équipe de 55 personnes&nbsp;: les jalons
+            qui ont fait d'Expert Isolation ce qu'elle est aujourd'hui.
+          </p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-card">
+              <span class="timeline-year">2009</span>
+              <h3>La fondation</h3>
+              <p>Martin Lavoie et Sébastien Roy fondent Expert Isolation avec un camion usagé, deux échelles et la conviction que chaque maison mérite de garder sa chaleur.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-card">
+              <span class="timeline-year">2013</span>
+              <h3>La division isolation</h3>
+              <p>L'uréthane giclé et la cellulose soufflée s'ajoutent à l'offre. L'enveloppe du bâtiment se traite désormais au complet — du faîte du toit jusqu'aux fondations.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-card">
+              <span class="timeline-year">2017</span>
+              <h3>50<sup>e</sup> employé et une flotte complète</h3>
+              <p>L'équipe franchit le cap des 50 employés et déploie une flotte de 12 véhicules. La Rive-Nord et la Rive-Sud s'ajoutent officiellement à la zone desservie.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-card">
+              <span class="timeline-year">2021</span>
+              <h3>Certification Maître Couvreur</h3>
+              <p>Notre savoir-faire en toiture est officiellement reconnu. Cette certification nous permet d'offrir des garanties bonifiées sur l'ensemble de nos réfections.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-card">
+              <span class="timeline-year">2024</span>
+              <h3>2&nbsp;500<sup>e</sup> projet livré</h3>
+              <p>Un duplex de Rosemont — à quelques rues du tout premier chantier de 2009 — devient notre 2&nbsp;500<sup>e</sup> projet. La boucle est bouclée, mais on ne fait que commencer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Valeurs ===== -->
+    <section class="section" id="valeurs">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Nos valeurs</div>
+          <h2 class="title" data-reveal>Ce qui ne change pas, <span class="accent">peu importe le chantier</span></h2>
+          <p class="lead" data-reveal>
+            Quatre principes non négociables, appliqués sur chaque projet depuis 2009 —
+            du petit calfeutrage à la réfection complète.
+          </p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card" data-reveal>
+            <div class="service-card__icon"><svg><use href="#i-check"/></svg></div>
+            <h3>Franchise</h3>
+            <p>On recommande seulement le nécessaire. Si votre toiture peut durer cinq ans de plus, on vous le dit — et on vous explique quoi surveiller d'ici là.</p>
+            <ul class="service-card__list">
+              <li>Soumission détaillée ligne par ligne</li>
+              <li>Conseils honnêtes, jamais de vente sous pression</li>
+              <li>Photos avant, pendant et après les travaux</li>
+            </ul>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="service-card__icon"><svg><use href="#i-leaf"/></svg></div>
+            <h3>Propreté</h3>
+            <p>Un chantier impeccable, du premier au dernier jour. Votre terrain vous revient dans l'état où on l'a trouvé — sinon mieux.</p>
+            <ul class="service-card__list">
+              <li>Toiles de protection sur le terrain et les végétaux</li>
+              <li>Passage de l'aimant à clous en fin de journée</li>
+              <li>Tri et recyclage des débris de chantier</li>
+            </ul>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="service-card__icon"><svg><use href="#i-shield"/></svg></div>
+            <h3>Sécurité</h3>
+            <p>Personne ne monte sur un toit sans être attaché, formé et équipé. La sécurité de notre monde — et du vôtre — passe avant l'échéancier.</p>
+            <ul class="service-card__list">
+              <li>Conformité CNESST sur chaque chantier</li>
+              <li>Harnais et lignes de vie obligatoires</li>
+              <li>Formation continue de toutes les équipes</li>
+            </ul>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="service-card__icon"><svg><use href="#i-medal"/></svg></div>
+            <h3>Fierté</h3>
+            <p>On signe ce qu'on fait. Chaque projet part avec une garantie écrite, et on revient vérifier que tout tient — même après la première tempête.</p>
+            <ul class="service-card__list">
+              <li>Garantie écrite jusqu'à 10 ans</li>
+              <li>Suivi après travaux, sans frais</li>
+              <li>Un seul interlocuteur du début à la fin</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Équipe ===== -->
+    <section class="section" id="equipe">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Notre équipe</div>
+          <h2 class="title" data-reveal>Des visages derrière <span class="accent">chaque garantie</span></h2>
+          <p class="lead" data-reveal>
+            Cinquante-cinq employés, et à leur tête des gens de métier qui grimpent
+            encore dans les échelles. En voici quatre que vous croiserez sûrement.
+          </p>
+        </div>
+        <div class="team-grid">
+          <article class="team-card" data-reveal>
+            <div class="team-card__avatar">
+              <svg viewBox="0 0 96 96" role="img" aria-label="Avatar de Martin Lavoie">
+                <defs>
+                  <linearGradient id="ap-av1" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="48" cy="48" r="46" fill="url(#ap-av1)"/>
+                <circle cx="48" cy="48" r="44.5" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+                <text x="48" y="49" dy=".36em" text-anchor="middle" font-family="Sora, Inter, sans-serif" font-size="30" font-weight="700" letter-spacing="1" fill="#221004">ML</text>
+              </svg>
+            </div>
+            <h3>Martin Lavoie</h3>
+            <div class="team-card__role">Cofondateur · Toitures</div>
+            <p class="team-card__bio">
+              Couvreur depuis 1998, Martin a réparé plus de toits qu'il ne peut en compter.
+              Il supervise encore lui-même les réfections complexes et forme la relève sur les pentes raides.
+            </p>
+            <span class="team-card__chip"><svg><use href="#i-roof"/></svg> 25+ ans sur les toits</span>
+          </article>
+          <article class="team-card" data-reveal>
+            <div class="team-card__avatar">
+              <svg viewBox="0 0 96 96" role="img" aria-label="Avatar de Sébastien Roy">
+                <defs>
+                  <linearGradient id="ap-av2" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#ffb050"/><stop offset="1" stop-color="#e04e1a"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="48" cy="48" r="46" fill="url(#ap-av2)"/>
+                <circle cx="48" cy="48" r="44.5" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+                <text x="48" y="49" dy=".36em" text-anchor="middle" font-family="Sora, Inter, sans-serif" font-size="30" font-weight="700" letter-spacing="1" fill="#221004">SR</text>
+              </svg>
+            </div>
+            <h3>Sébastien Roy</h3>
+            <div class="team-card__role">Cofondateur · Isolation</div>
+            <p class="team-card__bio">
+              Passionné de science du bâtiment, Sébastien a bâti la division isolation en 2013.
+              Il connaît la valeur R de chaque recoin d'une maison — la vôtre n'aura plus de secret pour lui.
+            </p>
+            <span class="team-card__chip"><svg><use href="#i-home-heat"/></svg> Expert en enveloppe</span>
+          </article>
+          <article class="team-card" data-reveal>
+            <div class="team-card__avatar">
+              <svg viewBox="0 0 96 96" role="img" aria-label="Avatar de Karine Dubé">
+                <defs>
+                  <linearGradient id="ap-av3" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#b8e2ff"/><stop offset="1" stop-color="#4f9fe0"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="48" cy="48" r="46" fill="url(#ap-av3)"/>
+                <circle cx="48" cy="48" r="44.5" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+                <text x="48" y="49" dy=".36em" text-anchor="middle" font-family="Sora, Inter, sans-serif" font-size="30" font-weight="700" letter-spacing="1" fill="#0b1c30">KD</text>
+              </svg>
+            </div>
+            <h3>Karine Dubé</h3>
+            <div class="team-card__role">Directrice des opérations</div>
+            <p class="team-card__bio">
+              Arrivée en 2015, Karine orchestre les équipes, les échéanciers et la flotte.
+              Si votre chantier commence à l'heure et se termine à la date promise, c'est grâce à elle.
+            </p>
+            <span class="team-card__chip"><svg><use href="#i-clock"/></svg> Échéanciers respectés</span>
+          </article>
+          <article class="team-card" data-reveal>
+            <div class="team-card__avatar">
+              <svg viewBox="0 0 96 96" role="img" aria-label="Avatar d'Éric Gagnon">
+                <defs>
+                  <linearGradient id="ap-av4" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#7fc8ff"/><stop offset="1" stop-color="#2c5a86"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="48" cy="48" r="46" fill="url(#ap-av4)"/>
+                <circle cx="48" cy="48" r="44.5" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+                <text x="48" y="49" dy=".36em" text-anchor="middle" font-family="Sora, Inter, sans-serif" font-size="30" font-weight="700" letter-spacing="1" fill="#08111e">EG</text>
+              </svg>
+            </div>
+            <h3>Éric Gagnon</h3>
+            <div class="team-card__role">Chef d'équipe senior</div>
+            <p class="team-card__bio">
+              Éric dirige nos équipes de chantier depuis 2012. Formateur agréé en travail en hauteur,
+              il veille à ce que chaque toit soit sécuritaire — pour son monde comme pour le vôtre.
+            </p>
+            <span class="team-card__chip"><svg><use href="#i-shield"/></svg> Formateur sécurité</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Certifications & assurances ===== -->
+    <section class="section" id="certifications">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Certifications &amp; assurances</div>
+          <h2 class="title" data-reveal>Encadrés, certifiés, <span class="accent">assurés</span></h2>
+          <p class="lead" data-reveal>
+            Confier sa maison à un entrepreneur, c'est une question de confiance.
+            Voici les papiers qui viennent avec la nôtre.
+          </p>
+        </div>
+        <div class="cred-band" data-reveal>
+          <div class="cred-badge">
+            <div class="cred-badge__icon"><svg><use href="#i-shield"/></svg></div>
+            <strong>Licence RBQ</strong>
+            <span>N° 5678-1234-01, entrepreneur en règle</span>
+          </div>
+          <div class="cred-badge">
+            <div class="cred-badge__icon"><svg><use href="#i-check"/></svg></div>
+            <strong>CNESST</strong>
+            <span>Dossier conforme, santé et sécurité au chantier</span>
+          </div>
+          <div class="cred-badge">
+            <div class="cred-badge__icon"><svg><use href="#i-users"/></svg></div>
+            <strong>APCHQ</strong>
+            <span>Membre en règle de l'association</span>
+          </div>
+          <div class="cred-badge">
+            <div class="cred-badge__icon"><svg><use href="#i-medal"/></svg></div>
+            <strong>Maître Couvreur</strong>
+            <span>Certification qualité en toiture depuis 2021</span>
+          </div>
+          <div class="cred-badge">
+            <div class="cred-badge__icon"><svg><use href="#i-file"/></svg></div>
+            <strong>Assurance 2 M$</strong>
+            <span>Responsabilité civile sur tous nos chantiers</span>
+          </div>
+        </div>
+        <p class="cred-note" data-reveal>
+          <svg><use href="#i-info"/></svg>
+          <span>Copies des attestations et preuves d'assurance disponibles sur demande — avant même de signer quoi que ce soit.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Zone desservie ===== -->
+    <section class="section" id="zone">
+      <div class="container">
+        <div class="zone-wrap">
+          <div class="section-head section-head--center">
+            <div class="eyebrow" data-reveal>Zone desservie</div>
+            <h2 class="title" data-reveal>On travaille proche <span class="accent">de chez vous</span></h2>
+            <p class="lead" data-reveal>
+              Notre atelier du boulevard Industriel nous place au cœur du Grand Montréal&nbsp;:
+              la grande majorité de nos chantiers sont à moins de 45 minutes de route.
+            </p>
+          </div>
+          <div class="zone-pills" data-reveal>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Montréal</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Laval</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Longueuil</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Terrebonne</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Repentigny</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Blainville</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Brossard</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Saint-Jérôme</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Vaudreuil</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Rive-Sud</span>
+            <span class="zone-pill"><svg><use href="#i-pin"/></svg> Rive-Nord</span>
+          </div>
+          <div class="zone-note" data-reveal>
+            <svg><use href="#i-clock"/></svg>
+            <span>Votre ville n'est pas dans la liste&nbsp;? <strong>Appelez-nous</strong> — si c'est à moins de 45 minutes, on est déjà presque en route.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA finale ===== -->
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-card" data-reveal>
+          <div class="ap-cta">
+            <div class="eyebrow">Travaillons ensemble</div>
+            <h2 class="title">Confiez votre maison à <span class="accent">des gens de métier</span></h2>
+            <ul class="cta-list">
+              <li><svg><use href="#i-check"/></svg> Réponse en 24 h ouvrables, sans engagement</li>
+              <li><svg><use href="#i-check"/></svg> Visite et inspection sans frais</li>
+              <li><svg><use href="#i-check"/></svg> Prix ferme, détaillé ligne par ligne</li>
+              <li><svg><use href="#i-check"/></svg> Garantie écrite et suivi après travaux</li>
+            </ul>
+            <div class="ap-cta__actions">
+              <a class="btn btn--primary btn--lg" href="contact.html#soumission">
+                Soumission gratuite
+                <svg><use href="#i-arrow"/></svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="tel:+15145550134">
+                <svg><use href="#i-phone"/></svg>
+                (514) 555-0134
+              </a>
+            </div>
+            <p class="ap-cta__note">4820, boul. Industriel, Montréal (QC) H1H 2Y8 · info@expertisolation.ca · RBQ&nbsp;: 5678-1234-01</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+            <span class="brand__mark">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#flg)"/>
+                <defs>
+                  <linearGradient id="flg" x1="32" y1="28" x2="32" y2="52">
+                    <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name">Expert <em>Isolation</em></span><br>
+              <span class="brand__tag">Isolation · Toiture</span>
+            </span>
+          </a>
+          <p>Spécialistes de l'enveloppe du bâtiment : isolation, toiture, ventilation et étanchéité. Résidentiel et commercial, partout dans le Grand Montréal.</p>
+          <span class="footer-rbq"><svg><use href="#i-shield"/></svg> RBQ&nbsp;: 5678-1234-01</span>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#isolation">Uréthane giclé</a></li>
+            <li><a href="services.html#isolation">Cellulose soufflée</a></li>
+            <li><a href="services.html#toiture">Toiture bardeaux</a></li>
+            <li><a href="services.html#toiture">Membrane élastomère</a></li>
+            <li><a href="services.html#calfeutrage">Calfeutrage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><svg><use href="#i-pin"/></svg> 4820, boul. Industriel<br>Montréal (QC) H1H 2Y8</li>
+            <li><svg><use href="#i-phone"/></svg> <a href="tel:+15145550134">(514) 555-0134</a></li>
+            <li><svg><use href="#i-mail"/></svg> <a href="mailto:info@expertisolation.ca">info@expertisolation.ca</a></li>
+            <li><svg><use href="#i-clock"/></svg> Lun–Ven : 7 h à 17 h<br>Urgences toiture : 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom__inner">
+        <span>© <span id="year">2026</span> Expert Isolation. Tous droits réservés. — Site démo</span>
+        <span><a href="#">Politique de confidentialité</a> · <a href="#">Conditions d'utilisation</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

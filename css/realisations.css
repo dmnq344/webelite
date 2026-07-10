@@ -1,0 +1,245 @@
+/* ============================================================
+   EXPERT ISOLATION — Page Réalisations
+   Styles propres à la page : filtres de galerie, avant/après,
+   témoignage statique, bannière CTA centrée.
+   ============================================================ */
+
+/* ---------- Barre de filtres (pilules) ---------- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: clamp(32px, 4.5vw, 50px);
+}
+.filter-btn {
+  padding: 12px 26px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.35s ease,
+    transform 0.3s var(--ease-out), box-shadow 0.35s ease;
+}
+.filter-btn:hover {
+  color: var(--text);
+  border-color: rgba(255, 196, 107, 0.45);
+  transform: translateY(-2px);
+}
+.filter-btn.is-active {
+  background: var(--grad-heat);
+  color: #221004;
+  border-color: transparent;
+  box-shadow: 0 10px 28px rgba(255, 122, 44, 0.35);
+}
+.filter-btn.is-active:hover { transform: translateY(-2px); }
+
+/* ---------- Filtrage des cartes (transition douce) ---------- */
+#rzGrid .project-card {
+  transition: opacity 0.35s ease, transform 0.45s var(--ease-out),
+    border-color 0.45s ease, box-shadow 0.45s ease;
+}
+#rzGrid .project-card.is-out {
+  opacity: 0 !important;
+  transform: scale(0.94) translateY(10px);
+  pointer-events: none;
+}
+#rzGrid .project-card.is-gone { display: none; }
+
+/* ---------- Avant / Après ---------- */
+.ba-list {
+  display: grid;
+  gap: 26px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.ba-row {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, rgba(18, 29, 51, 0.85), rgba(9, 14, 26, 0.9));
+  box-shadow: var(--shadow-card);
+  padding: clamp(26px, 3.5vw, 42px);
+}
+.ba-row__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
+  margin-bottom: 26px;
+}
+.ba-row__head h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.ba-row__meta {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ba-row__cols {
+  display: grid;
+  grid-template-columns: 1fr 56px 1fr;
+  align-items: stretch;
+  gap: 14px;
+}
+.ba-cell {
+  position: relative;
+  padding: 24px 24px 22px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.028);
+}
+.ba-cell--after {
+  border-color: rgba(255, 176, 92, 0.32);
+  background: linear-gradient(150deg, rgba(255, 154, 60, 0.09), rgba(255, 107, 44, 0.03));
+}
+.ba-cell__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid rgba(127, 200, 255, 0.35);
+  color: var(--ice-soft);
+  background: rgba(127, 200, 255, 0.08);
+  margin-bottom: 18px;
+}
+.ba-cell__badge--hot {
+  border-color: rgba(255, 176, 92, 0.45);
+  color: var(--amber-soft);
+  background: rgba(255, 154, 60, 0.1);
+}
+.ba-cell__value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(27px, 3.2vw, 36px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.ba-cell__value--cold {
+  background: var(--grad-cold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ba-cell__value--hot {
+  background: var(--grad-heat);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ba-cell__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+}
+.ba-cell__bar { margin-top: 16px; }
+.ba-cell > p {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ba-points { display: grid; gap: 10px; margin-top: 16px; }
+.ba-points li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ba-points svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--ice);
+}
+.ba-cell--after .ba-points svg { color: var(--amber); }
+.ba-arrow { display: grid; place-items: center; }
+.ba-arrow span {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--grad-heat);
+  color: #221004;
+  box-shadow: var(--shadow-glow-amber);
+}
+.ba-arrow svg { width: 20px; height: 20px; }
+
+@media (max-width: 760px) {
+  .ba-row__cols { grid-template-columns: 1fr; gap: 12px; }
+  .ba-arrow span { transform: rotate(90deg); }
+}
+
+/* ---------- Témoignage statique (sans slider) ---------- */
+.testimonial-solo { max-width: 860px; margin: 0 auto; }
+.testimonial-solo .testimonial {
+  position: relative;
+  inset: auto;
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+.testimonial-solo .testimonial__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 7px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-strong);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.testimonial-solo .testimonial__badge svg {
+  width: 15px;
+  height: 15px;
+  color: var(--amber);
+}
+
+/* ---------- Bannière CTA centrée ---------- */
+.rz-cta { max-width: 720px; margin: 0 auto; text-align: center; }
+.rz-cta .eyebrow::after {
+  content: '';
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-heat);
+}
+.rz-cta .cta-list {
+  display: inline-grid;
+  text-align: left;
+  margin-top: 28px;
+}
+.rz-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 38px;
+}
+.rz-cta__note { margin-top: 22px; font-size: 13px; color: #6d7a99; }
+
+@media (max-width: 680px) {
+  .rz-cta__actions .btn { width: 100%; }
+}

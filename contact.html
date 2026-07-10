@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact &amp; Soumission gratuite — Expert Isolation | Montréal</title>
+  <meta name="description" content="Joignez Expert Isolation : (514) 555-0134, info@expertisolation.ca. Formulaire de soumission gratuite avec réponse en 24 h ouvrables. Urgence toiture 24/7 partout dans le Grand Montréal.">
+  <meta property="og:title" content="Contact &amp; Soumission — Expert Isolation">
+  <meta property="og:description" content="Parlons de votre projet d'isolation ou de toiture. Soumission gratuite, réponse en 24 h ouvrables, urgence toiture 24/7.">
+  <meta name="theme-color" content="#060a13">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ===== Neige 2D (fond des sous-pages) ===== -->
+  <canvas id="snow2d" aria-hidden="true"></canvas>
+
+  <!-- ===== Sprite d'icônes ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-1z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 11.5l2 2 4-4.5"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5C13.5 6 11 7.5 9.5 9.5 8.2 11.2 7.5 12.8 7.5 14.5a4.5 4.5 0 0 0 9 0c0-2-.9-3.6-2-5.2C13.2 7.4 12.3 5.2 12 2.5z"/><path d="M12 12.5c-1 1-1.6 1.9-1.6 2.9a1.6 1.6 0 0 0 3.2 0c0-1-.6-1.9-1.6-2.9z"/></symbol>
+      <symbol id="i-roof" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 12 4l10 8"/><path d="M4.5 10.2V19.5h15V10.2"/><path d="M7.5 13.5h9M7.5 16.5h9"/></symbol>
+      <symbol id="i-home-heat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.8V20h13V9.8"/><path d="M12 10.5c.9 1.7-.5 2.4-1.2 3.3-.6.8-.9 1.5-.9 2.2a2.1 2.1 0 0 0 4.2 0c0-1-.5-1.9-1.1-2.8-.5-.8-.9-1.7-1-2.7z"/></symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2"/><path d="M12.59 19.41A2 2 0 1 0 14 16H2"/><path d="M17.73 7.73A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6.5 7 6.5 11.3a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.7 12 2.7z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6L22 7"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></symbol>
+      <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.7 7 22l5-3 5 3-1.8-8.3"/></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 11v5M12 8h.01"/></symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-13h-8l1-7z"/></symbol>
+      <symbol id="i-thermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9-1 12-5 16-9 16z"/><path d="M4 21c4-6 8-9 12-11"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Preloader ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="preloader__flame">
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#plg)"/>
+          </g>
+          <defs>
+            <linearGradient id="plg" x1="32" y1="28" x2="32" y2="52">
+              <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="preloader__name">Expert Isolation</div>
+      <div class="preloader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+        <span class="brand__mark">
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#blg)"/>
+            <defs>
+              <linearGradient id="blg" x1="32" y1="28" x2="32" y2="52">
+                <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Expert <em>Isolation</em></span><br>
+          <span class="brand__tag">Isolation · Toiture</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html" class="is-active">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+15145550134">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+        <a class="btn btn--primary btn--sm" href="#soumission">Soumission gratuite</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Menu mobile ===== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div>
+      <nav aria-label="Navigation mobile">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html" class="is-active">Contact</a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <a class="btn btn--primary" href="#soumission">Soumission gratuite</a>
+        <a class="header-phone" href="tel:+15145550134" style="display:flex">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ===== Héros de sous-page ===== -->
+    <section class="page-hero" id="haut">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane" data-reveal>
+          <a href="index.html">Accueil</a>
+          <span class="sep">›</span>
+          <span class="current">Contact &amp; Soumission</span>
+        </nav>
+        <div class="eyebrow" data-reveal>Contact</div>
+        <h1 class="hero__title" data-reveal>
+          Parlons de <span class="accent">votre projet</span>.
+        </h1>
+        <p class="lead" data-reveal>
+          Un appel, un courriel ou deux minutes dans le formulaire&nbsp;: c'est tout ce qu'il faut
+          pour lancer votre soumission gratuite. Promesse ferme&nbsp;— un membre de l'équipe
+          vous répond en moins de 24&nbsp;h ouvrables.
+        </p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--primary" href="#soumission">
+            Remplir le formulaire
+            <svg><use href="#i-arrow"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="tel:+15145550134">Appeler maintenant</a>
+        </div>
+        <div class="hero__trust" data-reveal>
+          <span class="trust-item"><svg><use href="#i-clock"/></svg> Réponse en 24 h ouvrables</span>
+          <span class="trust-item"><svg><use href="#i-check"/></svg> Soumission gratuite, sans engagement</span>
+          <span class="trust-item"><svg><use href="#i-shield"/></svg> RBQ : 5678-1234-01</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Coordonnées ===== -->
+    <section class="section" id="coordonnees">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-reveal>Nous joindre</div>
+          <h2 class="title" data-reveal>Quatre façons de <span class="accent">nous parler</span></h2>
+          <p class="lead" data-reveal>
+            Choisissez le canal qui vous convient&nbsp;: on décroche vite, on rappelle toujours,
+            et la ligne d'urgence toiture ne dort jamais.
+          </p>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card" data-reveal>
+            <div class="contact-card__icon"><svg><use href="#i-phone"/></svg></div>
+            <h3>Téléphone</h3>
+            <a class="contact-card__value" href="tel:+15145550134">(514) 555-0134</a>
+            <p class="contact-card__note">Lun–ven, 7&nbsp;h à 17&nbsp;h. En dehors des heures, laissez un message&nbsp;: on rappelle dès l'ouverture.</p>
+            <span class="badge-247"><span class="dot"></span> Urgence toiture 24/7</span>
+          </article>
+          <article class="contact-card" data-reveal>
+            <div class="contact-card__icon"><svg><use href="#i-mail"/></svg></div>
+            <h3>Courriel</h3>
+            <a class="contact-card__value" href="mailto:info@expertisolation.ca">info@expertisolation.ca</a>
+            <p class="contact-card__note">Parfait pour joindre des photos de votre entretoit ou de votre toiture&nbsp;: ça accélère la soumission.</p>
+          </article>
+          <article class="contact-card" data-reveal>
+            <div class="contact-card__icon"><svg><use href="#i-pin"/></svg></div>
+            <h3>Adresse</h3>
+            <span class="contact-card__value">4820, boul. Industriel<br>Montréal (QC) H1H 2Y8</span>
+            <p class="contact-card__note">Bureau et entrepôt. Passez nous voir&nbsp;— on vous montre les matériaux qu'on installe.</p>
+          </article>
+          <article class="contact-card" data-reveal>
+            <div class="contact-card__icon"><svg><use href="#i-clock"/></svg></div>
+            <h3>Heures d'ouverture</h3>
+            <span class="contact-card__value">Lun–Ven&nbsp;: 7&nbsp;h à 17&nbsp;h</span>
+            <p class="contact-card__note">Samedi sur rendez-vous pour les inspections. Fermé les jours fériés&nbsp;— sauf pour les urgences.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Soumission ===== -->
+    <section class="section" id="soumission">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-reveal>Soumission gratuite</div>
+          <h2 class="title" data-reveal>Votre projet, chiffré <span class="accent">en 24 h</span></h2>
+          <p class="lead" data-reveal>
+            Plus votre description est précise, plus notre estimation est juste. Deux minutes
+            suffisent&nbsp;— et vos informations demeurent strictement confidentielles.
+          </p>
+        </div>
+
+        <div class="soumission-grid">
+          <!-- Formulaire -->
+          <form class="quote-form quote-form--xl" id="quoteForm" novalidate data-reveal>
+            <h3>Demandez votre soumission gratuite</h3>
+            <p class="form-sub">Réponse en 24&nbsp;h ouvrables — visite et inspection sans frais.</p>
+            <div class="form-row">
+              <div class="field">
+                <label for="cf-prenom">Prénom</label>
+                <input type="text" id="cf-prenom" name="prenom" placeholder="Votre prénom" required autocomplete="given-name">
+              </div>
+              <div class="field">
+                <label for="cf-nom">Nom</label>
+                <input type="text" id="cf-nom" name="nom" placeholder="Votre nom" required autocomplete="family-name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="cf-tel">Téléphone</label>
+                <input type="tel" id="cf-tel" name="telephone" placeholder="(514) 000-0000" required autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="cf-courriel">Courriel</label>
+                <input type="email" id="cf-courriel" name="courriel" placeholder="vous@exemple.com" required autocomplete="email">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="cf-ville">Ville</label>
+                <select id="cf-ville" name="ville" required>
+                  <option value="" selected disabled>Choisissez votre ville…</option>
+                  <option>Montréal</option>
+                  <option>Laval</option>
+                  <option>Longueuil</option>
+                  <option>Brossard</option>
+                  <option>Terrebonne</option>
+                  <option>Repentigny</option>
+                  <option>Blainville</option>
+                  <option>Rive-Nord — autre ville</option>
+                  <option>Rive-Sud — autre ville</option>
+                  <option>Autre / à préciser</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="cf-service">Service souhaité</label>
+                <select id="cf-service" name="service" required>
+                  <option value="" selected disabled>Choisissez un service…</option>
+                  <option>Isolation — uréthane giclé</option>
+                  <option>Isolation — cellulose soufflée</option>
+                  <option>Isolation — laine minérale</option>
+                  <option>Toiture — bardeaux d'asphalte</option>
+                  <option>Toiture — membrane élastomère</option>
+                  <option>Réparation / urgence toiture</option>
+                  <option>Ventilation d'entretoit</option>
+                  <option>Calfeutrage / étanchéité</option>
+                  <option>Projet clé en main (toiture + isolation)</option>
+                  <option>Autre / je ne sais pas</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="cf-budget">Budget approximatif (facultatif)</label>
+              <select id="cf-budget" name="budget">
+                <option value="" selected>Je préfère en discuter…</option>
+                <option>Moins de 5 000 $</option>
+                <option>5 000 $ à 10 000 $</option>
+                <option>10 000 $ à 20 000 $</option>
+                <option>20 000 $ à 40 000 $</option>
+                <option>Plus de 40 000 $</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="cf-msg">Décrivez votre projet</label>
+              <textarea id="cf-msg" name="message" placeholder="Type de bâtiment, superficie approximative, problème observé (planchers froids, glaçons, infiltration…), échéancier souhaité." required></textarea>
+            </div>
+            <div class="consent">
+              <input type="checkbox" id="cf-consent" name="consentement" required>
+              <label for="cf-consent">
+                J'accepte qu'Expert Isolation me contacte par téléphone ou courriel au sujet de ma demande.
+                Mes informations demeurent confidentielles et ne sont jamais partagées à des tiers.
+              </label>
+            </div>
+            <button class="btn btn--primary" type="submit">
+              Envoyer ma demande
+              <svg><use href="#i-arrow"/></svg>
+            </button>
+            <p class="form-note">Réponse en 24 h ouvrables. Aucune obligation de votre part.</p>
+            <div class="form-success" id="formSuccess">
+              <svg><use href="#i-check"/></svg>
+              <h4>Demande reçue!</h4>
+              <p>Merci! Un membre de l'équipe vous contactera d'ici 24 h ouvrables pour planifier la visite.</p>
+            </div>
+          </form>
+
+          <!-- Colonne d'appui -->
+          <aside class="aside-col">
+            <div data-reveal>
+              <div class="aside-title">Ce qui arrive ensuite</div>
+              <div class="next-steps">
+                <div class="process-step">
+                  <div class="process-step__num">01</div>
+                  <div>
+                    <h3>On vous rappelle</h3>
+                    <p>En moins de 24 h ouvrables, un conseiller vous appelle pour préciser le besoin et fixer la visite.</p>
+                  </div>
+                </div>
+                <div class="process-step">
+                  <div class="process-step__num">02</div>
+                  <div>
+                    <h3>Visite &amp; inspection gratuites</h3>
+                    <p>Mesures, photos et vérification de la ventilation — des recommandations honnêtes, rien de plus que nécessaire.</p>
+                  </div>
+                </div>
+                <div class="process-step">
+                  <div class="process-step__num">03</div>
+                  <div>
+                    <h3>Soumission détaillée</h3>
+                    <p>Un prix ferme, ligne par ligne, valide 30 jours — avec les subventions applicables déjà identifiées.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a class="quick-call" href="tel:+15145550134" data-reveal>
+              <span class="quick-call__icon"><svg><use href="#i-phone"/></svg></span>
+              <span>
+                <span class="quick-call__label">Vous préférez parler à quelqu'un?</span><br>
+                <span class="quick-call__num">(514) 555-0134</span>
+              </span>
+            </a>
+
+            <div class="cred-card" data-reveal>
+              <div class="cred-card__head">
+                <svg><use href="#i-shield"/></svg>
+                <h3>Entrepreneur licencié &amp; garanti</h3>
+              </div>
+              <ul>
+                <li><svg><use href="#i-check"/></svg> <span>Licence <strong>RBQ&nbsp;: 5678-1234-01</strong></span></li>
+                <li><svg><use href="#i-check"/></svg> <span>Garantie écrite <strong>jusqu'à 10 ans</strong></span></li>
+                <li><svg><use href="#i-check"/></svg> <span>Assurance responsabilité de <strong>2 M$</strong></span></li>
+                <li><svg><use href="#i-check"/></svg> <span>Équipe certifiée, <strong>15+ ans</strong> d'expérience</span></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Territoire desservi ===== -->
+    <section class="section" id="territoire">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Notre territoire</div>
+          <h2 class="title" data-reveal>Partout dans le <span class="accent--cold accent">Grand Montréal</span></h2>
+          <p class="lead" data-reveal>
+            De la Rive-Nord à la Rive-Sud, nos équipes couvrent un rayon d'environ 50&nbsp;km
+            autour de Montréal — sans frais de déplacement.
+          </p>
+        </div>
+        <div class="map-panel" data-reveal>
+          <div class="map-panel__visual">
+            <svg viewBox="0 0 1200 540" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Carte stylisée du Grand Montréal avec le fleuve Saint-Laurent et une épingle sur Montréal">
+              <defs>
+                <linearGradient id="ctBase" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0a1424"/><stop offset="1" stop-color="#0c1830"/>
+                </linearGradient>
+                <linearGradient id="ctWater" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#16375e"/><stop offset="1" stop-color="#2a5d94"/>
+                </linearGradient>
+                <linearGradient id="ctIsle" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#152442"/><stop offset="1" stop-color="#101c36"/>
+                </linearGradient>
+                <linearGradient id="ctPin" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                </linearGradient>
+                <radialGradient id="ctGlow">
+                  <stop offset="0" stop-color="#ff9a3c" stop-opacity=".45"/>
+                  <stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Fond -->
+              <rect width="1200" height="540" fill="url(#ctBase)"/>
+              <!-- Quadrillage -->
+              <g stroke="#7fc8ff" stroke-opacity=".05" stroke-width="1">
+                <path d="M120 0V540M240 0V540M360 0V540M480 0V540M600 0V540M720 0V540M840 0V540M960 0V540M1080 0V540"/>
+                <path d="M0 108H1200M0 216H1200M0 324H1200M0 432H1200"/>
+              </g>
+              <!-- Étoiles -->
+              <g fill="#cfe0ff">
+                <circle cx="90" cy="48" r="1.8"/><circle cx="210" cy="30" r="1.3"/><circle cx="980" cy="40" r="1.6"/>
+                <circle cx="1120" cy="150" r="1.2"/><circle cx="700" cy="26" r="1.3"/><circle cx="420" cy="42" r="1.1"/>
+              </g>
+
+              <!-- Île de Montréal -->
+              <path d="M150 296 C 420 246 760 226 1075 188 C 1015 248 855 306 645 348 C 465 384 265 362 150 296 Z" fill="url(#ctIsle)" opacity=".92"/>
+              <!-- Rivière des Mille-Îles -->
+              <path d="M-40 160 C 380 120 760 100 1240 58" stroke="url(#ctWater)" stroke-width="11" fill="none" opacity=".5"/>
+              <!-- Rivière des Prairies -->
+              <path d="M-40 288 C 420 230 780 206 1240 154" stroke="url(#ctWater)" stroke-width="17" fill="none" opacity=".85"/>
+              <!-- Fleuve Saint-Laurent -->
+              <path d="M-80 500 C 350 448 720 386 1290 282" stroke="url(#ctWater)" stroke-width="54" fill="none" opacity=".9"/>
+              <path d="M-80 480 C 350 428 720 366 1290 262" stroke="#7fc8ff" stroke-width="2" fill="none" opacity=".14"/>
+
+              <!-- Autoroutes -->
+              <g stroke="#3a5c92" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round">
+                <path d="M175 306 C 430 268 720 248 1010 214"/>
+                <path d="M598 96 C 590 200 574 330 548 470"/>
+                <path d="M310 402 C 560 352 820 310 1120 252"/>
+                <path d="M240 120 C 420 160 560 210 700 300"/>
+              </g>
+              <!-- Routes secondaires -->
+              <g stroke="#27436e" stroke-width="1.6" fill="none" opacity=".55">
+                <path d="M330 300 C 500 280 640 268 830 240"/>
+                <path d="M430 210 C 520 260 600 320 660 420"/>
+                <path d="M700 170 C 760 240 800 300 830 380"/>
+                <path d="M150 220 C 300 210 420 200 540 186"/>
+                <path d="M880 150 C 930 220 970 280 1030 330"/>
+              </g>
+              <!-- Ponts -->
+              <g stroke="#46689c" stroke-width="3.5" opacity=".8" stroke-linecap="round">
+                <path d="M560 336 L 542 442"/>
+                <path d="M662 326 L 702 416"/>
+                <path d="M762 306 L 798 398"/>
+              </g>
+
+              <!-- Rayon de service -->
+              <circle cx="585" cy="262" r="168" fill="none" stroke="#ffc46b" stroke-opacity=".22" stroke-width="1.5" stroke-dasharray="5 9"/>
+
+              <!-- Villes desservies -->
+              <g font-family="Inter, system-ui, sans-serif" font-size="18" fill="#a9b6d0">
+                <circle cx="420" cy="176" r="5" fill="#7fc8ff"/><circle cx="420" cy="176" r="11" fill="#7fc8ff" opacity=".16"/>
+                <text x="438" y="182">Laval</text>
+                <circle cx="300" cy="92" r="5" fill="#7fc8ff"/><circle cx="300" cy="92" r="11" fill="#7fc8ff" opacity=".16"/>
+                <text x="318" y="98">Blainville</text>
+                <circle cx="560" cy="84" r="5" fill="#7fc8ff"/><circle cx="560" cy="84" r="11" fill="#7fc8ff" opacity=".16"/>
+                <text x="578" y="90">Terrebonne</text>
+                <circle cx="852" cy="118" r="5" fill="#7fc8ff"/><circle cx="852" cy="118" r="11" fill="#7fc8ff" opacity=".16"/>
+                <text x="834" y="124" text-anchor="end">Repentigny</text>
+                <circle cx="810" cy="424" r="5" fill="#7fc8ff"/><circle cx="810" cy="424" r="11" fill="#7fc8ff" opacity=".16"/>
+                <text x="828" y="430">Longueuil</text>
+                <circle cx="632" cy="452" r="5" fill="#7fc8ff"/><circle cx="632" cy="452" r="11" fill="#7fc8ff" opacity=".16"/>
+                <text x="650" y="458">Brossard</text>
+              </g>
+
+              <!-- Épingle Montréal -->
+              <g transform="translate(585 262)">
+                <circle r="120" fill="url(#ctGlow)"/>
+                <circle class="ct-pulse" r="70" fill="none" stroke="#ffb75e" stroke-width="2"/>
+                <circle class="ct-pulse ct-pulse--late" r="70" fill="none" stroke="#ffb75e" stroke-width="2"/>
+                <path d="M0 -60 C -20 -60 -36 -44 -36 -24 C -36 -2 0 24 0 24 C 0 24 36 -2 36 -24 C 36 -44 20 -60 0 -60 Z" fill="url(#ctPin)"/>
+                <circle cy="-25" r="12" fill="#0a1120"/>
+                <text y="56" text-anchor="middle" font-family="Sora, Inter, sans-serif" font-weight="700" font-size="21" fill="#ffc46b">Montréal</text>
+              </g>
+
+              <!-- Boussole -->
+              <g transform="translate(1118 62)" opacity=".7">
+                <circle r="24" fill="none" stroke="#2c4a76"/>
+                <path d="M0 13 L0 -13 M0 -13 l-6 8 M0 -13 l6 8" stroke="#7fc8ff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <text y="-33" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#a9b6d0">N</text>
+              </g>
+            </svg>
+          </div>
+          <div class="map-legend">
+            <div class="map-legend__addr">
+              <svg><use href="#i-pin"/></svg>
+              <span>
+                4820, boul. Industriel, Montréal (QC) H1H 2Y8
+                <small>Bureau &amp; entrepôt — stationnement gratuit sur place</small>
+              </span>
+            </div>
+            <div class="map-zones" aria-label="Zones desservies">
+              <span class="zone-chip">Montréal</span>
+              <span class="zone-chip">Laval</span>
+              <span class="zone-chip">Rive-Nord</span>
+              <span class="zone-chip">Rive-Sud</span>
+              <span class="zone-chip zone-chip--more">+ environ 50 km autour</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ contact ===== -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Questions fréquentes</div>
+          <h2 class="title" data-reveal>Avant de nous écrire, <span class="accent">trois réponses</span></h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item" data-reveal>
+            <button class="faq-item__q" aria-expanded="false">
+              En combien de temps vais-je recevoir ma soumission?
+              <span class="chev"><svg><use href="#i-chev"/></svg></span>
+            </button>
+            <div class="faq-item__a"><div>
+              On vous rappelle en moins de 24 h ouvrables pour fixer la visite d'inspection. Après la visite, la soumission détaillée — prix ferme, ligne par ligne — vous parvient par courriel en 24 h ouvrables. Pour les réparations urgentes, l'estimation se fait souvent directement sur place.
+            </div></div>
+          </div>
+          <div class="faq-item" data-reveal>
+            <button class="faq-item__q" aria-expanded="false">
+              Quelles zones desservez-vous?
+              <span class="chev"><svg><use href="#i-chev"/></svg></span>
+            </button>
+            <div class="faq-item__a"><div>
+              Tout le Grand Montréal : Montréal, Laval, la Rive-Nord (Terrebonne, Blainville, Repentigny et environs) et la Rive-Sud (Longueuil, Brossard et environs), dans un rayon d'environ 50 km — sans frais de déplacement. Votre ville n'apparaît pas dans la liste? Appelez-nous : il y a de bonnes chances qu'on se rende quand même.
+            </div></div>
+          </div>
+          <div class="faq-item" data-reveal>
+            <button class="faq-item__q" aria-expanded="false">
+              Ma soumission est valide combien de temps?
+              <span class="chev"><svg><use href="#i-chev"/></svg></span>
+            </button>
+            <div class="faq-item__a"><div>
+              Chaque soumission est garantie 30 jours : le prix indiqué est ferme, sans indexation ni frais cachés. Passé ce délai, un simple appel suffit pour la réactualiser — la plupart du temps, on la reconduit telle quelle.
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Urgence toiture ===== -->
+    <section class="urgence-band" id="urgence">
+      <div class="container">
+        <div class="urgence-card" data-reveal>
+          <div class="urgence-card__left">
+            <div class="urgence-card__icon"><svg><use href="#i-zap"/></svg></div>
+            <div>
+              <h2>Urgence toiture? <span class="accent">Ligne 24/7.</span></h2>
+              <p>Infiltration d'eau, bardeaux arrachés, dégât après tempête&nbsp;: on répond jour et nuit, 365 jours par année, partout dans le Grand Montréal.</p>
+            </div>
+          </div>
+          <a class="urgence-tel" href="tel:+15145550134">
+            <svg><use href="#i-phone"/></svg>
+            <span>
+              <small>Appelez sans attendre</small>
+              (514) 555-0134
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+            <span class="brand__mark">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#flg)"/>
+                <defs>
+                  <linearGradient id="flg" x1="32" y1="28" x2="32" y2="52">
+                    <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name">Expert <em>Isolation</em></span><br>
+              <span class="brand__tag">Isolation · Toiture</span>
+            </span>
+          </a>
+          <p>Spécialistes de l'enveloppe du bâtiment : isolation, toiture, ventilation et étanchéité. Résidentiel et commercial, partout dans le Grand Montréal.</p>
+          <span class="footer-rbq"><svg><use href="#i-shield"/></svg> RBQ&nbsp;: 5678-1234-01</span>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#isolation">Uréthane giclé</a></li>
+            <li><a href="services.html#isolation">Cellulose soufflée</a></li>
+            <li><a href="services.html#toiture">Toiture bardeaux</a></li>
+            <li><a href="services.html#toiture">Membrane élastomère</a></li>
+            <li><a href="services.html#calfeutrage">Calfeutrage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><svg><use href="#i-pin"/></svg> 4820, boul. Industriel<br>Montréal (QC) H1H 2Y8</li>
+            <li><svg><use href="#i-phone"/></svg> <a href="tel:+15145550134">(514) 555-0134</a></li>
+            <li><svg><use href="#i-mail"/></svg> <a href="mailto:info@expertisolation.ca">info@expertisolation.ca</a></li>
+            <li><svg><use href="#i-clock"/></svg> Lun–Ven : 7 h à 17 h<br>Urgences toiture : 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom__inner">
+        <span>© <span id="year">2026</span> Expert Isolation. Tous droits réservés. — Site démo</span>
+        <span><a href="#">Politique de confidentialité</a> · <a href="#">Conditions d'utilisation</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

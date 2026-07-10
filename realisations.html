@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réalisations — Expert Isolation | Toitures &amp; isolation au Québec</title>
+  <meta name="description" content="Parcourez les réalisations d'Expert Isolation : toitures refaites, entretoits isolés à l'uréthane et à la cellulose, calfeutrage et étanchéité — avec résultats mesurés, partout dans le Grand Montréal.">
+  <meta property="og:title" content="Réalisations — Expert Isolation">
+  <meta property="og:description" content="2 800 projets réalisés, 480 toitures par année : des chantiers qui parlent d'eux-mêmes. Résultats avant/après mesurés.">
+  <meta name="theme-color" content="#060a13">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/realisations.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ===== Neige 2D (fond des sous-pages) ===== -->
+  <canvas id="snow2d" aria-hidden="true"></canvas>
+
+  <!-- ===== Sprite d'icônes ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-1z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 11.5l2 2 4-4.5"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5C13.5 6 11 7.5 9.5 9.5 8.2 11.2 7.5 12.8 7.5 14.5a4.5 4.5 0 0 0 9 0c0-2-.9-3.6-2-5.2C13.2 7.4 12.3 5.2 12 2.5z"/><path d="M12 12.5c-1 1-1.6 1.9-1.6 2.9a1.6 1.6 0 0 0 3.2 0c0-1-.6-1.9-1.6-2.9z"/></symbol>
+      <symbol id="i-roof" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 12 4l10 8"/><path d="M4.5 10.2V19.5h15V10.2"/><path d="M7.5 13.5h9M7.5 16.5h9"/></symbol>
+      <symbol id="i-home-heat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.8V20h13V9.8"/><path d="M12 10.5c.9 1.7-.5 2.4-1.2 3.3-.6.8-.9 1.5-.9 2.2a2.1 2.1 0 0 0 4.2 0c0-1-.5-1.9-1.1-2.8-.5-.8-.9-1.7-1-2.7z"/></symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2"/><path d="M12.59 19.41A2 2 0 1 0 14 16H2"/><path d="M17.73 7.73A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6.5 7 6.5 11.3a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.7 12 2.7z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6L22 7"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></symbol>
+      <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.7 7 22l5-3 5 3-1.8-8.3"/></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 11v5M12 8h.01"/></symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-13h-8l1-7z"/></symbol>
+      <symbol id="i-thermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9-1 12-5 16-9 16z"/><path d="M4 21c4-6 8-9 12-11"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Preloader ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="preloader__flame">
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#plg)"/>
+          </g>
+          <defs>
+            <linearGradient id="plg" x1="32" y1="28" x2="32" y2="52">
+              <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="preloader__name">Expert Isolation</div>
+      <div class="preloader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+        <span class="brand__mark">
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#blg)"/>
+            <defs>
+              <linearGradient id="blg" x1="32" y1="28" x2="32" y2="52">
+                <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Expert <em>Isolation</em></span><br>
+          <span class="brand__tag">Isolation · Toiture</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html" class="is-active">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+15145550134">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+        <a class="btn btn--primary btn--sm" href="contact.html#soumission">Soumission gratuite</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Menu mobile ===== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div>
+      <nav aria-label="Navigation mobile">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html" class="is-active">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <a class="btn btn--primary" href="contact.html#soumission">Soumission gratuite</a>
+        <a class="header-phone" href="tel:+15145550134" style="display:flex">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ===== Héros de sous-page ===== -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane" data-reveal>
+          <a href="index.html">Accueil</a>
+          <span class="sep">›</span>
+          <span class="current">Réalisations</span>
+        </nav>
+        <div class="eyebrow" data-reveal>Réalisations</div>
+        <h1 class="hero__title" data-reveal>
+          Des maisons mieux protégées, <span class="accent">un chantier à la fois</span>.
+        </h1>
+        <p class="lead" data-reveal>
+          Depuis plus de 15 ans, nos équipes refont des toitures, isolent des entretoits
+          et scellent des enveloppes partout dans le Grand Montréal. En voici la preuve —
+          chiffres à l'appui, du crépuscule d'automne aux grands froids de janvier.
+        </p>
+        <div class="hero__trust" data-reveal>
+          <span class="trust-item"><svg><use href="#i-shield"/></svg> Licence RBQ 5678-1234-01</span>
+          <span class="trust-item"><svg><use href="#i-medal"/></svg> Garantie écrite jusqu'à 10 ans</span>
+          <span class="trust-item"><svg><use href="#i-pin"/></svg> Montréal · Laval · Rive-Nord · Rive-Sud</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Bandeau stats ===== -->
+    <section class="stats-band">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card" data-reveal>
+            <div class="stat-card__num"><span data-count="2800">0</span><span class="suffix">+</span></div>
+            <div class="stat-card__label">Projets réalisés depuis nos débuts</div>
+          </div>
+          <div class="stat-card" data-reveal>
+            <div class="stat-card__num"><span data-count="480">0</span></div>
+            <div class="stat-card__label">Toitures refaites chaque année</div>
+          </div>
+          <div class="stat-card" data-reveal>
+            <div class="stat-card__num"><span data-count="92">0</span><span class="suffix">%</span></div>
+            <div class="stat-card__label">Des clients viennent par bouche-à-oreille</div>
+          </div>
+          <div class="stat-card" data-reveal>
+            <div class="stat-card__num"><span data-count="10">0</span><span class="suffix">ans</span></div>
+            <div class="stat-card__label">De garantie écrite sur nos travaux</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Galerie filtrable ===== -->
+    <section class="section" id="galerie">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-reveal>Nos chantiers</div>
+          <h2 class="title" data-reveal>Neuf projets, <span class="accent">zéro compromis</span></h2>
+          <p class="lead" data-reveal>
+            Filtrez par type de travaux et parcourez un échantillon de nos chantiers
+            récents : chaque projet est livré avec un résultat mesuré, pas seulement
+            une belle photo de fin de journée.
+          </p>
+        </div>
+
+        <div class="filter-bar" id="rzFilters" role="group" aria-label="Filtrer les réalisations" data-reveal>
+          <button type="button" class="filter-btn is-active" data-filter="tous" aria-pressed="true">Tous</button>
+          <button type="button" class="filter-btn" data-filter="isolation" aria-pressed="false">Isolation</button>
+          <button type="button" class="filter-btn" data-filter="toiture" aria-pressed="false">Toiture</button>
+          <button type="button" class="filter-btn" data-filter="etancheite" aria-pressed="false">Étanchéité</button>
+        </div>
+
+        <div class="projects-grid" id="rzGrid" data-reveal>
+
+          <!-- 1. Toiture — crépuscule -->
+          <article class="project-card" data-cat="toiture">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Toiture de bardeaux neufs au crépuscule">
+                <defs>
+                  <linearGradient id="rz1sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#111a34"/><stop offset=".58" stop-color="#3d2c49"/><stop offset="1" stop-color="#8f4d3a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz1sky)"/>
+                <circle cx="316" cy="74" r="20" fill="#ffd9a0" opacity=".95"/>
+                <circle cx="316" cy="74" r="40" fill="#ffb668" opacity=".18"/>
+                <circle cx="66" cy="46" r="1.8" fill="#cfe0ff"/><circle cx="118" cy="72" r="1.4" fill="#cfe0ff" opacity=".8"/><circle cx="212" cy="38" r="1.6" fill="#cfe0ff"/>
+                <rect x="150" y="118" width="16" height="36" fill="#0d1526"/>
+                <path d="M-12 236 96 148l124 88z" fill="#0c1424"/>
+                <path d="M96 148l124 88h76L172 116z" fill="#121c33"/>
+                <path d="M100 157l112 79M117 143l106 76M136 128l96 69M155 114l82 60" stroke="#ff9a3c" stroke-width="2.2" opacity=".55" fill="none"/>
+                <rect y="234" width="400" height="66" fill="#c9d8f0"/>
+                <ellipse cx="96" cy="243" rx="86" ry="11" fill="#dbe7f8"/>
+                <ellipse cx="330" cy="250" rx="60" ry="9" fill="#dbe7f8" opacity=".8"/>
+              </svg>
+              <span class="project-card__tag">Toiture</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Réfection de bardeaux architecturaux</h3>
+              <p>Repentigny — 2 400 pi², membrane d'avant-toit complète, garantie 10 ans</p>
+            </div>
+          </article>
+
+          <!-- 2. Isolation — entretoit uréthane -->
+          <article class="project-card" data-cat="isolation">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Entretoit isolé à l'uréthane giclé, lueur ambrée">
+                <defs>
+                  <linearGradient id="rz2bg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0b1222"/><stop offset="1" stop-color="#241629"/>
+                  </linearGradient>
+                  <linearGradient id="rz2heat" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz2bg)"/>
+                <path d="M28 268V120L200 16l172 104v148z" fill="#0e1830"/>
+                <path d="M76 258V148M112 258V126M148 258V104M184 258V83M232 258V88M268 258V110M304 258V132M340 258V152" stroke="#31456e" stroke-width="5" opacity=".8"/>
+                <path d="M52 132 200 42l148 90" fill="none" stroke="url(#rz2heat)" stroke-width="12" stroke-linecap="round" opacity=".9"/>
+                <path d="M120 232q60-40 92-92" stroke="#ffc46b" stroke-width="5" fill="none" opacity=".8" stroke-linecap="round"/>
+                <circle cx="216" cy="134" r="30" fill="url(#rz2heat)" opacity=".22"/>
+                <circle cx="216" cy="134" r="11" fill="url(#rz2heat)" opacity=".55"/>
+                <rect x="28" y="258" width="344" height="10" fill="#0a1120"/>
+              </svg>
+              <span class="project-card__tag">Isolation</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Uréthane giclé en entretoit</h3>
+              <p>Laval — R-12 à R-60, 32 % d'économie de chauffage dès le premier hiver</p>
+            </div>
+          </article>
+
+          <!-- 3. Toiture — toit plat urbain -->
+          <article class="project-card" data-cat="toiture">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Toit plat urbain avec membrane élastomère posée de nuit">
+                <defs>
+                  <linearGradient id="rz3sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0a1526"/><stop offset=".68" stop-color="#16324f"/><stop offset="1" stop-color="#2b5b84"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz3sky)"/>
+                <circle cx="64" cy="52" r="15" fill="#e6f2ff" opacity=".95"/>
+                <circle cx="64" cy="52" r="28" fill="#b8e2ff" opacity=".14"/>
+                <circle cx="150" cy="40" r="1.6" fill="#cfe0ff"/><circle cx="250" cy="66" r="1.4" fill="#cfe0ff" opacity=".8"/><circle cx="356" cy="42" r="1.8" fill="#cfe0ff"/>
+                <rect x="18" y="160" width="98" height="140" fill="#0f1b31"/>
+                <rect x="124" y="118" width="160" height="182" fill="#142440"/>
+                <rect x="292" y="172" width="94" height="128" fill="#0d192e"/>
+                <rect x="124" y="110" width="160" height="10" rx="3" fill="#2a3b5e"/>
+                <path d="M124 115h160" stroke="#ff9a3c" stroke-width="3" opacity=".9"/>
+                <circle cx="196" cy="112" r="14" fill="#ffb668" opacity=".5"/>
+                <circle cx="196" cy="112" r="5" fill="#ffd9a0"/>
+                <rect x="146" y="148" width="22" height="30" fill="#ffc069" opacity=".85"/>
+                <rect x="188" y="148" width="22" height="30" fill="#ffc069" opacity=".45"/>
+                <rect x="230" y="196" width="22" height="30" fill="#ffc069" opacity=".7"/>
+                <rect x="40" y="188" width="18" height="26" fill="#ffc069" opacity=".6"/>
+                <rect x="78" y="188" width="18" height="26" fill="#ffc069" opacity=".85"/>
+                <rect x="312" y="198" width="16" height="22" fill="#ffc069" opacity=".7"/>
+                <rect x="348" y="198" width="16" height="22" fill="#ffc069" opacity=".4"/>
+              </svg>
+              <span class="project-card__tag">Toiture</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Membrane élastomère deux couches</h3>
+              <p>Montréal (Rosemont) — toit plat de 5 800 pi², immeuble de 8 logements</p>
+            </div>
+          </article>
+
+          <!-- 4. Isolation — cellulose soufflée -->
+          <article class="project-card" data-cat="isolation">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Cellulose soufflée dans un entretoit sous fermes de toit">
+                <defs>
+                  <linearGradient id="rz4bg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#101827"/><stop offset="1" stop-color="#251d2e"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz4bg)"/>
+                <path d="M-10 224 200 62l220 168" stroke="#31456e" stroke-width="6" fill="none"/>
+                <path d="M62 300V182M142 300V122M262 300V122M342 300V182" stroke="#31456e" stroke-width="5" opacity=".7"/>
+                <rect y="258" width="400" height="42" fill="#b7a988" opacity=".45"/>
+                <circle cx="52" cy="252" r="32" fill="#c2b49a" opacity=".55"/>
+                <circle cx="118" cy="240" r="40" fill="#cfc0a4" opacity=".6"/>
+                <circle cx="196" cy="230" r="34" fill="#d8caae" opacity=".65"/>
+                <circle cx="268" cy="242" r="40" fill="#cfc0a4" opacity=".6"/>
+                <circle cx="342" cy="254" r="32" fill="#c2b49a" opacity=".5"/>
+                <path d="M404 118q-92 8-152 96" stroke="#ff9a3c" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"/>
+                <circle cx="248" cy="218" r="7" fill="#ffc46b"/>
+                <circle cx="230" cy="226" r="4" fill="#ffc46b" opacity=".7"/>
+                <circle cx="264" cy="230" r="3" fill="#ffc46b" opacity=".5"/>
+              </svg>
+              <span class="project-card__tag">Isolation</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Cellulose soufflée R-50</h3>
+              <p>Terrebonne — 1 850 pi² soufflés en une demi-journée, entretoit ventilé</p>
+            </div>
+          </article>
+
+          <!-- 5. Étanchéité — calfeutrage -->
+          <article class="project-card" data-cat="etancheite">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Calfeutrage d'une fenêtre, cordon de scellant ambré">
+                <defs>
+                  <linearGradient id="rz5bg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0c1524"/><stop offset="1" stop-color="#1b2e4c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz5bg)"/>
+                <path d="M0 40h400M0 90h400M0 260h400" stroke="#16233c" stroke-width="10" opacity=".6"/>
+                <rect x="96" y="56" width="208" height="188" rx="6" fill="#0a1220"/>
+                <rect x="114" y="74" width="172" height="74" fill="#7fc8ff" opacity=".2"/>
+                <rect x="114" y="156" width="172" height="70" fill="#ffc069" opacity=".55"/>
+                <path d="M132 146 190 76" stroke="#b8e2ff" stroke-width="7" opacity=".25"/>
+                <path d="M114 152h172" stroke="#0c1524" stroke-width="8"/>
+                <path d="M96 244V62q0-6 6-6h196q6 0 6 6v112" stroke="#ff9a3c" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <circle cx="304" cy="174" r="9" fill="#ffc46b"/>
+                <circle cx="304" cy="174" r="20" fill="#ffb668" opacity=".28"/>
+                <path d="M312 180l44 26" stroke="#31456e" stroke-width="10" stroke-linecap="round"/>
+              </svg>
+              <span class="project-card__tag">Étanchéité</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Calfeutrage complet</h3>
+              <p>Brossard — 26 fenêtres et 4 portes scellées, fini les courants d'air</p>
+            </div>
+          </article>
+
+          <!-- 6. Toiture — maison enneigée -->
+          <article class="project-card" data-cat="toiture">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Maison enneigée la nuit, toiture neuve sans glaçons">
+                <defs>
+                  <linearGradient id="rz6sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0a1226"/><stop offset="1" stop-color="#14264a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz6sky)"/>
+                <circle cx="340" cy="54" r="16" fill="#e6f2ff" opacity=".95"/>
+                <circle cx="340" cy="54" r="30" fill="#b8e2ff" opacity=".14"/>
+                <circle cx="52" cy="44" r="1.8" fill="#cfe0ff"/><circle cx="112" cy="78" r="1.4" fill="#cfe0ff" opacity=".8"/><circle cx="188" cy="40" r="1.6" fill="#cfe0ff"/><circle cx="260" cy="72" r="1.3" fill="#cfe0ff" opacity=".7"/>
+                <rect x="246" y="106" width="16" height="46" fill="#1e2f52"/>
+                <path d="M242 106h24" stroke="#e8f1fd" stroke-width="6" stroke-linecap="round"/>
+                <rect x="110" y="170" width="180" height="80" fill="#101c33"/>
+                <path d="M92 176 200 96l112 80z" fill="#0d1728"/>
+                <path d="M96 172 200 96l108 76" stroke="#e8f1fd" stroke-width="10" stroke-linecap="round" fill="none"/>
+                <rect x="132" y="192" width="26" height="34" fill="#ffc069" opacity=".9"/>
+                <rect x="238" y="192" width="26" height="34" fill="#ffc069" opacity=".65"/>
+                <rect x="186" y="196" width="28" height="54" fill="#1a2338"/>
+                <rect y="246" width="400" height="54" fill="#c9d8f0"/>
+                <ellipse cx="82" cy="254" rx="72" ry="10" fill="#dbe7f8"/>
+                <ellipse cx="322" cy="260" rx="64" ry="9" fill="#dbe7f8" opacity=".85"/>
+              </svg>
+              <span class="project-card__tag">Toiture</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Toiture neuve posée en novembre</h3>
+              <p>Blainville — bardeaux + ventilation Maximum, zéro glaçon depuis deux hivers</p>
+            </div>
+          </article>
+
+          <!-- 7. Isolation — solage -->
+          <article class="project-card" data-cat="isolation">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Coupe d'une fondation isolée, lueur chaude au sous-sol">
+                <defs>
+                  <linearGradient id="rz7bg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0c1424"/><stop offset="1" stop-color="#101a2e"/>
+                  </linearGradient>
+                  <linearGradient id="rz7heat" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz7bg)"/>
+                <circle cx="70" cy="52" r="1.8" fill="#cfe0ff"/><circle cx="330" cy="66" r="1.5" fill="#cfe0ff" opacity=".8"/><circle cx="240" cy="34" r="1.4" fill="#cfe0ff" opacity=".7"/>
+                <path d="M116 94 200 34l88 60z" fill="#0d1728"/>
+                <rect x="130" y="94" width="140" height="76" fill="#111d36"/>
+                <rect x="152" y="112" width="24" height="30" fill="#ffc069" opacity=".85"/>
+                <rect x="222" y="112" width="24" height="30" fill="#ffc069" opacity=".5"/>
+                <rect y="170" width="400" height="130" fill="#151d31"/>
+                <path d="M0 170h400" stroke="#c9d8f0" stroke-width="5" opacity=".9"/>
+                <rect x="130" y="170" width="140" height="72" fill="#202c47"/>
+                <path d="M140 172v60h120v-60" stroke="url(#rz7heat)" stroke-width="9" fill="none" opacity=".95"/>
+                <circle cx="200" cy="204" r="34" fill="url(#rz7heat)" opacity=".18"/>
+                <path d="M96 186l14 8M92 214l14 8M304 186l-14 8M308 214l-14 8" stroke="#7fc8ff" stroke-width="3.5" stroke-linecap="round" opacity=".65"/>
+                <circle cx="60" cy="248" r="2.4" fill="#2b3a5c"/><circle cx="330" cy="256" r="2.6" fill="#2b3a5c"/><circle cx="96" cy="278" r="2" fill="#2b3a5c"/><circle cx="300" cy="284" r="2.2" fill="#2b3a5c"/>
+              </svg>
+              <span class="project-card__tag">Isolation</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Solage et vide sanitaire à l'uréthane</h3>
+              <p>Longueuil — murs de fondation portés à R-17, planchers enfin chauds</p>
+            </div>
+          </article>
+
+          <!-- 8. Étanchéité — solins de cheminée -->
+          <article class="project-card" data-cat="etancheite">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Solins neufs à la base d'une cheminée, nuit étoilée">
+                <defs>
+                  <linearGradient id="rz8sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0b1428"/><stop offset="1" stop-color="#1c3050"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz8sky)"/>
+                <circle cx="76" cy="58" r="14" fill="#e6f2ff" opacity=".95"/>
+                <circle cx="76" cy="58" r="26" fill="#b8e2ff" opacity=".14"/>
+                <circle cx="160" cy="44" r="1.6" fill="#cfe0ff"/><circle cx="352" cy="60" r="1.8" fill="#cfe0ff"/><circle cx="300" cy="30" r="1.4" fill="#cfe0ff" opacity=".8"/>
+                <rect x="226" y="70" width="68" height="120" fill="#263a5e"/>
+                <path d="M232 70v104M248 76v104" stroke="#1b2942" stroke-width="2.5" opacity=".7"/>
+                <rect x="218" y="56" width="84" height="16" rx="3" fill="#1b2942"/>
+                <path d="M220 56h80" stroke="#e8f1fd" stroke-width="5" stroke-linecap="round"/>
+                <path d="M-10 262 410 132V300H-10z" fill="#0e1830"/>
+                <path d="M-10 282 410 152M-10 300 380 178" stroke="#1c2b49" stroke-width="3" opacity=".8"/>
+                <path d="M218 192 306 165" stroke="#ff9a3c" stroke-width="7" stroke-linecap="round"/>
+                <path d="M230 184v-16M290 166v-16" stroke="#ffc46b" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+                <circle cx="262" cy="178" r="22" fill="#ffb668" opacity=".22"/>
+              </svg>
+              <span class="project-card__tag">Étanchéité</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Solins et base de cheminée refaits</h3>
+              <p>Boucherville — infiltration stoppée, membrane autocollante et solins neufs</p>
+            </div>
+          </article>
+
+          <!-- 9. Toiture — chantier avec échafaudage -->
+          <article class="project-card" data-cat="toiture">
+            <div class="project-card__visual">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Chantier de toiture commercial avec échafaudage éclairé">
+                <defs>
+                  <linearGradient id="rz9sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0d1730"/><stop offset="1" stop-color="#34294a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#rz9sky)"/>
+                <circle cx="330" cy="48" r="1.8" fill="#cfe0ff"/><circle cx="60" cy="60" r="1.5" fill="#cfe0ff" opacity=".8"/><circle cx="238" cy="34" r="1.4" fill="#cfe0ff" opacity=".7"/>
+                <rect x="58" y="120" width="232" height="180" fill="#101c33"/>
+                <path d="M58 120h232" stroke="#ff9a3c" stroke-width="4" opacity=".9"/>
+                <rect x="86" y="152" width="22" height="30" fill="#ffc069" opacity=".7"/>
+                <rect x="146" y="152" width="22" height="30" fill="#ffc069" opacity=".4"/>
+                <rect x="206" y="216" width="22" height="30" fill="#ffc069" opacity=".6"/>
+                <path d="M96 300V96M160 300V96M224 300V96M288 300V96" stroke="#31456e" stroke-width="6"/>
+                <path d="M80 140h224M80 196h224M80 252h224" stroke="#3b5279" stroke-width="5"/>
+                <path d="M96 140l64 56M160 140l-64 56M160 196l64 56M224 196l-64 56M224 140l64 56M288 140l-64 56" stroke="#22304e" stroke-width="3"/>
+                <circle cx="192" cy="118" r="8" fill="#ffd9a0"/>
+                <circle cx="192" cy="118" r="24" fill="#ffb668" opacity=".3"/>
+                <circle cx="304" cy="196" r="6" fill="#ffd9a0" opacity=".9"/>
+                <circle cx="304" cy="196" r="18" fill="#ffb668" opacity=".25"/>
+                <rect y="292" width="400" height="8" fill="#0a1120"/>
+              </svg>
+              <span class="project-card__tag">Toiture</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Réfection commerciale sur échafaudage</h3>
+              <p>Saint-Jérôme — 3 200 pi² refaits en 4 jours, chantier sécurisé CNESST</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Avant / Après ===== -->
+    <section class="section" id="avant-apres">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Avant / Après</div>
+          <h2 class="title" data-reveal>La différence, <span class="accent">mesurée</span></h2>
+          <p class="lead" data-reveal>
+            Un beau chantier, c'est bien. Un résultat qui se vérifie sur le thermostat
+            et sur la facture, c'est mieux. Trois exemples tirés de nos dossiers.
+          </p>
+        </div>
+
+        <div class="ba-list">
+
+          <div class="ba-row" data-reveal>
+            <div class="ba-row__head">
+              <h3>Entretoit — bungalow 1978, Laval</h3>
+              <span class="ba-row__meta">Uréthane giclé · 1 200 pi²</span>
+            </div>
+            <div class="ba-row__cols">
+              <div class="ba-cell ba-cell--before">
+                <span class="ba-cell__badge">Avant</span>
+                <div class="ba-cell__value ba-cell__value--cold">R-12</div>
+                <div class="ba-cell__bar gauge__bar"><span class="gauge__fill gauge__fill--cold" data-gauge="20"></span></div>
+                <p>Laine d'origine tassée, planchers froids et chauffage qui roule sans arrêt de décembre à mars.</p>
+              </div>
+              <div class="ba-arrow" aria-hidden="true"><span><svg><use href="#i-arrow"/></svg></span></div>
+              <div class="ba-cell ba-cell--after">
+                <span class="ba-cell__badge ba-cell__badge--hot">Après</span>
+                <div class="ba-cell__value ba-cell__value--hot">R-60</div>
+                <div class="ba-cell__bar gauge__bar"><span class="gauge__fill" data-gauge="100"></span></div>
+                <p>Enveloppe scellée et isolée en une journée : température stable, pièce par pièce, même à −25&nbsp;°C.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="ba-row" data-reveal>
+            <div class="ba-row__head">
+              <h3>Bordure de toit — cottage, Blainville</h3>
+              <span class="ba-row__meta">Ventilation + membrane d'avant-toit</span>
+            </div>
+            <div class="ba-row__cols">
+              <div class="ba-cell ba-cell--before">
+                <span class="ba-cell__badge">Avant</span>
+                <div class="ba-cell__title">Barrages de glace</div>
+                <ul class="ba-points">
+                  <li><svg><use href="#i-snow"/></svg> Glaçons de 3 pi en bordure chaque hiver</li>
+                  <li><svg><use href="#i-drop"/></svg> Infiltrations au dégel dans la chambre avant</li>
+                  <li><svg><use href="#i-info"/></svg> Gouttières arrachées deux années de suite</li>
+                </ul>
+              </div>
+              <div class="ba-arrow" aria-hidden="true"><span><svg><use href="#i-arrow"/></svg></span></div>
+              <div class="ba-cell ba-cell--after">
+                <span class="ba-cell__badge ba-cell__badge--hot">Après</span>
+                <div class="ba-cell__title">Bordure saine</div>
+                <ul class="ba-points">
+                  <li><svg><use href="#i-wind"/></svg> Ventilation d'entretoit rééquilibrée (soffites + Maximum)</li>
+                  <li><svg><use href="#i-shield"/></svg> Membrane d'avant-toit posée sur 6 pi</li>
+                  <li><svg><use href="#i-check"/></svg> Plus un seul glaçon depuis deux hivers</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="ba-row" data-reveal>
+            <div class="ba-row__head">
+              <h3>Facture de chauffage — jumelé, Terrebonne</h3>
+              <span class="ba-row__meta">Cellulose R-50 + calfeutrage</span>
+            </div>
+            <div class="ba-row__cols">
+              <div class="ba-cell ba-cell--before">
+                <span class="ba-cell__badge">Avant</span>
+                <div class="ba-cell__value ba-cell__value--cold">2 340 $</div>
+                <div class="ba-cell__bar gauge__bar"><span class="gauge__fill gauge__fill--cold" data-gauge="100"></span></div>
+                <p>Coût moyen de chauffage par hiver avant les travaux, thermostats à 21&nbsp;°C.</p>
+              </div>
+              <div class="ba-arrow" aria-hidden="true"><span><svg><use href="#i-arrow"/></svg></span></div>
+              <div class="ba-cell ba-cell--after">
+                <span class="ba-cell__badge ba-cell__badge--hot">Après</span>
+                <div class="ba-cell__value ba-cell__value--hot">1 590 $</div>
+                <div class="ba-cell__bar gauge__bar"><span class="gauge__fill" data-gauge="68"></span></div>
+                <p>Soit 32&nbsp;% d'économie mesurée sur les relevés Hydro-Québec, mêmes thermostats, même hiver rude.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Témoignage mis en avant ===== -->
+    <section class="section" id="temoignage">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div class="eyebrow" data-reveal>Parole de client</div>
+          <h2 class="title" data-reveal>Le projet dont ils sont <span class="accent">encore fiers</span></h2>
+        </div>
+        <div class="testimonial-solo" data-reveal>
+          <figure class="testimonial is-active">
+            <div class="testimonial__stars" aria-label="5 étoiles sur 5">
+              <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
+            </div>
+            <blockquote class="testimonial__quote">
+              «&nbsp;Toit refait, entretoit soufflé et solins remplacés en trois jours chrono.
+              On endurait des glaçons chaque hiver depuis dix ans — plus un seul depuis les
+              travaux, et le deuxième étage est enfin confortable. Chantier propre, équipe
+              polie, prix respecté à la cenne près.&nbsp;»
+            </blockquote>
+            <figcaption class="testimonial__author">
+              <span class="testimonial__name">Nathalie &amp; Sébastien Girard</span>
+              <span class="testimonial__meta">Réfection clé en main — Blainville</span>
+            </figcaption>
+            <span class="testimonial__badge"><svg><use href="#i-medal"/></svg> Projet livré avec garantie écrite de 10 ans</span>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA finale ===== -->
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-card" data-reveal>
+          <div class="rz-cta">
+            <div class="eyebrow">À votre tour</div>
+            <h2 class="title">Votre projet sera <span class="accent">le prochain</span></h2>
+            <ul class="cta-list">
+              <li><svg><use href="#i-check"/></svg> Réponse en 24 h ouvrables, sans engagement</li>
+              <li><svg><use href="#i-check"/></svg> Visite et inspection sans frais</li>
+              <li><svg><use href="#i-check"/></svg> Prix ferme, détaillé ligne par ligne</li>
+              <li><svg><use href="#i-check"/></svg> Accompagnement subventions LogisVert &amp; Rénoclimat</li>
+            </ul>
+            <div class="rz-cta__actions">
+              <a class="btn btn--primary btn--lg" href="contact.html#soumission">
+                Soumission gratuite
+                <svg><use href="#i-arrow"/></svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="tel:+15145550134">
+                <svg><use href="#i-phone"/></svg>
+                (514) 555-0134
+              </a>
+            </div>
+            <p class="rz-cta__note">4820, boul. Industriel, Montréal (QC) H1H 2Y8 · info@expertisolation.ca · RBQ&nbsp;: 5678-1234-01</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+            <span class="brand__mark">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#flg)"/>
+                <defs>
+                  <linearGradient id="flg" x1="32" y1="28" x2="32" y2="52">
+                    <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name">Expert <em>Isolation</em></span><br>
+              <span class="brand__tag">Isolation · Toiture</span>
+            </span>
+          </a>
+          <p>Spécialistes de l'enveloppe du bâtiment : isolation, toiture, ventilation et étanchéité. Résidentiel et commercial, partout dans le Grand Montréal.</p>
+          <span class="footer-rbq"><svg><use href="#i-shield"/></svg> RBQ&nbsp;: 5678-1234-01</span>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#isolation">Uréthane giclé</a></li>
+            <li><a href="services.html#isolation">Cellulose soufflée</a></li>
+            <li><a href="services.html#toiture">Toiture bardeaux</a></li>
+            <li><a href="services.html#toiture">Membrane élastomère</a></li>
+            <li><a href="services.html#calfeutrage">Calfeutrage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><svg><use href="#i-pin"/></svg> 4820, boul. Industriel<br>Montréal (QC) H1H 2Y8</li>
+            <li><svg><use href="#i-phone"/></svg> <a href="tel:+15145550134">(514) 555-0134</a></li>
+            <li><svg><use href="#i-mail"/></svg> <a href="mailto:info@expertisolation.ca">info@expertisolation.ca</a></li>
+            <li><svg><use href="#i-clock"/></svg> Lun–Ven : 7 h à 17 h<br>Urgences toiture : 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom__inner">
+        <span>© <span id="year">2026</span> Expert Isolation. Tous droits réservés. — Site démo</span>
+        <span><a href="#">Politique de confidentialité</a> · <a href="#">Conditions d'utilisation</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script>
+    /* Filtrage de la galerie — propre à cette page */
+    (function () {
+      var bar = document.getElementById('rzFilters');
+      var grid = document.getElementById('rzGrid');
+      if (!bar || !grid) return;
+      var btns = Array.prototype.slice.call(bar.querySelectorAll('[data-filter]'));
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.project-card'));
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b) {
+            var on = b === btn;
+            b.classList.toggle('is-active', on);
+            b.setAttribute('aria-pressed', String(on));
+          });
+          var f = btn.getAttribute('data-filter');
+          cards.forEach(function (card) {
+            var show = f === 'tous' || card.getAttribute('data-cat') === f;
+            if (show) {
+              card.classList.remove('is-gone');
+              requestAnimationFrame(function () {
+                requestAnimationFrame(function () { card.classList.remove('is-out'); });
+              });
+            } else {
+              card.classList.add('is-out');
+              setTimeout(function () {
+                if (card.classList.contains('is-out')) card.classList.add('is-gone');
+              }, 330);
+            }
+          });
+          setTimeout(function () {
+            if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+          }, 430);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
