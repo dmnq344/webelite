@@ -57,6 +57,7 @@
   line-height: 1.35;
   letter-spacing: -0.01em;
   color: var(--text);
+  overflow-wrap: anywhere; /* le courriel ne déborde jamais de la carte */
 }
 a.contact-card__value { transition: color 0.3s ease; }
 a.contact-card__value:hover { color: var(--amber-soft); }

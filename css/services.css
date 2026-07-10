@@ -251,3 +251,8 @@
   .svc-sub:hover { transform: none; }
   .cta-actions .btn { width: 100%; }
 }
+
+/* Le badge catégorie masque le libellé du schéma en mobile — redondant, on le retire */
+@media (max-width: 680px) {
+  .svc-visual .project-card__tag { display: none; }
+}

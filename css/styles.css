@@ -217,7 +217,7 @@ body::after {
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 50;
+  z-index: 60; /* au-dessus du menu mobile (55) pour garder le bouton X cliquable */
   transition: background 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease;
   border-bottom: 1px solid transparent;
 }
@@ -993,10 +993,9 @@ body::after {
 /* ---------- Témoignages ---------- */
 .testimonials { position: relative; }
 .testimonial-slider { position: relative; max-width: 860px; margin: 0 auto; }
-.testimonial-track { position: relative; min-height: 320px; }
+.testimonial-track { position: relative; display: grid; }
 .testimonial {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1; /* pile : la piste prend la hauteur de la diapo la plus haute */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1327,7 +1326,6 @@ section[id], div[id] { scroll-margin-top: 92px; }
   .hero__actions .btn { width: 100%; }
   .scroll-cue { display: none; }
   .process-grid { grid-template-columns: 1fr; }
-  .testimonial-track { min-height: 420px; }
 }
 
 /* ---------- Accessibilité ---------- */

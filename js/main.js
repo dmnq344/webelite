@@ -43,6 +43,8 @@
     };
     navToggle.addEventListener('click', () => setOpen(!mobileMenu.classList.contains('is-open')));
     mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    // Tap sur le fond de l'overlay = fermer
+    mobileMenu.addEventListener('click', (e) => { if (e.target === mobileMenu) setOpen(false); });
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   }
 

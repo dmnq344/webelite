@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de confidentialité — Expert Isolation</title>
+  <meta name="description" content="Politique de confidentialité d'Expert Isolation : collecte, utilisation et protection de vos renseignements personnels, conformément à la Loi 25 du Québec.">
+  <meta name="theme-color" content="#060a13">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    .legal-prose { max-width: 780px; }
+    .legal-prose h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      margin: 42px 0 14px;
+    }
+    .legal-prose h2:first-child { margin-top: 0; }
+    .legal-prose p, .legal-prose li { color: var(--muted); font-size: 15.5px; }
+    .legal-prose p + p { margin-top: 12px; }
+    .legal-prose ul { display: grid; gap: 9px; margin-top: 12px; padding-left: 4px; }
+    .legal-prose li { display: flex; gap: 10px; }
+    .legal-prose li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex: 0 0 auto;
+      margin-top: 9px;
+    }
+    .legal-updated {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 7px 16px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line-strong);
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="snow2d" aria-hidden="true"></canvas>
+
+  <!-- ===== Sprite d'icônes (réduit) ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 11.5l2 2 4-4.5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6L22 7"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Preloader ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="preloader__flame">
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#plg)"/>
+          </g>
+          <defs>
+            <linearGradient id="plg" x1="32" y1="28" x2="32" y2="52">
+              <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="preloader__name">Expert Isolation</div>
+      <div class="preloader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+        <span class="brand__mark">
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#blg)"/>
+            <defs>
+              <linearGradient id="blg" x1="32" y1="28" x2="32" y2="52">
+                <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Expert <em>Isolation</em></span><br>
+          <span class="brand__tag">Isolation · Toiture</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+15145550134">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+        <a class="btn btn--primary btn--sm" href="contact.html#soumission">Soumission gratuite</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Menu mobile ===== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div>
+      <nav aria-label="Navigation mobile">
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <a class="btn btn--primary" href="contact.html#soumission">Soumission gratuite</a>
+        <a class="header-phone" href="tel:+15145550134" style="display:flex">
+          <svg><use href="#i-phone"/></svg>
+          (514) 555-0134
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a href="index.html">Accueil</a>
+          <span class="sep">›</span>
+          <span class="current">Politique de confidentialité</span>
+        </nav>
+        <div class="eyebrow" data-reveal>Vos renseignements</div>
+        <h1 class="hero__title" data-reveal>Politique de <span class="accent">confidentialité</span></h1>
+        <p class="lead" data-reveal>
+          Chez Expert Isolation, la protection de vos renseignements personnels est prise
+          au sérieux — voici, en toute transparence, ce qu'on recueille et pourquoi.
+        </p>
+        <span class="legal-updated" data-reveal>Dernière mise à jour : juillet 2026</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="legal-prose" data-reveal>
+          <h2>1. Renseignements recueillis</h2>
+          <p>Lorsque vous demandez une soumission ou nous contactez, nous recueillons uniquement les renseignements nécessaires au traitement de votre demande :</p>
+          <ul>
+            <li>Nom et prénom;</li>
+            <li>Numéro de téléphone et adresse courriel;</li>
+            <li>Ville et adresse des travaux envisagés;</li>
+            <li>Description de votre projet.</li>
+          </ul>
+
+          <h2>2. Utilisation de vos renseignements</h2>
+          <p>Vos renseignements servent exclusivement à : préparer votre soumission, planifier une visite d'inspection, effectuer le suivi de votre dossier et honorer nos garanties. Nous ne les utilisons jamais à d'autres fins sans votre consentement.</p>
+
+          <h2>3. Partage avec des tiers</h2>
+          <p>Nous ne vendons, ne louons ni ne partageons vos renseignements personnels avec des tiers, sauf lorsque la loi l'exige ou avec votre autorisation explicite (par exemple, pour une demande de subvention LogisVert ou Rénoclimat faite en votre nom).</p>
+
+          <h2>4. Conservation et sécurité</h2>
+          <p>Vos renseignements sont conservés de façon sécuritaire pendant la durée nécessaire au traitement de votre dossier et à l'application de nos garanties, après quoi ils sont détruits de manière sécuritaire.</p>
+
+          <h2>5. Témoins (cookies)</h2>
+          <p>Ce site n'utilise aucun témoin de suivi publicitaire ni outil d'analyse tiers. Aucune donnée de navigation n'est collectée à votre insu.</p>
+
+          <h2>6. Vos droits (Loi 25)</h2>
+          <p>Conformément à la législation québécoise sur la protection des renseignements personnels, vous pouvez en tout temps demander l'accès à vos renseignements, leur rectification ou leur suppression. Adressez votre demande à notre responsable de la protection des renseignements personnels :</p>
+          <ul>
+            <li>Par courriel : <a href="mailto:info@expertisolation.ca" style="color:var(--amber-soft)">info@expertisolation.ca</a></li>
+            <li>Par téléphone : <a href="tel:+15145550134" style="color:var(--amber-soft)">(514) 555-0134</a></li>
+          </ul>
+
+          <p style="margin-top:36px;font-size:13.5px;opacity:.7">Ce site est une démonstration — cette politique est fournie à titre d'exemple.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Expert Isolation — Accueil">
+            <span class="brand__mark">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M8 34 32 14l24 20" stroke="#ff9a3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 28c2.4 5.4-1.4 7.8-3.6 10.7-1.9 2.5-2.9 4.8-2.9 7.3a6.5 6.5 0 0 0 13 0c0-3-1.4-5.5-3.1-8-1.9-2.8-3-6.2-3.4-10z" fill="url(#flg)"/>
+                <defs>
+                  <linearGradient id="flg" x1="32" y1="28" x2="32" y2="52">
+                    <stop stop-color="#ffc46b"/><stop offset="1" stop-color="#ff6b2c"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name">Expert <em>Isolation</em></span><br>
+              <span class="brand__tag">Isolation · Toiture</span>
+            </span>
+          </a>
+          <p>Spécialistes de l'enveloppe du bâtiment : isolation, toiture, ventilation et étanchéité. Résidentiel et commercial, partout dans le Grand Montréal.</p>
+          <span class="footer-rbq"><svg><use href="#i-shield"/></svg> RBQ&nbsp;: 5678-1234-01</span>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#isolation">Uréthane giclé</a></li>
+            <li><a href="services.html#isolation">Cellulose soufflée</a></li>
+            <li><a href="services.html#toiture">Toiture bardeaux</a></li>
+            <li><a href="services.html#toiture">Membrane élastomère</a></li>
+            <li><a href="services.html#calfeutrage">Calfeutrage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><svg><use href="#i-pin"/></svg> 4820, boul. Industriel<br>Montréal (QC) H1H 2Y8</li>
+            <li><svg><use href="#i-phone"/></svg> <a href="tel:+15145550134">(514) 555-0134</a></li>
+            <li><svg><use href="#i-mail"/></svg> <a href="mailto:info@expertisolation.ca">info@expertisolation.ca</a></li>
+            <li><svg><use href="#i-clock"/></svg> Lun–Ven : 7 h à 17 h<br>Urgences toiture : 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom__inner">
+        <span>© <span id="year">2026</span> Expert Isolation. Tous droits réservés. — Site démo</span>
+        <span><a href="politique-confidentialite.html">Politique de confidentialité</a> · <a href="conditions.html">Conditions d'utilisation</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
