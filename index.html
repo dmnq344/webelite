@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<!--
+  Spapoursouliers — Site vitrine une seule page (édition « Atelier de luxe »)
+  ------------------------------------------------------------------
+  - Multilingue (FR / EN / RO / IT) : voir script.js (objet `translations`)
+  - Tout texte traduisible porte un attribut data-i18n="cle"
+  - Les listes de prix sont générées depuis script.js (objet `priceData`)
+  - Images : dossier assets/img/ (optimisées)
+  - HTML + CSS + JS pur, sans dépendance lourde
+  ------------------------------------------------------------------
+-->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spapoursouliers — La maison de soin des souliers</title>
+  <meta name="description"
+        content="Spapoursouliers : nettoyage, entretien, teinture et cordonnerie de chaussures, 100 % en ligne. Ramassage et livraison inclus." />
+  <meta name="theme-color" content="#15100b" />
+
+  <!-- Polices : Fraunces (serif éditorial) pour les titres, Inter pour le texte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Barre de progression de lecture (fine, dorée) -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Lien d'évitement clavier (accessibilité) -->
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Aller au contenu</a>
+
+  <!-- ============================================================
+       LOGO (emblème SVG) — défini une fois, cloné en JS dans [data-logo]
+       ============================================================ -->
+  <template id="logo-emblem-tpl">
+    <svg class="logo-emblem" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <circle class="lg-badge" cx="24" cy="24" r="23"/>
+      <circle class="lg-ring" cx="24" cy="24" r="20"/>
+      <path class="lg-shoe" d="M12 31.4 C12 28 12.5 26.4 14.5 26.4 C16 26.4 16.6 27.6 18.5 28 C22 28.7 25 28 29 28.8 C33 29.6 37 30.2 40.2 30.6 C41.5 30.8 42 31.2 42 32 C42 32.9 41.3 33.3 39.9 33.3 L14.1 33.3 C12.7 33.3 12 32.5 12 31.4 Z"/>
+      <path class="lg-sole" d="M13 33.7 L40 33.7 C41 33.7 41.4 34.1 41.4 34.7 C41.4 35.3 41 35.7 40 35.7 L13 35.7 C12 35.7 11.6 35.3 11.6 34.7 C11.6 34.1 12 33.7 13 33.7 Z"/>
+      <path class="lg-spark" d="M37.5 16.5 L38.4 18.8 L40.7 19.7 L38.4 20.6 L37.5 22.9 L36.6 20.6 L34.3 19.7 L36.6 18.8 Z"/>
+    </svg>
+  </template>
+
+
+  <!-- ============================================================
+       EN-TÊTE / NAVIGATION
+       ============================================================ -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="logo" aria-label="Spapoursouliers — accueil" data-logo>
+        <span class="logo-text"><span class="logo-accent">Spa</span>poursouliers</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <a href="#top"        data-i18n="nav.home">Accueil</a>
+        <a href="#services"   data-i18n="nav.services">Services</a>
+        <a href="#pricing"    data-i18n="nav.pricing">Prix</a>
+        <a href="#about"      data-i18n="nav.about">À propos</a>
+        <a href="#corporate"  data-i18n="nav.corporate">Corporate</a>
+        <a href="#donations"  data-i18n="nav.donations">Dons</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Choix de la langue">
+          <button type="button" class="lang-btn is-active" data-lang="fr">FR</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ro">RO</button>
+          <button type="button" class="lang-btn" data-lang="it">IT</button>
+        </div>
+        <a href="#services" class="btn btn-primary btn-order" data-i18n="nav.order">Passer la commande</a>
+        <button type="button" class="nav-toggle" id="nav-toggle"
+                aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <main id="main">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" id="hero">
+      <div class="container hero-inner">
+
+        <div class="hero-text">
+          <p class="kicker reveal"><span class="kicker-line" aria-hidden="true"></span><span data-i18n="hero.eyebrow">La maison de soin des souliers</span></p>
+          <h1 class="hero-title reveal">
+            <span data-i18n="hero.title.1">Vos chaussures méritent</span>
+            <em data-i18n="hero.title.2">une seconde vie.</em>
+          </h1>
+          <p class="hero-subtitle reveal" data-i18n="hero.subtitle">
+            Nous nettoyons, réparons, teignons et redonnons de l'éclat à toutes vos chaussures — ramassage et livraison inclus.
+          </p>
+          <div class="hero-cta reveal">
+            <a href="#services" class="btn btn-primary" data-i18n="nav.order">Passer la commande</a>
+            <a href="#how" class="btn btn-ghost" data-i18n="hero.secondary">Découvrir le rituel</a>
+          </div>
+          <p class="hero-langnote reveal" data-i18n="hero.langnote">Nous parlons français, anglais, roumain et italien.</p>
+        </div>
+
+        <figure class="hero-visual reveal">
+          <div class="hero-frame">
+            <img src="assets/img/hero-shoes.jpg" width="1200" height="1200"
+                 fetchpriority="high" decoding="async"
+                 alt="Souliers en cuir disposés en cercle, fraîchement entretenus" />
+          </div>
+          <span class="hero-badge">
+            <strong data-i18n="hero.badge.years">40+</strong>
+            <span data-i18n="hero.badge.label">ans de savoir-faire</span>
+          </span>
+          <figcaption class="hero-slogan" data-i18n="hero.slogan">Donnez une nouvelle vie à vos souliers</figcaption>
+        </figure>
+      </div>
+
+      <!-- Bande de statistiques -->
+      <div class="container">
+        <ul class="stat-band reveal" data-stagger>
+          <li class="reveal"><span class="stat-num" data-count="40" data-suffix="+">40+</span><span class="stat-label" data-i18n="stat.years">ans d'expérience</span></li>
+          <li class="reveal"><span class="stat-num" data-count="2">2</span><span class="stat-label" data-i18n="stat.gen">générations de cordonniers</span></li>
+          <li class="reveal"><span class="stat-num" data-count="4">4</span><span class="stat-label" data-i18n="stat.langs">langues parlées</span></li>
+          <li class="reveal"><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label" data-i18n="stat.online">en ligne, sans déplacement</span></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Fil défilant (marquee) -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track">
+        <span class="marquee-item" data-i18n="marquee.words">Nettoyage · Cordonnerie · Teinture · Cuir · Suède · Réparations · Imperméabilisation · Ramassage &amp; livraison</span>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         LE RITUEL (Comment ça marche) — section sombre
+         ============================================================ -->
+    <section class="section section--dark how" id="how">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow" data-i18n="how.eyebrow">Simple et raffiné</p>
+          <h2 class="section-title" data-i18n="how.title">Le rituel, en trois temps</h2>
+        </header>
+
+        <ol class="steps" data-stagger>
+          <li class="step-card reveal">
+            <span class="step-num">01</span>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3">
+                <rect x="9" y="7" width="30" height="34" rx="3"/><path d="M16 16h16M16 23h16M16 30h10"/>
+              </svg>
+            </div>
+            <h3 data-i18n="how.step1.title">Vous commandez en ligne</h3>
+            <p data-i18n="how.step1.text">Choisissez vos services en quelques clics, depuis chez vous.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-num">02</span>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3">
+                <path d="M6 30h7l3-9h17l4 9h5"/><circle cx="16" cy="36" r="3"/><circle cx="34" cy="36" r="3"/><path d="M30 21l-2-7h-6"/>
+              </svg>
+            </div>
+            <h3 data-i18n="how.step2.title">Nous récupérons vos chaussures</h3>
+            <p data-i18n="how.step2.text">Un ramassage à l'adresse de votre choix, à l'heure qui vous convient.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-num">03</span>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3">
+                <path d="M24 6l3.5 7 7.5 1-5.5 5.3 1.3 7.7L24 30l-6.8 4 1.3-7.7L13 21l7.5-1z"/><path d="M14 40h20"/>
+              </svg>
+            </div>
+            <h3 data-i18n="how.step3.title">Nous livrons vos chaussures propres</h3>
+            <p data-i18n="how.step3.text">Nettoyées, réparées et éclatantes, livrées directement chez vous.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         NOS SERVICES
+         ============================================================ -->
+    <section class="section services" id="services">
+      <div class="container">
+        <header class="section-head section-head--center reveal">
+          <p class="eyebrow" data-i18n="services.eyebrow">Savoir-faire artisanal</p>
+          <h2 class="section-title" data-i18n="services.title">Nos services</h2>
+          <p class="section-intro" data-i18n="services.intro">
+            Spapoursouliers propose une gamme complète de services premium pour vos chaussures, réalisés avec
+            professionnalisme et souci du détail. Chaque service est effectué avec des produits de qualité et des
+            techniques modernes, pour que vos articles aient toujours l'air et se sentent impeccables.
+          </p>
+        </header>
+
+        <div class="service-grid" data-stagger>
+          <article class="service-card reveal">
+            <div class="service-card-media">
+              <img src="assets/img/service-nettoyage.jpg" loading="lazy" width="900" height="600"
+                   alt="Baskets d'enfant avant et après nettoyage" />
+              <span class="media-tag" data-i18n="placeholder.beforeafter">Avant / Après</span>
+              <span class="service-index" aria-hidden="true">01</span>
+            </div>
+            <div class="service-card-body">
+              <h3 data-i18n="services.cleaning.title">Nettoyage</h3>
+              <ul>
+                <li data-i18n="services.cleaning.1">Chaussures d'enfants</li>
+                <li data-i18n="services.cleaning.2">Chaussures de sport</li>
+                <li data-i18n="services.cleaning.3">Cuir</li>
+                <li data-i18n="services.cleaning.4">Suède</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-media">
+              <img src="assets/img/service-peinture.jpg" loading="lazy" width="900" height="600"
+                   alt="Restauration de la couleur de bottes en cuir" />
+              <span class="media-tag" data-i18n="placeholder.beforeafter">Avant / Après</span>
+              <span class="service-index" aria-hidden="true">02</span>
+            </div>
+            <div class="service-card-body">
+              <h3 data-i18n="services.dye.title">Peinture / teinture</h3>
+              <ul><li data-i18n="services.dye.1">Restauration et revitalisation des couleurs</li></ul>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-media">
+              <img src="assets/img/service-reparation.jpg" loading="lazy" width="900" height="600"
+                   alt="Semelle usée remplacée par une semelle neuve" />
+              <span class="media-tag" data-i18n="placeholder.beforeafter">Avant / Après</span>
+              <span class="service-index" aria-hidden="true">03</span>
+            </div>
+            <div class="service-card-body">
+              <h3 data-i18n="services.repairs.title">Réparations</h3>
+              <ul>
+                <li data-i18n="services.repairs.1">Talons</li>
+                <li data-i18n="services.repairs.2">Semelles</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-media">
+              <img src="assets/img/service-cordonnerie.jpg" loading="lazy" width="900" height="600"
+                   alt="Couture du cuir réalisée à la main" />
+              <span class="media-tag" data-i18n="placeholder.craft">Atelier</span>
+              <span class="service-index" aria-hidden="true">04</span>
+            </div>
+            <div class="service-card-body">
+              <h3 data-i18n="services.cobbler.title">Cordonnerie</h3>
+              <ul>
+                <li data-i18n="services.cobbler.1">Collage</li>
+                <li data-i18n="services.cobbler.2">Couture</li>
+                <li data-i18n="services.cobbler.3">Élargissement et ajustement (longueur et largeur)</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <!-- Service spécialisé : Orthopédie -->
+        <article class="service-feature reveal">
+          <figure class="service-feature-media">
+            <img src="assets/img/service-orthopedie.jpg" loading="lazy" width="900" height="600"
+                 alt="Machine de cordonnier professionnelle" />
+            <span class="media-tag" data-i18n="services.ortho.tag">Sur devis</span>
+          </figure>
+          <div class="service-feature-body">
+            <p class="eyebrow" data-i18n="services.ortho.eyebrow">Service spécialisé</p>
+            <h3 data-i18n="services.ortho.title">Chaussures orthopédiques</h3>
+            <p data-i18n="services.ortho.text">
+              Réparation et reconstruction de chaussures orthopédiques, réalisées avec un soin particulier.
+              Chaque demande est évaluée et chiffrée au cas par cas.
+            </p>
+            <a href="#contact-fab" class="link-arrow" data-i18n="services.ortho.cta">Demander un devis →</a>
+          </div>
+        </article>
+
+        <p class="services-support reveal" data-i18n="services.support">
+          Nous réparons et nettoyons tous types de chaussures, sandales, bottes — pour enfants, femmes et hommes.
+          Nous éliminons la saleté, les taches et les odeurs, tout en protégeant les matériaux et en préservant leur
+          qualité. Nous prenons également soin de vos sacs en cuir.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         PRIX — présentés comme une carte de maison
+         ============================================================ -->
+    <section class="section section--sand pricing" id="pricing">
+      <div class="container">
+        <header class="section-head section-head--center reveal">
+          <p class="eyebrow" data-i18n="pricing.eyebrow">Transparent et juste</p>
+          <h2 class="section-title" data-i18n="pricing.title">La carte des soins</h2>
+        </header>
+
+        <!-- Forfaits Spa -->
+        <div class="spa-grid" data-stagger>
+          <article class="spa-card reveal">
+            <header class="spa-card-head"><h3 data-i18n="pricing.spa.inout.title">Spa Intérieur-Extérieur</h3></header>
+            <ul class="spa-features">
+              <li data-i18n="pricing.spa.inout.f1">Traitement d'hygiène</li>
+              <li data-i18n="pricing.spa.inout.f2">Nettoyage extérieur</li>
+              <li data-i18n="pricing.spa.inout.f3">Nettoyage des lacets</li>
+              <li data-i18n="pricing.spa.inout.f4">Nettoyage intérieur</li>
+              <li data-i18n="pricing.spa.inout.f5">Parfumage</li>
+              <li data-i18n="pricing.spa.inout.f6">Traitement selon le matériau (cire, crème, etc.)</li>
+              <li data-i18n="pricing.spa.inout.f7">Sac inclus</li>
+            </ul>
+            <div class="spa-prices">
+              <div><span data-i18n="pricing.audience.kids">Enfants</span><strong>30 $</strong></div>
+              <div><span data-i18n="pricing.audience.adult">Baskets / souliers adulte</span><strong>40 $</strong></div>
+              <div><span data-i18n="pricing.audience.boots">Bottes adulte</span><strong>50 $</strong></div>
+            </div>
+          </article>
+
+          <article class="spa-card spa-card--featured reveal">
+            <span class="spa-badge" data-i18n="pricing.spa.luxe.badge">Le plus complet</span>
+            <header class="spa-card-head"><h3 data-i18n="pricing.spa.luxe.title">Spa de Luxe</h3></header>
+            <ul class="spa-features">
+              <li data-i18n="pricing.spa.luxe.f1">Traitement d'hygiène</li>
+              <li data-i18n="pricing.spa.luxe.f2">Imperméabilisation</li>
+              <li data-i18n="pricing.spa.luxe.f3">Blanchiment de la semelle (là où c'est possible)</li>
+              <li data-i18n="pricing.spa.luxe.f4">Nouveaux lacets (si nécessaire)</li>
+              <li data-i18n="pricing.spa.luxe.f5">Estompage des rayures (cuir)</li>
+              <li data-i18n="pricing.spa.luxe.f6">Revitalisation de la couleur du cuir / suède</li>
+              <li data-i18n="pricing.spa.luxe.f7">Petites réparations</li>
+              <li data-i18n="pricing.spa.luxe.f8">Sac inclus</li>
+            </ul>
+            <div class="spa-prices">
+              <div><span data-i18n="pricing.audience.kids">Enfants</span><strong>40 $</strong></div>
+              <div><span data-i18n="pricing.audience.adult">Baskets / souliers adulte</span><strong>50 $</strong></div>
+              <div><span data-i18n="pricing.audience.boots">Bottes adulte</span><strong>60 $</strong></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Carte cordonnerie & nettoyage -->
+        <div class="price-menu">
+          <article class="price-list reveal">
+            <h3 class="price-list-title">
+              <span data-i18n="pricing.women.title">Cordonnerie — Dames</span>
+              <small data-i18n="pricing.fromLabel">prix à partir de</small>
+            </h3>
+            <ul class="price-rows" id="price-women"></ul>
+          </article>
+
+          <article class="price-list reveal">
+            <h3 class="price-list-title">
+              <span data-i18n="pricing.men.title">Cordonnerie — Hommes</span>
+              <small data-i18n="pricing.fromLabel">prix à partir de</small>
+            </h3>
+            <ul class="price-rows" id="price-men"></ul>
+          </article>
+
+          <article class="price-list price-list--wide reveal">
+            <h3 class="price-list-title">
+              <span data-i18n="pricing.sewing.title">Couture et nettoyage</span>
+              <small data-i18n="pricing.fromLabel">prix à partir de</small>
+            </h3>
+            <ul class="price-rows price-rows--two-col" id="price-sewing"></ul>
+          </article>
+        </div>
+
+        <p class="pricing-disclaimer reveal" data-i18n="pricing.note">
+          Les prix varient selon l'emplacement et les offres du mois en cours. Service d'orthopédie : à discuter au cas par cas.
+        </p>
+        <div class="pricing-cta reveal">
+          <a href="#contact-fab" class="btn btn-primary" id="pricing-order-btn" data-i18n="nav.order">Passer la commande</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         À PROPOS — section sombre éditoriale
+         ============================================================ -->
+    <section class="section section--dark about" id="about">
+      <div class="container about-inner">
+        <figure class="about-media reveal">
+          <img src="assets/img/about-craft.jpg" loading="lazy" width="1000" height="667"
+               alt="Travail du cuir au marteau sur l'enclume du cordonnier" />
+        </figure>
+        <div class="about-content reveal">
+          <p class="eyebrow" data-i18n="about.eyebrow">Notre histoire</p>
+          <h2 class="section-title" data-i18n="about.title">Deux générations de cordonniers</h2>
+          <p class="about-lede" data-i18n="about.lede">« Le cuir, je l'ai dans les mains depuis l'enfance. »</p>
+          <p data-i18n="about.story">
+            Issu d'une famille de cordonniers, je représente la deuxième génération à exercer ce métier. Depuis mon plus
+            jeune âge, j'ai grandi dans l'univers du cuir, entouré de chaussures, d'outils et d'un savoir-faire transmis
+            de génération en génération. Cette passion m'a permis d'acquérir plus de 40 ans d'expérience dans la
+            cordonnerie et l'entretien des chaussures. Animé par le désir de moderniser ce métier traditionnel, j'ai
+            suivi une formation entrepreneuriale de neuf mois pour transformer mon expertise artisanale en un projet
+            moderne et innovant.
+          </p>
+          <p class="about-signature">— Cristian Rotaru, <span data-i18n="about.founder">fondateur</span></p>
+
+          <div class="about-mission">
+            <h3 data-i18n="about.mission.title">Notre mission</h3>
+            <p data-i18n="about.mission.text">
+              Notre mission est de redonner une seconde vie à tous les types de chaussures grâce à des services de
+              nettoyage, d'entretien et de réparation réalisés avec soin et professionnalisme. Notre projet fonctionne
+              entièrement en ligne pour offrir une expérience simple et pratique : le client passe sa commande, nous
+              récupérons les chaussures à l'adresse indiquée, effectuons le travail, puis livrons le produit propre.
+            </p>
+          </div>
+
+          <div class="about-heritage">
+            <p class="about-heritage-title" data-i18n="about.heritage.title">Un héritage et un savoir-faire reconnus</p>
+            <div class="heritage-grid">
+              <figure class="reveal">
+                <img src="assets/img/heritage-presse.jpg" loading="lazy" width="800" height="600"
+                     alt="Article de presse mentionnant Cristian Rotaru" />
+                <figcaption data-i18n="about.heritage.presse">Cristian Rotaru, une vie au service des chaussures</figcaption>
+              </figure>
+              <figure class="reveal">
+                <img src="assets/img/heritage-attestation.jpg" loading="lazy" width="800" height="600"
+                     alt="Attestation de spécialisation professionnelle du Québec, 2025" />
+                <figcaption data-i18n="about.heritage.attestation">Attestation professionnelle — Québec, 2025</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         CORPORATE
+         ============================================================ -->
+    <section class="section corporate" id="corporate">
+      <div class="container corporate-inner">
+        <div class="corporate-text reveal">
+          <p class="eyebrow" data-i18n="corporate.eyebrow">Entreprises</p>
+          <h2 class="section-title" data-i18n="corporate.title">Élégance et professionnalisme pour votre équipe</h2>
+          <p class="corporate-tagline" data-i18n="corporate.tagline">Des chaussures d'équipe toujours impeccables.</p>
+          <p data-i18n="corporate.body">
+            Spapoursouliers apporte ses services professionnels de nettoyage et de reconditionnement directement dans
+            l'univers des entreprises, pour garantir une image soignée et un confort optimal des chaussures de vos
+            collaborateurs. Quelle que soit la taille de votre équipe, nous offrons des solutions personnalisées. Nous
+            proposons aussi des avantages exclusifs pour les employés — codes de réduction ou abonnements mensuels
+            flexibles — pour encourager l'entretien régulier des chaussures. Transformez l'entretien des chaussures en un
+            avantage discret mais essentiel du professionnalisme au quotidien.
+          </p>
+          <a href="#contact-fab" class="btn btn-primary" id="corporate-contact-btn" data-i18n="corporate.cta">Nous contacter</a>
+        </div>
+        <figure class="corporate-visual reveal">
+          <img src="assets/img/corporate.jpg" loading="lazy" width="1200" height="800"
+               alt="Sélection élégante de chaussures professionnelles" />
+        </figure>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         DONS
+         ============================================================ -->
+    <section class="section donations" id="donations">
+      <div class="container donations-inner">
+        <figure class="donations-visual reveal">
+          <img src="assets/img/donation.png" loading="lazy" width="700" height="700"
+               alt="Chaussures déposées dans une boîte de dons" />
+        </figure>
+        <div class="donations-text reveal">
+          <p class="eyebrow" data-i18n="donations.eyebrow">Engagement social</p>
+          <h2 class="section-title" data-i18n="donations.title">Un geste simple peut changer une vie</h2>
+          <p data-i18n="donations.body">
+            Vous avez des chaussures que vous ne portez plus ? Ne les jetez pas. Nous pouvons leur offrir une seconde vie
+            et les remettre entre les mains de personnes qui en ont réellement besoin. Chez Spapoursouliers, nous croyons
+            que chaque geste compte. À travers nos initiatives de récupération, de reconditionnement et de don de
+            chaussures et d'articles en cuir, nous soutenons les personnes qui vivent dans la rue, dont le nombre ne
+            cesse malheureusement d'augmenter. Notre démarche s'inscrit dans une vision durable : en donnant une seconde
+            vie aux chaussures, nous réduisons le gaspillage et participons à la protection de l'environnement. Ensemble,
+            nous pouvons bâtir une communauté plus solidaire et un avenir plus durable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       PIED DE PAGE
+       ============================================================ -->
+  <footer class="site-footer" id="footer">
+    <div class="container footer-cta reveal">
+      <h2 data-i18n="footer.cta.title">Prêt à offrir un nouveau départ à vos souliers ?</h2>
+      <a href="#services" class="btn btn-gold" data-i18n="nav.order">Passer la commande</a>
+    </div>
+
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo logo--light" data-logo>
+          <span class="logo-text"><span class="logo-accent">Spa</span>poursouliers</span>
+        </a>
+        <p data-i18n="footer.tagline">La maison de soin des souliers, 100 % en ligne.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="footer.contact.title">Nous joindre</h4>
+        <ul class="footer-contact">
+          <li><span data-i18n="footer.phone">Téléphone</span> : <a href="tel:+14384499422">438 449 9422</a></li>
+          <li><span data-i18n="footer.email">Courriel</span> : <a href="mailto:spapoursouliers@hotmail.com">spapoursouliers@hotmail.com</a></li>
+        </ul>
+        <div class="footer-social">
+          <a href="https://wa.me/14384499422" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.67c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.24-8.24 8.24-1.5 0-2.97-.4-4.25-1.16l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.24-8.24Zm-4.51 4.4c-.21 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63s1.13 3.05 1.29 3.26c.16.21 2.22 3.39 5.38 4.62 2.62 1.03 3.16.82 3.73.77.57-.05 1.84-.75 2.1-1.48.26-.73.26-1.35.18-1.48-.08-.13-.29-.21-.6-.37-.31-.16-1.84-.91-2.13-1.01-.29-.1-.5-.16-.71.16-.21.31-.81 1.01-.99 1.22-.18.21-.37.24-.68.08-.31-.16-1.31-.48-2.5-1.54-.92-.82-1.54-1.84-1.72-2.15-.18-.31-.02-.48.14-.63.14-.14.31-.37.47-.55.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.71-1.7-.97-2.33-.26-.61-.52-.53-.71-.54-.18-.01-.39-.01-.6-.01Z"/></svg>
+          </a>
+          <a href="https://instagram.com/spapoursouliers1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="footer.areas.title">Zones desservies</h4>
+        <p data-i18n="footer.areas.text">Grand Montréal et environs. Contactez-nous pour vérifier la couverture.</p>
+        <h4 class="footer-lang-title" data-i18n="footer.lang.title">Langue</h4>
+        <div class="lang-switch lang-switch--footer" role="group" aria-label="Choix de la langue">
+          <button type="button" class="lang-btn is-active" data-lang="fr">FR</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ro">RO</button>
+          <button type="button" class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p data-i18n="footer.copyright">© 2026 Spapoursouliers. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       BOUTON FLOTTANT DE CONTACT
+       ============================================================ -->
+  <div class="contact-fab" id="contact-fab">
+    <ul class="contact-actions" id="contact-actions">
+      <li><a href="tel:+14384499422" class="contact-action" data-tooltip="438 449 9422" aria-label="Téléphone : 438 449 9422">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5 5l1.5-2 5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"/></svg></a></li>
+      <li><a href="mailto:spapoursouliers@hotmail.com" class="contact-action" data-tooltip="spapoursouliers@hotmail.com" aria-label="Courriel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></a></li>
+      <li><a href="https://wa.me/14384499422" target="_blank" rel="noopener noreferrer" class="contact-action contact-action--whatsapp" data-tooltip="WhatsApp" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.67c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.24-8.24 8.24-1.5 0-2.97-.4-4.25-1.16l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.24-8.24Zm-4.51 4.4c-.21 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63s1.13 3.05 1.29 3.26c.16.21 2.22 3.39 5.38 4.62 2.62 1.03 3.16.82 3.73.77.57-.05 1.84-.75 2.1-1.48.26-.73.26-1.35.18-1.48-.08-.13-.29-.21-.6-.37-.31-.16-1.84-.91-2.13-1.01-.29-.1-.5-.16-.71.16-.21.31-.81 1.01-.99 1.22-.18.21-.37.24-.68.08-.31-.16-1.31-.48-2.5-1.54-.92-.82-1.54-1.84-1.72-2.15-.18-.31-.02-.48.14-.63.14-.14.31-.37.47-.55.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.71-1.7-.97-2.33-.26-.61-.52-.53-.71-.54-.18-.01-.39-.01-.6-.01Z"/></svg></a></li>
+      <li><a href="https://instagram.com/spapoursouliers1" target="_blank" rel="noopener noreferrer" class="contact-action contact-action--instagram" data-tooltip="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a></li>
+      <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="contact-action contact-action--facebook" data-tooltip="Facebook" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1Z"/></svg></a></li>
+    </ul>
+    <button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false"
+            aria-label="Ouvrir les options de contact" aria-controls="contact-actions">
+      <svg class="fab-icon fab-icon--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 20l1.4-4.2A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5Z"/></svg>
+      <svg class="fab-icon fab-icon--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
