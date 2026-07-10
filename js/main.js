@@ -48,6 +48,46 @@
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   }
 
+  /* ---------- Cinématique d'ouverture (héros vidéo) ---------- */
+  const cinema = document.querySelector('.cinema');
+  if (cinema) {
+    const media = cinema.querySelector('.cinema__media');
+    const video = cinema.querySelector('video');
+    const content = cinema.querySelector('.cinema__content');
+    const cue = cinema.querySelector('.scroll-cue');
+    const cineEls = cinema.querySelectorAll('[data-cine]');
+
+    if (window.gsap && window.ScrollTrigger && !prefersReduced) {
+      window.gsap.registerPlugin(window.ScrollTrigger);
+
+      // Entrée : léger recul de la vidéo + montée en cascade du texte
+      window.gsap.fromTo(video, { scale: 1.09 }, { scale: 1, duration: 2.8, ease: 'power2.out' });
+      window.gsap.fromTo(cineEls,
+        { opacity: 0, y: 46 },
+        { opacity: 1, y: 0, duration: 1.15, ease: 'power3.out', stagger: 0.13, delay: 0.55 }
+      );
+
+      // Sortie : le jour se dissout vers la nuit 3D pendant que la section est épinglée
+      window.gsap.timeline({
+        scrollTrigger: {
+          trigger: cinema,
+          start: 'top top',
+          end: '+=85%',
+          scrub: 0.6,
+          pin: true,
+          anticipatePin: 1,
+        },
+      })
+        .to(content, { opacity: 0, y: -70, ease: 'none', duration: 0.55 }, 0)
+        .to(cue, { opacity: 0, ease: 'none', duration: 0.3 }, 0)
+        .to(video, { scale: 1.1, ease: 'none', duration: 1 }, 0)
+        .to(media, { opacity: 0, ease: 'none', duration: 0.72 }, 0.28);
+    } else {
+      cineEls.forEach((el) => { el.style.opacity = 1; });
+      if (prefersReduced && video) { video.removeAttribute('autoplay'); video.pause(); }
+    }
+  }
+
   /* ---------- Révélations au scroll (GSAP) ---------- */
   const revealEls = document.querySelectorAll('[data-reveal]');
   if (window.gsap && window.ScrollTrigger && !prefersReduced) {

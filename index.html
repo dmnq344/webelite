@@ -132,30 +132,36 @@
 
   <div class="page-content">
 
-    <!-- ===== HÉROS ===== -->
-    <section class="hero" id="hero">
-      <div class="container">
+    <!-- ===== HÉROS CINÉMATIQUE (vidéo) ===== -->
+    <section class="cinema" id="hero">
+      <div class="cinema__media" aria-hidden="true">
+        <video id="cinemaVideo" autoplay muted loop playsinline poster="assets/img/toiture-poster.jpg">
+          <source src="assets/video/toiture-cinematique.mp4" type="video/mp4">
+        </video>
+        <div class="cinema__grade"></div>
+      </div>
+      <div class="container cinema__content">
         <div class="hero__inner">
-          <div class="hero__badge" data-reveal>
+          <div class="hero__badge" data-cine>
             <span class="dot"></span>
             Soumission gratuite — réponse en 24&nbsp;h
           </div>
-          <h1 class="hero__title" data-reveal>
+          <h1 class="hero__title" data-cine>
             Isolation &amp; toiture qui <span class="accent">domptent l'hiver</span> québécois.
           </h1>
-          <p class="hero__lead" data-reveal>
+          <p class="hero__lead" data-cine>
             Expert Isolation protège votre maison du grenier aux fondations&nbsp;: uréthane giclé,
             cellulose soufflée, bardeaux et membranes élastomères. Plus de confort,
             moins de chauffage — garanti.
           </p>
-          <div class="hero__actions" data-reveal>
+          <div class="hero__actions" data-cine>
             <a class="btn btn--primary btn--lg" href="#soumission">
               Soumission gratuite
               <svg><use href="#i-arrow"/></svg>
             </a>
             <a class="btn btn--ghost btn--lg" href="#services">Découvrir nos services</a>
           </div>
-          <div class="hero__trust" data-reveal>
+          <div class="hero__trust" data-cine>
             <span class="trust-item"><svg><use href="#i-shield"/></svg> Licence RBQ</span>
             <span class="trust-item"><svg><use href="#i-medal"/></svg> Garantie jusqu'à 10 ans</span>
             <span class="trust-item"><svg><use href="#i-check"/></svg> Assurance 2 M$</span>
@@ -166,6 +172,17 @@
       <div class="scroll-cue" aria-hidden="true">
         <span>Défiler</span>
         <span class="scroll-cue__line"></span>
+      </div>
+    </section>
+
+    <!-- ===== Révélation de la nuit (transition vers la 3D) ===== -->
+    <section class="night-reveal" aria-label="Transition">
+      <div class="container">
+        <p class="night-reveal__eyebrow" data-reveal>Quand le soleil se couche</p>
+        <p class="night-reveal__line" data-reveal>
+          La nuit tombe, le froid s'installe.<br>
+          <span class="accent">Votre maison, elle, reste au chaud.</span>
+        </p>
       </div>
     </section>
 
