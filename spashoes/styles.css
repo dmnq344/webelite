@@ -245,19 +245,19 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
   background: linear-gradient(rgba(10,32,54,.70), rgba(8,26,46,.66)) padding-box,
               linear-gradient(120deg, rgba(255,255,255,.26) 0%, rgba(236,209,153,.22) 28%, rgba(244,249,252,.08) 55%, rgba(143,200,234,.20) 100%) border-box;
   box-shadow: 0 16px 44px rgba(5, 18, 32, .52), inset 0 1px 0 rgba(255, 255, 255, .10); }
-.brand { display: inline-flex; align-items: center; gap: 11px; position: relative; z-index: 3; }
+.brand { display: inline-flex; align-items: center; gap: 13px; position: relative; z-index: 3; flex: none; }
 /* Logo officiel « spa POUR SOULIERS » — cadre premium qui s'accorde au décor navy/or */
-.brand-logo { display: block; height: 40px; width: auto; border-radius: 9px; flex: none;
+.brand-logo { display: block; height: 52px; width: auto; border-radius: 11px; flex: none;
   border: 1px solid rgba(236,209,153,.5);
   box-shadow: 0 6px 16px rgba(5,18,32,.45), inset 0 1px 0 rgba(255,255,255,.6);
-  transition: transform .45s var(--ease-lux), box-shadow .4s ease; }
+  transition: transform .45s var(--ease-lux), box-shadow .4s ease, height .3s ease; }
 .brand:hover .brand-logo { transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 26px rgba(5,18,32,.5), 0 0 18px rgba(236,209,153,.26), inset 0 1px 0 rgba(255,255,255,.6); }
-.site-header.is-scrolled .brand-logo { height: 38px; }
-@media (max-width: 600px) { .brand-logo { height: 36px; } .site-header.is-scrolled .brand-logo { height: 33px; } .brand { gap: 8px; } }
+.site-header.is-scrolled .brand-logo { height: 44px; }
+@media (max-width: 600px) { .brand-logo { height: 42px; } .site-header.is-scrolled .brand-logo { height: 37px; } .brand { gap: 9px; } }
 .brand-mark { display: grid; place-items: center; }
 .brand-mark svg { width: 100%; height: 100%; }
 .bm-shoe { fill: var(--text); } .bm-sole { fill: var(--gold); } .bm-spark { fill: var(--sky); }
-.brand-text { font-family: var(--serif); font-size: 1.24rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; margin-right: 6px; }
+.brand-text { font-family: var(--serif); font-size: 1.34rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; margin-right: 10px; }
 .brand-accent { color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; }
 
 .main-nav { display: none; gap: 17px; }
@@ -279,7 +279,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
 
-@media (max-width: 899px) {
+@media (max-width: 1239px) {
   .main-nav { position: fixed; top: var(--hdr); left: 0; right: 0; flex-direction: column; gap: 0;
     background: var(--bg-2); border-bottom: 1px solid var(--line); padding: 8px 22px 18px;
     clip-path: inset(0 0 100% 0); opacity: 0; pointer-events: none;
@@ -382,8 +382,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 @keyframes shoeRadiance { 0%,100% { transform: translate(-50%,-50%) scale(.95); } 50% { transform: translate(-50%,-50%) scale(1.07); } }
 /* lumière de l'eau (caustiques) qui baigne les souliers en profondeur — montée pilotée JS */
 .hero-shoes-caustic { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  -webkit-mask: url("assets/img/hero-product.png?v=52") center top / 100% auto no-repeat;
-          mask: url("assets/img/hero-product.png?v=52") center top / 100% auto no-repeat;
+  -webkit-mask: url("assets/img/hero-product.png?v=53") center top / 100% auto no-repeat;
+          mask: url("assets/img/hero-product.png?v=53") center top / 100% auto no-repeat;
   background:
     radial-gradient(42% 32% at 32% 38%, rgba(150,212,236,.55), transparent 60%),
     radial-gradient(36% 26% at 72% 60%, rgba(120,190,224,.5), transparent 62%),
@@ -491,8 +491,8 @@ section[id], header[id] { scroll-margin-top: calc(var(--hdr) + 14px); }
 .rf-after { right: 16px; color: var(--sky); }
 
 .real-grid { display: grid; grid-template-columns: 1fr; gap: var(--gutter); margin-top: var(--flow-md); }
-.real-tile { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 8 / 5; box-shadow: var(--sh-sm); isolation: isolate; background: radial-gradient(130% 130% at 50% 20%, #143550, #0a2036 70%); }
-.real-tile img { width: 100%; height: 100%; object-fit: contain; padding: 6px; transition: transform .8s var(--ease-lux); }
+.real-tile { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 2 / 1; box-shadow: var(--sh-sm); isolation: isolate; background: radial-gradient(130% 130% at 50% 20%, #143550, #0a2036 70%); }
+.real-tile img { width: 100%; height: 100%; object-fit: contain; padding: 4px; transition: transform .8s var(--ease-lux); }
 .real-tile:hover img { transform: scale(1.06); }
 .real-tile::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(7,21,37,.5)); }
 .real-tile figcaption { position: absolute; left: 12px; bottom: 12px; z-index: 2; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text); background: rgba(7,21,37,.55); border: 1px solid var(--line-2); padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
@@ -818,13 +818,16 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; }
 }
 @media (min-width: 900px) {
-  .main-nav { display: flex; }
-  .nav-toggle { display: none; }
   .header-actions .btn-sm { display: inline-flex; }
   .hero-shoes { width: min(430px, 32vw); left: 67%; top: 58%; }
   .service-grid { grid-template-columns: repeat(2, 1fr); }
   .about-inner { grid-template-columns: 0.9fr 1.1fr; gap: 60px; }
   .contact-inner { grid-template-columns: 1fr 1fr; gap: 56px; }
+}
+/* la nav complète n'apparaît que lorsqu'il y a vraiment la place (logo + nom + 8 liens + langues + CTA) */
+@media (min-width: 1240px) {
+  .main-nav { display: flex; }
+  .nav-toggle { display: none; }
 }
 
 /* ---------- Mobile / tablette : header compact + souliers au-dessus du texte ---------- */
@@ -835,11 +838,18 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   .section--alt { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 @media (max-width: 600px) {
-  /* la marque texte reste visible (plus d'emblème) — compacte pour laisser la place aux langues + burger */
-  .brand-text { font-size: 1.12rem; }
-  .header-actions { gap: 7px; }
-  .lang-btn { padding: 8px 7px; min-height: 38px; font-size: 0.74rem; }
+  /* logo + nom restent visibles, tout compacté pour tenir avec les 4 langues + burger */
+  .brand-text { font-size: 1.0rem; margin-right: 0; }
+  .header-actions { gap: 6px; }
+  .lang-btn { padding: 7px 5px; min-height: 34px; font-size: 0.68rem; }
+  .lang-switch { gap: 2px; }
+  .nav-toggle { width: 38px; height: 38px; padding: 0 8px; }
   .hero-shoes { top: 28%; width: min(250px, 60vw); }
+}
+@media (max-width: 420px) {
+  .brand-logo { height: 36px; }
+  .brand { gap: 7px; }
+  .brand-text { font-size: 0.92rem; }
 }
 
 /* ---------- Mouvement réduit ---------- */
@@ -1178,8 +1188,8 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
 }
 .contact-list .contact-val { font-size: 1.08rem; color: var(--text); }
 
-/* Cibles tactiles ≥ 44px */
-.lang-btn { min-width: 42px; }
+/* Cibles tactiles ≥ 44px (desktop/tablette ; compactées sur petit écran pour éviter tout débordement) */
+@media (min-width: 601px) { .lang-btn { min-width: 42px; } }
 .footer-social a { width: 46px; height: 46px; }
 
 /* En-tête / ancres : --hdr aligné sur la hauteur réelle par breakpoint */
@@ -1201,7 +1211,7 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   .svc-quote-mark { font-size: 3.4rem; top: -17px; }
   .svc-quote::before, .svc-quote::after { width: 24px; height: 24px; }
   .svc-quote cite { margin-top: 14px; }
-  .lang-btn { min-height: 42px; }
+  .lang-btn { min-height: 38px; min-width: 32px; }
   .hero-wa { padding: 10px 16px; font-size: .82rem; }
   .hero-wa svg { width: 18px; height: 18px; }
   .ba-knob { width: 52px; height: 52px; }
@@ -1367,10 +1377,18 @@ html.js .corp-shot:not(.is-in) img { transform: scale(1.12); }
   border: 1px solid rgba(236,209,153,.24); background: radial-gradient(130% 130% at 50% 20%, #143550, #0a2036 70%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 4px 12px rgba(4,14,26,.4); transition: border-color .35s ease, transform .4s var(--ease-lux); }
 .sc-grid.n3 .sc-shot:first-of-type { aspect-ratio: 16 / 8; }
-.sc-shot img { width: 100%; height: 100%; object-fit: contain; padding: 7px; transition: transform .7s var(--ease-lux); }
+.sc-shot img { width: 100%; height: 100%; object-fit: contain; padding: 4px; transition: transform .7s var(--ease-lux); }
 /* Peinture / teinture : avant-après empilés, chaque photo remplit exactement son cadre (aucune bande vide) */
 .sc-grid.stack { grid-template-columns: 1fr; }
 .sc-shot--fill img { object-fit: cover; padding: 0; }
+/* Compositions accordées aux ratios réels des photos (cadres pleins, sans bandes) */
+.sc-grid.wide3 .sc-shot { aspect-ratio: 21 / 10; }
+.sc-grid.wide3 .sc-shot:first-of-type { grid-column: 1 / 3; aspect-ratio: 21 / 10; }
+.sc-grid.hero4 { grid-template-columns: repeat(3, 1fr); }
+.sc-grid.hero4 .sc-shot { aspect-ratio: 1 / 1; }
+.sc-grid.hero4 .sc-shot:first-of-type { grid-column: 1 / 4; aspect-ratio: 19 / 10; }
+.sc-grid.craft3 .sc-shot { aspect-ratio: 4 / 3; }
+.sc-grid.craft3 .sc-shot:first-of-type { grid-column: 1 / 3; aspect-ratio: 3 / 2; }
 .service-card:hover .sc-shot { border-color: rgba(236,209,153,.45); }
 .service-card:hover .sc-shot img { transform: scale(1.04); }
 .sc-mini-tag { position: absolute; left: 8px; bottom: 8px; z-index: 2; font-size: .54rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
